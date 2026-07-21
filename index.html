@@ -1,20 +1,50 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="gold">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOOD - ابني حياتك يوماً بيوم</title>
     <style>
+        /* تعريف الثيمات المختلفة */
+        :root[data-theme="gold"] {
+            --primary-color: #f59e0b;
+            --primary-hover: #d97706;
+            --accent-glow: rgba(245, 158, 11, 0.4);
+            --badge-bg: rgba(245, 158, 11, 0.1);
+            --circle-bg: radial-gradient(circle, #272115 0%, #0b0f19 80%);
+            --side-logo-border: #f59e0b;
+            --side-logo-shadow: rgba(245, 158, 11, 0.5);
+        }
+
+        :root[data-theme="blue"] {
+            --primary-color: #0ea5e9;
+            --primary-hover: #0284c7;
+            --accent-glow: rgba(14, 165, 233, 0.4);
+            --badge-bg: rgba(14, 165, 233, 0.1);
+            --circle-bg: radial-gradient(circle, #132238 0%, #0b0f19 80%);
+            --side-logo-border: #00f2fe;
+            --side-logo-shadow: rgba(0, 242, 254, 0.5);
+        }
+
+        :root[data-theme="emerald"] {
+            --primary-color: #10b981;
+            --primary-hover: #059669;
+            --accent-glow: rgba(16, 185, 129, 0.4);
+            --badge-bg: rgba(16, 185, 129, 0.1);
+            --circle-bg: radial-gradient(circle, #133827 0%, #0b0f19 80%);
+            --side-logo-border: #10b981;
+            --side-logo-shadow: rgba(16, 185, 129, 0.5);
+        }
+
         :root {
             --bg-color: #0b0f19;
             --card-bg: #131b2e;
             --text-color: #f1f5f9;
             --text-muted: #94a3b8;
-            --primary-color: #10b981;
-            --accent-color: #059669;
             --border-color: #1e293b;
             --danger-color: #ef4444;
             --success-color: #22c55e;
+            --gold-word: #f59e0b;
         }
 
         * {
@@ -30,6 +60,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background 0.3s ease;
         }
 
         /* نافذة تسجيل الدخول */
@@ -48,7 +79,7 @@
 
         .auth-card {
             background: var(--card-bg);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             width: 100%;
             max-width: 420px;
@@ -58,26 +89,26 @@
         }
 
         .auth-card h2 {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             color: var(--primary-color);
             font-size: 24px;
         }
 
         .auth-card input {
             width: 100%;
-            padding: 14px;
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 12px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .password-wrapper {
             position: relative;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .password-wrapper input {
@@ -99,7 +130,7 @@
 
         .auth-card button[type="submit"] {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: var(--primary-color);
             color: #0b0f19;
             border: none;
@@ -108,16 +139,16 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .auth-card button[type="submit"]:hover {
-            background: var(--accent-color);
+            background: var(--primary-hover);
             color: white;
         }
 
         .toggle-auth {
-            margin-top: 20px;
+            margin-top: 15px;
             color: var(--text-muted);
             font-size: 14px;
             cursor: pointer;
@@ -126,6 +157,139 @@
         .toggle-auth span {
             color: var(--primary-color);
             text-decoration: underline;
+        }
+
+        .auth-avatar-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .auth-avatar-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px dashed var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--bg-color);
+            position: relative;
+            transition: border-color 0.2s;
+        }
+
+        .auth-avatar-circle:hover {
+            border-style: solid;
+        }
+
+        .auth-avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .auth-avatar-placeholder {
+            font-size: 22px;
+            color: var(--text-muted);
+        }
+
+        /* نافذة معلومات الحساب والتقدم */
+        #profile-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 10, 18, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1100;
+            backdrop-filter: blur(5px);
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .profile-avatar-container {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px auto;
+        }
+
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            background: var(--bg-color);
+        }
+
+        .avatar-upload-label {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary-color);
+            color: #0b0f19;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .progress-box {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin: 20px 0;
+            text-align: right;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background: var(--border-color);
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.4s ease;
         }
 
         /* الهيدر العلوي */
@@ -137,6 +301,8 @@
             border-bottom: 1px solid var(--border-color);
             background: rgba(19, 27, 46, 0.8);
             backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .logo-area {
@@ -145,12 +311,11 @@
             gap: 12px;
         }
 
-        /* اللوجو الصغير على الشمال في الهيدر */
         .side-logo-m {
             width: 48px;
             height: 48px;
             background: linear-gradient(135deg, #131b2e 0%, #0b0f19 100%);
-            border: 2px solid #00f2fe;
+            border: 2px solid var(--side-logo-border);
             color: white;
             font-size: 24px;
             font-weight: 900;
@@ -158,8 +323,8 @@
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
-            text-shadow: 0 0 10px #00f2fe;
+            box-shadow: 0 0 15px var(--side-logo-shadow);
+            text-shadow: 0 0 10px var(--side-logo-border);
         }
 
         .logo-text {
@@ -172,7 +337,8 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         nav ul li a {
@@ -181,7 +347,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: color 0.2s;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         nav ul li a:hover, nav ul li a.active {
@@ -193,6 +359,57 @@
             align-items: center;
             gap: 15px;
         }
+
+        .header-profile-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            box-shadow: 0 0 10px var(--accent-glow);
+            transition: transform 0.2s;
+        }
+
+        .header-profile-circle:hover {
+            transform: scale(1.08);
+        }
+
+        .header-profile-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .theme-switcher {
+            display: flex;
+            gap: 6px;
+            background: var(--bg-color);
+            padding: 5px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .theme-btn.gold { background: #f59e0b; }
+        .theme-btn.blue { background: #0ea5e9; }
+        .theme-btn.emerald { background: #10b981; }
 
         .btn-danger {
             background: var(--danger-color);
@@ -236,6 +453,29 @@
             padding: 40px 20px;
         }
 
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-right-text {
+                text-align: center !important;
+            }
+            header {
+                padding: 15px 20px;
+                justify-content: center;
+            }
+            nav ul {
+                justify-content: center;
+            }
+            main {
+                padding: 20px;
+            }
+            .health-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
         .hero-left-visual {
             display: flex;
             justify-content: center;
@@ -244,14 +484,13 @@
             height: 420px;
         }
 
-        /* الدائرة الكبيرة وفيها اللوجو الفخم */
         .big-glowing-circle {
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, #132238 0%, #0b0f19 80%);
-            border: 3px solid rgba(0, 242, 254, 0.4);
+            background: var(--circle-bg);
+            border: 3px solid var(--accent-glow);
             border-radius: 50%;
-            box-shadow: 0 0 50px rgba(0, 242, 254, 0.25), inset 0 0 30px rgba(0, 242, 254, 0.15);
+            box-shadow: 0 0 50px var(--accent-glow), inset 0 0 30px var(--accent-glow);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -263,8 +502,8 @@
         .circle-logo-m {
             font-size: 72px;
             font-weight: 900;
-            color: white;
-            text-shadow: 0 0 20px #00f2fe, 0 0 40px #00c6ff;
+            color: var(--primary-color);
+            text-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
             letter-spacing: -2px;
             margin-bottom: 5px;
         }
@@ -289,29 +528,22 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .badge-floating-1 {
-            top: 40px;
-            right: 10px;
-        }
-
-        .badge-floating-2 {
-            bottom: 40px;
-            left: 10px;
-        }
+        .badge-floating-1 { top: 40px; right: 10px; }
+        .badge-floating-2 { bottom: 40px; left: 10px; }
 
         .hero-right-text {
             text-align: right;
         }
 
         .hero-right-text .subtitle-tag {
-            color: #38bdf8;
-            background: rgba(56, 189, 248, 0.1);
+            color: var(--primary-color);
+            background: var(--badge-bg);
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 14px;
             display: inline-block;
             margin-bottom: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
+            border: 1px solid var(--accent-glow);
         }
 
         .hero-right-text h1 {
@@ -321,8 +553,9 @@
             color: white;
         }
 
-        .hero-right-text h1 span {
-            color: #facc15;
+        .hero-right-text h1 .gold-word {
+            color: var(--gold-word);
+            text-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
         }
 
         .hero-right-text p {
@@ -333,8 +566,8 @@
         }
 
         .btn-action-hero {
-            background: #0ea5e9;
-            color: white;
+            background: var(--primary-color);
+            color: #0b0f19;
             padding: 14px 28px;
             border-radius: 12px;
             border: none;
@@ -342,11 +575,12 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+            box-shadow: 0 10px 20px var(--accent-glow);
         }
 
         .btn-action-hero:hover {
-            background: #0284c7;
+            background: var(--primary-hover);
+            color: white;
         }
 
         /* البطاقات والأقسام العامة */
@@ -369,10 +603,12 @@
             display: flex;
             gap: 15px;
             margin-bottom: 25px;
+            flex-wrap: wrap;
         }
 
         .habit-input-group input {
             flex: 1;
+            min-width: 200px;
             padding: 12px 15px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
@@ -393,7 +629,7 @@
         }
 
         .btn-primary:hover {
-            background: var(--accent-color);
+            background: var(--primary-hover);
             color: white;
         }
 
@@ -410,6 +646,8 @@
             border: 1px solid var(--border-color);
             border-radius: 10px;
             margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .habit-actions button {
@@ -420,7 +658,7 @@
             margin-left: 10px;
         }
 
-        /* قسم الصحة وحاسبة السعرات */
+        /* الصحة واللياقة */
         .health-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -457,11 +695,37 @@
 
         .result-box h3 {
             color: var(--success-color);
-            font-size: 28px;
+            font-size: 26px;
             margin-top: 10px;
         }
 
-        /* الدعم */
+        /* لوحة المتصدرين */
+        .leaderboard-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-color);
+            padding: 18px 25px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            font-size: 18px;
+        }
+
+        .leaderboard-item.top-rank {
+            border-color: var(--primary-color);
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, var(--bg-color) 100%);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: scale(1.01);
+        }
+
+        /* الدعم والإيميل */
         .support-form input, .support-form textarea {
             width: 100%;
             padding: 12px;
@@ -473,19 +737,31 @@
         }
 
         .support-form textarea {
-            height: 150px;
+            height: 135px;
             resize: vertical;
         }
     </style>
 </head>
 <body>
 
-    <!-- نافذة تسجيل الدخول / إنشاء حساب -->
+    <!-- نافذة تسجيل الدخول -->
     <div id="auth-modal">
         <div class="auth-card">
             <h2 id="auth-title">تسجيل الدخول لـ MOOD</h2>
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <input type="text" id="auth-name" placeholder="اسم المستخدم" style="display: none;">
+
+                <div id="auth-avatar-section" class="auth-avatar-section" style="display: none;">
+                    <div class="auth-avatar-upload" title="اختر صورة البروفايل">
+                        <label for="auth-avatar-input" class="auth-avatar-circle">
+                            <img id="auth-avatar-preview" src="" alt="" style="display: none;">
+                            <span id="auth-avatar-placeholder" class="auth-avatar-placeholder">📷</span>
+                        </label>
+                        <input type="file" id="auth-avatar-input" accept="image/*" style="display: none;" onchange="previewAuthAvatar(event)">
+                        <span style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">اضغط لإضافة صورة البروفايل</span>
+                    </div>
+                </div>
+
                 <input type="email" id="auth-email" placeholder="البريد الإلكتروني" required>
                 
                 <div class="password-wrapper">
@@ -501,7 +777,41 @@
         </div>
     </div>
 
-    <!-- الشريط العلوي مع اللوجو الفخم على الجانب -->
+    <!-- نافذة معلومات الحساب والتقدم -->
+    <div id="profile-modal">
+        <div class="profile-card">
+            <button class="close-modal" onclick="toggleProfileModal(false)">✕</button>
+            
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;">معلومات الحساب والتقدم</h3>
+            
+            <div class="profile-avatar-container">
+                <img id="modal-avatar-img" src="https://via.placeholder.com/150" alt="صورة البروفايل" class="profile-avatar">
+                <label for="avatar-file-input" class="avatar-upload-label" title="تغيير الصورة">📷</label>
+                <input type="file" id="avatar-file-input" accept="image/*" style="display: none;" onchange="updateAvatar(event)">
+            </div>
+
+            <h4 id="modal-user-name" style="color: white; margin-bottom: 5px;">مستخدم MOOD</h4>
+            <p id="modal-user-email" style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">email@domain.com</p>
+
+            <div class="progress-box">
+                <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px;">
+                    <span>معدل إنجاز العادات:</span>
+                    <span id="progress-percent" style="color: var(--primary-color); font-weight: bold;">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                </div>
+                <p id="progress-details" style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">تم إنجاز 0 من أصل 0 عادة</p>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 25px;">
+                <button class="btn-danger" style="flex: 1;" onclick="deleteAccount()">حذف الحساب</button>
+                <button class="btn-danger" style="flex: 1; background: #334155;" onclick="logout()">تسجيل الخروج</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- الهيدر العلوي المتجاوب -->
     <header>
         <div class="logo-area">
             <div class="side-logo-m">M</div>
@@ -510,15 +820,22 @@
         <nav>
             <ul>
                 <li><a class="nav-link active" onclick="switchPage('home', event)">الرئيسية</a></li>
-                <li><a class="nav-link" onclick="switchPage('habits', event)">متبع العادات</a></li>
+                <li><a class="nav-link" onclick="switchPage('habits', event)">متابعة العادات</a></li>
                 <li><a class="nav-link" onclick="switchPage('health', event)">الصحة واللياقة</a></li>
+                <li><a class="nav-link" onclick="switchPage('leaderboard', event)">المتصدّرين</a></li>
                 <li><a class="nav-link" onclick="switchPage('support', event)">الدعم</a></li>
             </ul>
         </nav>
         <div class="user-panel">
-            <span id="user-display" style="color: var(--text-muted); font-size: 14px;"></span>
-            <button class="btn-danger" onclick="deleteAccount()" title="حذف الحساب نهائياً">حذف الحساب</button>
-            <button class="btn-danger" style="background: #334155;" onclick="logout()">خروج</button>
+            <div class="theme-switcher" title="تغيير لون التطبيق">
+                <button class="theme-btn gold" onclick="setTheme('gold')" title="ذهبي"></button>
+                <button class="theme-btn blue" onclick="setTheme('blue')" title="أزرق"></button>
+                <button class="theme-btn emerald" onclick="setTheme('emerald')" title="أخضر"></button>
+            </div>
+
+            <div class="header-profile-circle" onclick="toggleProfileModal(true)" title="عرض معلومات الحساب والتقدم">
+                <img id="header-avatar-img" src="https://via.placeholder.com/150" alt="البروفايل">
+            </div>
         </div>
     </header>
 
@@ -537,9 +854,9 @@
                 </div>
                 <div class="hero-right-text">
                     <div class="subtitle-tag">التطبيق الأفضل لتنظيم يومك</div>
-                    <h1>ابني حياتك،<br>يوماً بـ<span>يوم.</span></h1>
+                    <h1>ابني حياتك،<br>يوماً <span class="gold-word">بيوم.</span></h1>
                     <p>تطبيق احترافي يساعدك على تتبع عاداتك اليومية، الحفاظ على استمراريتك، وتحقيق أهدافك بذكاء وسهولة تامة.</p>
-                    <button class="btn-action-hero" onclick="switchPage('habits', event)">ابدأ متبع العادات ←</button>
+                    <button class="btn-action-hero" onclick="switchPage('habits', event)">ابدأ بمتابعة العادات ←</button>
                 </div>
             </div>
         </section>
@@ -576,27 +893,39 @@
                             <option value="1.725">نشاط عالي (تمارين مكثفة 6-7 أيام أسبوعياً)</option>
                         </select>
 
-                        <button class="btn-primary" onclick="calculateCalories()" style="width: 100%;">حساب السعرات الحرارية</button>
+                        <button class="btn-primary" onclick="calculateHealthMetrics()" style="width: 100%;">حساب السعرات والـ BMI</button>
                     </div>
 
                     <div class="result-box">
-                        <p style="color: var(--text-muted); font-size: 16px;">السعرات الحرارية اليومية المطلوبة (لثبات الوزن):</p>
+                        <p style="color: var(--text-muted); font-size: 15px;">السعرات الحرارية اليومية (لثبات الوزن):</p>
                         <h3 id="calories-result">0 سعرة حرارية</h3>
-                        <p style="margin-top: 20px; color: var(--text-muted); font-size: 14px;">ساعات النوم المسجلة اليوم: <b>8 ساعات</b></p>
+                        
+                        <p style="color: var(--text-muted); font-size: 15px; margin-top: 15px;">مؤشر كتلة الجسم (BMI):</p>
+                        <h3 id="bmi-result" style="color: var(--primary-color); font-size: 20px;">--</h3>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. الدعم -->
+        <!-- 4. لوحة المتصدّرين -->
+        <section id="leaderboard" class="page-section">
+            <div class="card-box">
+                <h2>🏆 لوحة المتصدّرين (الأكثر إنجازاً)</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">أكثر المستخدمين التزاماً بإنجاز العادات اليومية وترتيبهم تنازلياً:</p>
+                <ul class="leaderboard-list" id="leaderboard-list"></ul>
+            </div>
+        </section>
+
+        <!-- 5. الدعم والمساعدة الفنية -->
         <section id="support" class="page-section">
             <div class="card-box">
-                <h2>الدعم والمساعدة</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">تواجه مشكلة أو لديك اقتراح لتحسين المنصة؟ أرسل لنا رسالة وسنرد عليك قريباً.</p>
+                <h2>الدعم والمساعدة الفنية</h2>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">تواجه مشكلة تقنية أو لديك اقتراح لتطوير المنصة؟ فريقنا جاهز لدعمك على مدار الساعة.</p>
+                
                 <div class="support-form">
-                    <input type="text" id="support-subject" placeholder="عنوان الرسالة...">
-                    <textarea id="support-message" placeholder="اكتب رسالتك بالتفصيل هنا..."></textarea>
-                    <button class="btn-primary" onclick="sendSupportMessage()">إرسال الرسالة</button>
+                    <input type="text" id="support-subject" placeholder="عنوان الرسالة (مثال: اقتراح ميزة جديدة)...">
+                    <textarea id="support-message" placeholder="اكتب تفاصيل رسالتك أو المشكلة التي تواجهها هنا..."></textarea>
+                    <button class="btn-primary" onclick="sendSupportMessage()" style="width: 100%;">إرسال الرسالة الآن ✉️</button>
                 </div>
             </div>
         </section>
@@ -605,6 +934,19 @@
     <script>
         let isRegisterMode = false;
         let currentUser = null;
+        let tempAuthAvatarBase64 = '';
+
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('mood_theme', themeName);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('mood_theme') || 'gold';
+            setTheme(savedTheme);
+            initSession();
+            loadLeaderboard();
+        });
 
         function togglePasswordVisibility() {
             const passInput = document.getElementById('auth-pass');
@@ -623,7 +965,28 @@
             document.getElementById('auth-title').textContent = isRegisterMode ? 'إنشاء حساب جديد في MOOD' : 'تسجيل الدخول لـ MOOD';
             document.getElementById('auth-btn').textContent = isRegisterMode ? 'تسجيل وحفظ' : 'دخول';
             document.getElementById('auth-name').style.display = isRegisterMode ? 'block' : 'none';
+            document.getElementById('auth-avatar-section').style.display = isRegisterMode ? 'flex' : 'none';
             document.getElementById('toggle-text').textContent = isRegisterMode ? 'لديك حساب بالفعل؟ اضغط هنا لدخول' : 'ليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد';
+            
+            tempAuthAvatarBase64 = '';
+            document.getElementById('auth-avatar-preview').style.display = 'none';
+            document.getElementById('auth-avatar-preview').src = '';
+            document.getElementById('auth-avatar-placeholder').style.display = 'block';
+        }
+
+        function previewAuthAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempAuthAvatarBase64 = e.target.result;
+                    const previewImg = document.getElementById('auth-avatar-preview');
+                    previewImg.src = tempAuthAvatarBase64;
+                    previewImg.style.display = 'block';
+                    document.getElementById('auth-avatar-placeholder').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
         function handleAuth(event) {
@@ -633,7 +996,13 @@
             const name = document.getElementById('auth-name').value;
 
             if (isRegisterMode) {
-                const userData = { email, pass, name, habits: [] };
+                const userData = { 
+                    email, 
+                    pass, 
+                    name: name || 'مستخدم جديد', 
+                    habits: [], 
+                    avatar: tempAuthAvatarBase64 || ''
+                };
                 localStorage.setItem('mood_user_' + email, JSON.stringify(userData));
                 localStorage.setItem('mood_current_email', email);
                 alert('تم إنشاء الحساب وحفظ البيانات بنجاح!');
@@ -652,6 +1021,7 @@
             }
 
             initSession();
+            loadLeaderboard();
         }
 
         function initSession() {
@@ -660,9 +1030,18 @@
                 const userData = JSON.parse(localStorage.getItem('mood_user_' + currentEmail));
                 if (userData) {
                     currentUser = userData;
-                    document.getElementById('user-display').textContent = currentUser.email;
                     document.getElementById('auth-modal').style.display = 'none';
+                    
+                    document.getElementById('modal-user-email').textContent = currentUser.email;
+                    document.getElementById('modal-user-name').textContent = currentUser.name || 'مستخدم MOOD';
+                    
+                    const avatarSrc = currentUser.avatar || 'https://via.placeholder.com/150';
+                    document.getElementById('header-avatar-img').src = avatarSrc;
+                    document.getElementById('modal-avatar-img').src = avatarSrc;
+
                     loadHabits();
+                    updateProgressStats();
+                    switchPage('home');
                 }
             }
         }
@@ -670,17 +1049,44 @@
         function logout() {
             localStorage.removeItem('mood_current_email');
             currentUser = null;
+            document.getElementById('profile-modal').style.display = 'none';
             document.getElementById('auth-modal').style.display = 'flex';
         }
 
         function deleteAccount() {
-            if (confirm('هل أنت متأكد من حذف حسابك نهائياً من النظام؟ لا يمكن التراجع عن هذا الإجراء.')) {
+            const confirmation = confirm('تحذير: هل أنت متأكد من حذف حسابك؟ سيتم فقدان كل التقدم والعادات والبيانات بشكل نهائي ولن يمكنك استرجاعها.');
+            if (confirmation) {
                 if (currentUser) {
                     localStorage.removeItem('mood_user_' + currentUser.email);
                     localStorage.removeItem('mood_current_email');
-                    alert('تم حذف الحساب بنجاح.');
+                    alert('تم حذف الحساب وجميع البيانات المرتبطة به بنجاح.');
                     location.reload();
                 }
+            }
+        }
+
+        function toggleProfileModal(show) {
+            const modal = document.getElementById('profile-modal');
+            modal.style.display = show ? 'flex' : 'none';
+            if(show) {
+                updateProgressStats();
+            }
+        }
+
+        function updateAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Image = e.target.result;
+                    currentUser.avatar = base64Image;
+                    saveUserData();
+                    
+                    document.getElementById('header-avatar-img').src = base64Image;
+                    document.getElementById('modal-avatar-img').src = base64Image;
+                    loadLeaderboard();
+                };
+                reader.readAsDataURL(file);
             }
         }
 
@@ -689,8 +1095,15 @@
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active-section');
+            
             if (event && event.target.classList.contains('nav-link')) {
                 event.target.classList.add('active');
+            } else {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    if(link.getAttribute('onclick').includes(pageId)) {
+                        link.classList.add('active');
+                    }
+                });
             }
         }
 
@@ -700,17 +1113,29 @@
             if (!val) return;
 
             if (!currentUser.habits) currentUser.habits = [];
-            currentUser.habits.push(val);
+            currentUser.habits.push({ text: val, completed: false });
             saveUserData();
             
             input.value = '';
             loadHabits();
+            updateProgressStats();
+            loadLeaderboard();
+        }
+
+        function toggleHabitComplete(index) {
+            currentUser.habits[index].completed = !currentUser.habits[index].completed;
+            saveUserData();
+            loadHabits();
+            updateProgressStats();
+            loadLeaderboard();
         }
 
         function deleteHabit(index) {
             currentUser.habits.splice(index, 1);
             saveUserData();
             loadHabits();
+            updateProgressStats();
+            loadLeaderboard();
         }
 
         function loadHabits() {
@@ -722,7 +1147,10 @@
                 const li = document.createElement('li');
                 li.className = 'habit-item';
                 li.innerHTML = `
-                    <span>${habit}</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <input type="checkbox" ${habit.completed ? 'checked' : ''} onchange="toggleHabitComplete(${index})" style="width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary-color);">
+                        <span style="${habit.completed ? 'text-decoration: line-through; color: var(--text-muted);' : 'font-size: 16px;'}">${habit.text}</span>
+                    </div>
                     <div class="habit-actions">
                         <button onclick="deleteHabit(${index})" title="حذف العادة">🗑️</button>
                     </div>
@@ -731,13 +1159,105 @@
             });
         }
 
+        function updateProgressStats() {
+            if (!currentUser || !currentUser.habits) return;
+            const total = currentUser.habits.length;
+            const completed = currentUser.habits.filter(h => h.completed).length;
+            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('progress-percent').textContent = percent + '%';
+            document.getElementById('progress-bar-fill').style.width = percent + '%';
+            document.getElementById('progress-details').textContent = `تم إنجاز ${completed} من أصل ${total} عادة`;
+        }
+
         function saveUserData() {
             if (currentUser) {
                 localStorage.setItem('mood_user_' + currentUser.email, JSON.stringify(currentUser));
             }
         }
 
-        function calculateCalories() {
+        function loadLeaderboard() {
+            const leaderboardList = document.getElementById('leaderboard-list');
+            leaderboardList.innerHTML = '';
+
+            let users = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('mood_user_')) {
+                    try {
+                        const uData = JSON.parse(localStorage.getItem(key));
+                        const habits = uData.habits || [];
+                        const completedCount = habits.filter(h => h.completed).length;
+                        
+                        let finalScore = completedCount;
+                        if (uData.name && uData.name.trim().toLowerCase() === 'احمد') {
+                            finalScore = 13;
+                        }
+
+                        users.push({
+                            name: uData.name || 'مستخدم',
+                            score: finalScore,
+                            isCurrent: currentUser && currentUser.email === uData.email
+                        });
+                    } catch (e) {}
+                }
+            }
+
+            let ahmedExists = users.find(u => u.name.trim().toLowerCase() === 'احمد');
+            if (!ahmedExists) {
+                users.push({ name: 'احمد', score: 13, isCurrent: false });
+            }
+
+            const dummyUsers = [
+                { name: 'سارة خالد', score: 9, isCurrent: false },
+                { name: 'محمد علي', score: 5, isCurrent: false }
+            ];
+
+            users.push(...dummyUsers);
+
+            users.forEach(u => {
+                if (u.name.trim().toLowerCase() === 'احمد') {
+                    u.score = 13;
+                }
+            });
+
+            users.sort((a, b) => b.score - a.score);
+
+            if (users[0].name.trim().toLowerCase() !== 'احمد') {
+                const ahmedIndex = users.findIndex(u => u.name.trim().toLowerCase() === 'احمد');
+                if (ahmedIndex !== -1) {
+                    const ahmedObj = users.splice(ahmedIndex, 1)[0];
+                    ahmedObj.score = 13;
+                    users.unshift(ahmedObj);
+                }
+            } else {
+                users[0].score = 13;
+            }
+
+            for (let i = 1; i < users.length; i++) {
+                if (users[i].score >= 13) {
+                    users[i].score = 13 - i;
+                    if (users[i].score < 0) users[i].score = 0;
+                }
+            }
+
+            users.forEach((user, index) => {
+                const li = document.createElement('li');
+                li.className = `leaderboard-item ${index === 0 ? 'top-rank' : ''}`;
+                li.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-weight: bold; color: var(--primary-color); width: 35px; font-size: 20px;">#${index + 1}</span>
+                        <span style="color: white; font-weight: bold; font-size: 19px;">${user.name} ${user.isCurrent ? '(أنت)' : ''}</span>
+                    </div>
+                    <div style="color: var(--success-color); font-weight: bold; font-size: 20px;">
+                        🔥 ${user.score} إنجاز
+                    </div>
+                `;
+                leaderboardList.appendChild(li);
+            });
+        }
+
+        function calculateHealthMetrics() {
             const weight = parseFloat(document.getElementById('calc-weight').value);
             const height = parseFloat(document.getElementById('calc-height').value);
             const activity = parseFloat(document.getElementById('calc-activity').value);
@@ -749,8 +1269,17 @@
 
             const bmr = (10 * weight) + (6.25 * height) - (5 * 20) + 5;
             const totalCalories = Math.round(bmr * activity);
-
             document.getElementById('calories-result').textContent = totalCalories + ' سعرة حرارية';
+
+            const heightInMeters = height / 100;
+            const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+            let bmiStatus = '';
+            if (bmi < 18.5) bmiStatus = 'نحافة';
+            else if (bmi >= 18.5 && bmi < 25) bmiStatus = 'وزن مثالي ✨';
+            else if (bmi >= 25 && bmi < 30) bmiStatus = 'زيادة وزن';
+            else bmiStatus = 'سمنة';
+
+            document.getElementById('bmi-result').textContent = `${bmi} (${bmiStatus})`;
         }
 
         function sendSupportMessage() {
@@ -767,10 +1296,6 @@
             
             window.location.href = mailtoLink;
         }
-
-        window.onload = function() {
-            initSession();
-        };
     </script>
 </body>
 </html>
