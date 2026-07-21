@@ -8,60 +8,98 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar / Header -->
-        <header class="app-header">
-            <div class="logo">
-                <h1>✨ عادات</h1>
-                <p>ابنِ حياتك، يوماً بيوم</p>
+    <div class="site-wrapper">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="brand-logo">✨</div>
+                <span>عادات.</span>
             </div>
-            <div class="stats-overview">
-                <div class="stat-card">
-                    <span class="stat-number" id="totalHabits">0</span>
-                    <span class="stat-label">إجمالي العادات</span>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">الرئيسية</a></li>
+                <li><a href="#tracker">متتبع العادات</a></li>
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#about">عن التطبيق</a></li>
+            </ul>
+            <div class="nav-action">
+                <a href="#tracker" class="btn-resume">ابدأ الآن 🚀</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header id="home" class="hero-section">
+            <div class="hero-content">
+                <span class="hero-badge">التطبيق الأفضل لتنظيم يومك</span>
+                <h1>ابنِ حياتك، <br>يومـاً <span class="highlight">بيوم.</span></h1>
+                <p class="hero-subtitle">تطبيق احترافي يساعدك على تتبع عاداتك اليومية، الحفاظ على استمراريتك، وتحقيق أهدافك بذكاء وسهولة تامة.</p>
+                <div class="hero-buttons">
+                    <a href="#tracker" class="btn-primary">ابدأ متتبع العادات →</a>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number" id="completedToday">0</span>
-                    <span class="stat-label">تم إنجازه اليوم</span>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="circle-bg"></div>
+                <div class="floating-card card-1">🔥 التزام مستمر</div>
+                <div class="floating-card card-2">⚡ إنجاز سريع</div>
+                <div class="stats-pill">
+                    <span id="heroTotalHabits">0</span> عادات نشطة
                 </div>
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Add Habit Form -->
-            <section class="card add-habit-section">
-                <h2>إضافة عادة جديدة</h2>
-                <form id="habitForm" class="habit-form">
-                    <input type="text" id="habitInput" placeholder="مثال: قراءة 10 صفحات، رياضة، شرب ماء..." required autocomplete="off">
-                    <select id="habitCategory">
-                        <option value="صحة">صحة ولياقة</option>
-                        <option value="تطوير">تطوير ذاتي</option>
-                        <option value="إنتاجية">إنتاجية وعمل</option>
-                        <option value="روحانيات">روحانيات</option>
-                    </select>
-                    <button type="submit" class="btn-primary">إضافة العادة</button>
-                </form>
-            </section>
+        <!-- Habit Tracker Main Section -->
+        <main id="tracker" class="main-section">
+            <div class="section-title-wrapper">
+                <h2>لوحة التحكم بالعادات</h2>
+                <p>أضف عاداتك اليومية وتابع تقدمك بانتظام</p>
+            </div>
 
-            <!-- Habits List Section -->
-            <section class="card habits-list-section">
-                <div class="section-header">
-                    <h2>عادات اليوم</h2>
-                    <span id="currentDate" class="date-badge"></span>
+            <div class="tracker-grid">
+                <!-- Add Habit Form Card -->
+                <div class="glass-card">
+                    <h3>إضافة عادة جديدة</h3>
+                    <form id="habitForm" class="habit-form">
+                        <div class="input-group">
+                            <label for="habitInput">اسم العادة</label>
+                            <input type="text" id="habitInput" placeholder="مثال: قراءة 10 صفحات، رياضة..." required autocomplete="off">
+                        </div>
+                        <div class="input-group">
+                            <label for="habitCategory">التصنيف</label>
+                            <select id="habitCategory">
+                                <option value="صحة">صحة ولياقة</option>
+                                <option value="تطوير">تطوير ذاتي</option>
+                                <option value="إنتاجية">إنتاجية وعمل</option>
+                                <option value="روحانيات">روحانيات</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-submit">إضافة العادة للقائمة</button>
+                    </form>
                 </div>
-                <div id="habitsContainer" class="habits-container">
-                    <!-- Dynamic Habits Will Go Here -->
-                    <div class="empty-state" id="emptyState">
-                        <p>لا توجد عادات مضافة حتى الآن. ابدأ بإضافة عادتك الأولى!</p>
+
+                <!-- Habits List & Stats Card -->
+                <div class="glass-card">
+                    <div class="list-header">
+                        <div>
+                            <h3>عادات اليوم</h3>
+                            <span id="currentDate" class="date-text"></span>
+                        </div>
+                        <div class="mini-stats">
+                            <span>إنجاز اليوم: <strong id="completedToday">0</strong>/<strong id="totalHabits">0</strong></span>
+                        </div>
+                    </div>
+
+                    <div id="habitsContainer" class="habits-container">
+                        <div class="empty-state" id="emptyState">
+                            <p>لا توجد عادات مضافة بعد. ابدأ بإضافة عادتك الأولى الآن!</p>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </main>
 
         <!-- Footer -->
-        <footer class="app-footer">
-            <p>تم تصميم هذا التطبيق لمساعدتك على بناء عادات مستدامة. يتم حفظ البيانات محلياً في متصفحك.</p>
+        <footer class="site-footer">
+            <p>جميع الحقوق محفوظة © 2026 - تم تصميم الموقع خصيصاً لمساعدتك على النجاح.</p>
         </footer>
     </div>
 

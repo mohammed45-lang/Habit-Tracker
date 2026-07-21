@@ -5,22 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const habitsContainer = document.getElementById('habitsContainer');
     const emptyState = document.getElementById('emptyState');
     const totalHabitsEl = document.getElementById('totalHabits');
+    const heroTotalHabitsEl = document.getElementById('heroTotalHabits');
     const completedTodayEl = document.getElementById('completedToday');
     const currentDateEl = document.getElementById('currentDate');
 
-    // Display current date in Arabic
+    // Date formatting in Arabic
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const todayStr = new Date().toLocaleDateString('ar-EG', options);
-    currentDateEl.textContent = todayStr;
+    currentDateEl.textContent = new Date().toLocaleDateString('ar-EG', options);
 
-    // Get today's date key for local storage tracking (YYYY-MM-DD)
     const todayKey = new Date().toISOString().split('T')[0];
-
-    // Load habits from localStorage
-    let habits = JSON.parse(localStorage.getItem('habits_app_data')) || [];
+    let habits = JSON.parse(localStorage.getItem('habits_app_v2_data')) || [];
 
     function saveAndRender() {
-        localStorage.setItem('habits_app_data', JSON.stringify(habits));
+        localStorage.setItem('habits_app_v2_data', JSON.stringify(habits));
         renderHabits();
         updateStats();
     }
@@ -37,18 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
         emptyState.style.display = 'none';
 
         habits.forEach((habit, index) => {
-            // Check if completed today
             const isCompletedToday = habit.completedDates && habit.completedDates.includes(todayKey);
 
             const item = document.createElement('div');
             item.className = `habit-item ${isCompletedToday ? 'completed' : ''}`;
             
             item.innerHTML = `
-                <div class="habit-info">
+                <div class="habit-info-group">
                     <input type="checkbox" class="habit-checkbox" ${isCompletedToday ? 'checked' : ''} data-index="${index}">
                     <div class="habit-details">
-                        <h3>${escapeHtml(habit.name)}</h3>
-                        <span class="habit-category-tag">${escapeHtml(habit.category)}</span>
+                        <h4>${escapeHtml(habit.name)}</h4>
+                        <span class="habit-tag">${escapeHtml(habit.category)}</span>
                     </div>
                 </div>
                 <button class="delete-btn" data-index="${index}" title="حذف العادة">🗑️</button>
@@ -57,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             habitsContainer.appendChild(item);
         });
 
-        // Add event listeners to checkboxes and delete buttons
+        // Event listeners
         document.querySelectorAll('.habit-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 const idx = e.target.getAttribute('data-index');
@@ -88,13 +84,21 @@ document.addEventListener('DOMContentLoaded', () => {
         saveAndRender();
     }
 
-    function deleteHabit(index) {
+    function deleteHabItem(index) {
         habits.splice(index, 1);
         saveAndRender();
     }
 
+    // Assign delete handler properly
+    window.deleteHabit = function(index) {
+        habits.splice(index, 1);
+        saveAndRender();
+    };
+
     function updateStats() {
-        totalHabitsEl.textContent = habits.length;
+        const total = habits.length;
+        totalHabitsEl.textContent = total;
+        heroTotalHabitsEl.textContent = total;
         
         const completedCount = habits.filter(habit => 
             habit.completedDates && habit.completedDates.includes(todayKey)
@@ -120,17 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function escapeHtml(text) {
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
         return text.replace(/[&<>"']/g, m => map[m]);
     }
 
-    // Initial render
     renderHabits();
     updateStats();
 });
