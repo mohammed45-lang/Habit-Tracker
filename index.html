@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracker M - ابني حياتك يوماً بيوم</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary-color: #38bdf8;
+            --accent-color: #0284c7;
+            --border-color: #334155;
+            --danger-color: #ef4444;
+            --success-color: #22c55e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* نافذة تسجيل الدخول وحساب جديد */
+        #auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .auth-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .auth-card h2 {
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+
+        .auth-card input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .auth-card button {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        .auth-card button:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .toggle-auth {
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .toggle-auth span {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* شريط التنقل العلوي */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+
+        .logo-area {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--primary-color);
+        }
+
+        .user-panel {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* المحتوى الرئيسي */
+        main {
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active-section {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero الواجهة الرئيسية */
+        .hero-banner {
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .center-logo {
+            width: 90px;
+            height: 90px;
+            background: var(--primary-color);
+            color: var(--bg-color);
+            font-size: 45px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .hero-banner h1 {
+            font-size: 38px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .hero-banner p {
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        /* البطاقات والأقسام */
+        .card-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .card-box h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 22px;
+        }
+
+        /* العادات اليومية */
+        .habit-input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .habit-input-group input {
+            flex: 1;
+            padding: 12px 15px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .habits-list {
+            list-style: none;
+        }
+
+        .habit-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .habit-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        /* قسم الصحة وحاسبة السعرات */
+        .health-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .calc-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .calc-form input, .calc-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: white;
+        }
+
+        .result-box {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-box h3 {
+            color: var(--success-color);
+            font-size: 28px;
+            margin-top: 10px;
+        }
+
+        /* الدعم */
+        .support-form input, .support-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .support-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- نافذة تسجيل الدخول / إنشاء حساب -->
+    <div id="auth-modal">
+        <div class="auth-card">
+            <h2 id="auth-title">تسجيل الدخول لـ Tracker M</h2>
+            <form id="auth-form" onsubmit="handleAuth(event)">
+                <input type="text" id="auth-name" placeholder="اسم المستخدم" style="display: none;">
+                <input type="email" id="auth-email" placeholder="البريد الإلكتروني" required>
+                <input type="password" id="auth-pass" placeholder="كلمة المرور" required>
+                <button type="submit" id="auth-btn">دخول</button>
+            </form>
+            <div class="toggle-auth" onclick="toggleAuthMode()">
+                <span id="toggle-text">ليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- الشريط العلوي -->
+    <header>
+        <div class="logo-area">Tracker M</div>
+        <nav>
+            <ul>
+                <li><a class="nav-link active" onclick="switchPage('home', event)">الرئيسية</a></li>
+                <li><a class="nav-link" onclick="switchPage('habits', event)">العادات اليومية</a></li>
+                <li><a class="nav-link" onclick="switchPage('health', event)">الصحة واللياقة</a></li>
+                <li><a class="nav-link" onclick="switchPage('support', event)">الدعم</a></li>
+            </ul>
+        </nav>
+        <div class="user-panel">
+            <span id="user-display" style="color: var(--text-muted); font-size: 14px;"></span>
+            <button class="btn-danger" onclick="deleteAccount()" title="حذف الحساب نهائياً">حذف الحساب</button>
+            <button class="btn-danger" style="background: #64748b;" onclick="logout()">خروج</button>
+        </div>
+    </header>
+
+    <!-- المحتوى -->
+    <main>
+        <!-- 1. الرئيسية -->
+        <section id="home" class="page-section active-section">
+            <div class="hero-banner">
+                <div class="center-logo">M</div>
+                <h1>ابني حياتك يوماً بيوم</h1>
+                <p>نظّم عاداتك، تتبع سعراتك وصحتك، وكن نسخة أفضل من نفسك كل يوم.</p>
+            </div>
+        </section>
+
+        <!-- 2. العادات اليومية -->
+        <section id="habits" class="page-section">
+            <div class="card-box">
+                <h2>إدارة عاداتك اليومية</h2>
+                <div class="habit-input-group">
+                    <input type="text" id="habit-input" placeholder="أدخل عادة جديدة تود الالتزام بها...">
+                    <button class="btn-primary" onclick="addHabit()">إضافة عادة</button>
+                </div>
+                <ul id="habits-list" class="habits-list">
+                    <!-- سيتم إضافة العادات هنا ديناميكياً -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. الصحة واللياقة -->
+        <section id="health" class="page-section">
+            <div class="card-box">
+                <h2>مؤشرات الصحة واللياقة</h2>
+                <div class="health-grid">
+                    <div class="calc-form">
+                        <label>الوزن (كجم):</label>
+                        <input type="number" id="calc-weight" placeholder="مثال: 75">
+                        
+                        <label>الطول (سم):</label>
+                        <input type="number" id="calc-height" placeholder="مثال: 175">
+
+                        <label>مستوى النشاط البدني:</label>
+                        <select id="calc-activity">
+                            <option value="1.2">قليل الحركة (بدون تمارينات)</option>
+                            <option value="1.375">نشاط خفيف (تمارين خفيفة 1-3 أيام أسبوعياً)</option>
+                            <option value="1.55">نشاط متوسط (تمارين 3-5 أيام أسبوعياً)</option>
+                            <option value="1.725">نشاط عالي (تمارين مكثفة 6-7 أيام أسبوعياً)</option>
+                        </select>
+
+                        <button class="btn-primary" onclick="calculateCalories()" style="width: 100%;">حساب السعرات الحرارية</button>
+                    </div>
+
+                    <div class="result-box">
+                        <p style="color: var(--text-muted); font-size: 16px;">السعرات الحرارية اليومية المطلوبة (لثبات الوزن):</p>
+                        <h3 id="calories-result">0 سعرة حرارية</h3>
+                        <p style="margin-top: 20px; color: var(--text-muted); font-size: 14px;">ساعات النوم المسجلة اليوم: <b>8 ساعات</b></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. الدعم -->
+        <section id="support" class="page-section">
+            <div class="card-box">
+                <h2>الدعم والمساعدة</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">تواجه مشكلة أو لديك اقتراح لتحسين المنصة؟ أرسل لنا رسالة مباشرة وسنرد عليك قريباً.</p>
+                <div class="support-form">
+                    <input type="text" id="support-subject" placeholder="عنوان الرسالة...">
+                    <textarea id="support-message" placeholder="اكتب رسالتك بالتفصيل هنا..."></textarea>
+                    <button class="btn-primary" onclick="sendSupportMessage()">إرسال الرسالة للبريد</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let isRegisterMode = false;
+        let currentUser = null;
+
+        function playClickSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.15);
+            } catch (e) {}
+        }
+
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
+            document.getElementById('auth-title').textContent = isRegisterMode ? 'إنشاء حساب جديد في Tracker M' : 'تسجيل الدخول لـ Tracker M';
+            document.getElementById('auth-btn').textContent = isRegisterMode ? 'تسجيل وحفظ' : 'دخول';
+            document.getElementById('auth-name').style.display = isRegisterMode ? 'block' : 'none';
+            document.getElementById('toggle-text').textContent = isRegisterMode ? 'لديك حساب بالفعل؟ اضغط هنا لدخول' : 'ليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد';
+        }
+
+        function handleAuth(event) {
+            event.preventDefault();
+            const email = document.getElementById('auth-email').value;
+            const pass = document.getElementById('auth-pass').value;
+            const name = document.getElementById('auth-name').value;
+
+            if (isRegisterMode) {
+                const userData = { email, pass, name, habits: [] };
+                localStorage.setItem('tracker_user_' + email, JSON.stringify(userData));
+                localStorage.setItem('tracker_current_email', email);
+                alert('تم إنشاء الحساب وحفظ البيانات بنجاح!');
+            } else {
+                const storedUser = localStorage.getItem('tracker_user_' + email);
+                if (!storedUser) {
+                    alert('الحساب غير موجود! يرجى إنشاء حساب جديد أولاً.');
+                    return;
+                }
+                const parsed = JSON.parse(storedUser);
+                if (parsed.pass !== pass) {
+                    alert('كلمة المرور غير صحيحة!');
+                    return;
+                }
+                localStorage.setItem('tracker_current_email', email);
+            }
+
+            initSession();
+        }
+
+        function initSession() {
+            const currentEmail = localStorage.getItem('tracker_current_email');
+            if (currentEmail) {
+                const userData = JSON.parse(localStorage.getItem('tracker_user_' + currentEmail));
+                if (userData) {
+                    currentUser = userData;
+                    document.getElementById('user-display').textContent = currentUser.email;
+                    document.getElementById('auth-modal').style.display = 'none';
+                    loadHabits();
+                }
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('tracker_current_email');
+            currentUser = null;
+            document.getElementById('auth-modal').style.display = 'flex';
+        }
+
+        function deleteAccount() {
+            if (confirm('هل أنت متأكد من حذف حسابك نهائياً من النظام؟ لا يمكن التراجع عن هذا الإجراء.')) {
+                if (currentUser) {
+                    localStorage.removeItem('tracker_user_' + currentUser.email);
+                    localStorage.removeItem('tracker_current_email');
+                    alert('تم حذف الحساب بنجاح.');
+                    location.reload();
+                }
+            }
+        }
+
+        function switchPage(pageId, event) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-section'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active-section');
+            if (event) event.target.classList.add('active');
+        }
+
+        function addHabit() {
+            const input = document.getElementById('habit-input');
+            const val = input.value.trim();
+            if (!val) return;
+
+            if (!currentUser.habits) currentUser.habits = [];
+            currentUser.habits.push(val);
+            saveUserData();
+            
+            input.value = '';
+            loadHabits();
+            playClickSound();
+        }
+
+        function deleteHabit(index) {
+            currentUser.habits.splice(index, 1);
+            saveUserData();
+            loadHabits();
+        }
+
+        function loadHabits() {
+            const list = document.getElementById('habits-list');
+            list.innerHTML = '';
+            if (!currentUser || !currentUser.habits) return;
+
+            currentUser.habits.forEach((habit, index) => {
+                const li = document.createElement('li');
+                li.className = 'habit-item';
+                li.innerHTML = `
+                    <span>${habit}</span>
+                    <div class="habit-actions">
+                        <button onclick="deleteHabit(${index})" title="حذف العادة">🗑️</button>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        function saveUserData() {
+            if (currentUser) {
+                localStorage.setItem('tracker_user_' + currentUser.email, JSON.stringify(currentUser));
+            }
+        }
+
+        function calculateCalories() {
+            const weight = parseFloat(document.getElementById('calc-weight').value);
+            const height = parseFloat(document.getElementById('calc-height').value);
+            const activity = parseFloat(document.getElementById('calc-activity').value);
+
+            if (!weight || !height) {
+                alert('يرجى إدخال الوزن والطول بشكل صحيح.');
+                return;
+            }
+
+            const bmr = (10 * weight) + (6.25 * height) - (5 * 20) + 5;
+            const totalCalories = Math.round(bmr * activity);
+
+            document.getElementById('calories-result').textContent = totalCalories + ' سعرة حرارية';
+        }
+
+        // إرسال الرسالة إلى بريدك الإلكتروني المباشر
+        function sendSupportMessage() {
+            const subject = document.getElementById('support-subject').value;
+            const message = document.getElementById('support-message').value;
+
+            if (!subject || !message) {
+                alert('يرجى ملء جميع الحقول قبل الإرسال.');
+                return;
+            }
+
+            const targetEmail = "mohammedhany2036@gmail.com";
+            const mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+            
+            window.location.href = mailtoLink;
+        }
+
+        window.onload = function() {
+            initSession();
+        };
+    </script>
+</body>
+</html>
