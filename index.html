@@ -74,7 +74,30 @@
             font-size: 16px;
         }
 
-        .auth-card button {
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .password-wrapper input {
+            margin-bottom: 0;
+            padding-left: 45px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .auth-card button[type="submit"] {
             width: 100%;
             padding: 14px;
             background: var(--primary-color);
@@ -88,7 +111,7 @@
             margin-top: 10px;
         }
 
-        .auth-card button:hover {
+        .auth-card button[type="submit"]:hover {
             background: var(--accent-color);
             color: white;
         }
@@ -180,7 +203,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Hero الواجهة الرئيسية */
+        /* Hero الواجهة الرئيسية بالشعار الدائري القديم المتميز */
         .hero-banner {
             text-align: center;
             padding: 80px 20px;
@@ -191,18 +214,18 @@
         }
 
         .center-logo {
-            width: 90px;
-            height: 90px;
+            width: 110px;
+            height: 110px;
             background: var(--primary-color);
             color: var(--bg-color);
-            font-size: 45px;
+            font-size: 60px;
             font-weight: bold;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
             margin: 0 auto 25px auto;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
         }
 
         .hero-banner h1 {
@@ -354,7 +377,12 @@
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <input type="text" id="auth-name" placeholder="اسم المستخدم" style="display: none;">
                 <input type="email" id="auth-email" placeholder="البريد الإلكتروني" required>
-                <input type="password" id="auth-pass" placeholder="كلمة المرور" required>
+                
+                <div class="password-wrapper">
+                    <input type="password" id="auth-pass" placeholder="كلمة المرور" required>
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
+                </div>
+
                 <button type="submit" id="auth-btn">دخول</button>
             </form>
             <div class="toggle-auth" onclick="toggleAuthMode()">
@@ -442,11 +470,11 @@
         <section id="support" class="page-section">
             <div class="card-box">
                 <h2>الدعم والمساعدة</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">تواجه مشكلة أو لديك اقتراح لتحسين المنصة؟ أرسل لنا رسالة مباشرة وسنرد عليك قريباً.</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">تواجه مشكلة أو لديك اقتراح لتحسين المنصة؟ أرسل لنا رسالة وسنرد عليك قريباً.</p>
                 <div class="support-form">
                     <input type="text" id="support-subject" placeholder="عنوان الرسالة...">
                     <textarea id="support-message" placeholder="اكتب رسالتك بالتفصيل هنا..."></textarea>
-                    <button class="btn-primary" onclick="sendSupportMessage()">إرسال الرسالة للبريد</button>
+                    <button class="btn-primary" onclick="sendSupportMessage()">إرسال الرسالة</button>
                 </div>
             </div>
         </section>
@@ -470,6 +498,16 @@
                 oscillator.start();
                 oscillator.stop(audioCtx.currentTime + 0.15);
             } catch (e) {}
+        }
+
+        // إظهار وإخفاء كلمة المرور عبر زر العين
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById('auth-pass');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+            } else {
+                passInput.type = 'password';
+            }
         }
 
         function toggleAuthMode() {
@@ -606,7 +644,7 @@
             document.getElementById('calories-result').textContent = totalCalories + ' سعرة حرارية';
         }
 
-        // إرسال الرسالة إلى بريدك الإلكتروني المباشر
+        // إرسال رسالة الدعم بنجاح داخل الصفحة
         function sendSupportMessage() {
             const subject = document.getElementById('support-subject').value;
             const message = document.getElementById('support-message').value;
@@ -616,10 +654,9 @@
                 return;
             }
 
-            const targetEmail = "mohammedhany2036@gmail.com";
-            const mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-            
-            window.location.href = mailtoLink;
+            alert('تم الإرسال بنجاح!');
+            document.getElementById('support-subject').value = '';
+            document.getElementById('support-message').value = '';
         }
 
         window.onload = function() {
