@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit Tracker - تتبع العادات</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ===== الهيدر ===== -->
+    <header class="header">
+        <div class="logo">Habit<span>Tracker</span></div>
+        <nav class="nav-links">
+            <a class="active" data-page="home">الرئيسية</a>
+            <a data-page="habits">عاداتي</a>
+            <a data-page="health">الصحة</a>
+            <a data-page="reports">التقارير</a>
+            <button class="btn-contact" onclick="openModal()">+ إضافة عادة</button>
+        </nav>
+    </header>
+
+    <!-- ===== الهيرو ===== -->
+    <section class="hero" id="heroSection">
+        <h1>حياتك <span>يوم بيوم</span></h1>
+        <p>تابع عاداتك اليومية، حسّن صحتك، وابني نسخة أفضل من نفسك</p>
+        <div class="stats">
+            <div>
+                <div class="number" id="totalHabits">0</div>
+                <div class="label">إجمالي العادات</div>
+            </div>
+            <div>
+                <div class="number" id="completedToday">0</div>
+                <div class="label">أنجزت اليوم</div>
+            </div>
+            <div>
+                <div class="number" id="bestStreak">0</div>
+                <div class="label">أطول سلسلة</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== التبويبات ===== -->
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="active" data-tab="daily">☀️ العادات اليومية</button>
+            <button data-tab="health">💪 الصحة البدنية</button>
+        </div>
+
+        <!-- تبويب العادات -->
+        <div class="tab-content active" id="tab-daily">
+            <div class="habits-header">
+                <h2>📋 عاداتي اليومية</h2>
+                <button class="btn-add" onclick="openModal()">➕ إضافة عادة</button>
+            </div>
+            <div class="habits-grid" id="habitsGrid">
+                <!-- العادات تظهر هنا -->
+            </div>
+        </div>
+
+        <!-- تبويب الصحة -->
+        <div class="tab-content" id="tab-health">
+            <div class="health-grid" id="healthGrid">
+                <!-- بطاقات الصحة تظهر هنا -->
+            </div>
+        </div>
+
+        <!-- تبويب التقارير -->
+        <div class="tab-content" id="tab-reports">
+            <div class="report-grid" id="reportGrid"></div>
+            <div class="report-chart">
+                <h3>📊 أداء العادات هذا الأسبوع</h3>
+                <div class="chart-bars" id="chartBars"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== نافذة منبثقة ===== -->
+    <div class="modal" id="habitModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">➕ إضافة عادة جديدة</h2>
+            <label>اسم العادة</label>
+            <input type="text" id="habitNameInput" placeholder="مثال: قراءة 10 صفحات" />
+            <label>الفئة</label>
+            <select id="habitCategory">
+                <option value="يومية">يومية</option>
+                <option value="صحية">صحية</option>
+                <option value="رياضية">رياضية</option>
+                <option value="ذهنية">ذهنية</option>
+            </select>
+            <label>الهدف اليومي</label>
+            <input type="number" id="habitTarget" value="1" min="1" />
+            <div class="modal-actions">
+                <button class="btn-save" onclick="saveHabit()">💾 حفظ</button>
+                <button class="btn-cancel" onclick="closeModal()">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== تنبيه ===== -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
