@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق متتبع العادات اليومية | Habit Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Header -->
+        <header class="app-header">
+            <div class="logo">
+                <h1>✨ عادات</h1>
+                <p>ابنِ حياتك، يوماً بيوم</p>
+            </div>
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <span class="stat-number" id="totalHabits">0</span>
+                    <span class="stat-label">إجمالي العادات</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="completedToday">0</span>
+                    <span class="stat-label">تم إنجازه اليوم</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Add Habit Form -->
+            <section class="card add-habit-section">
+                <h2>إضافة عادة جديدة</h2>
+                <form id="habitForm" class="habit-form">
+                    <input type="text" id="habitInput" placeholder="مثال: قراءة 10 صفحات، رياضة، شرب ماء..." required autocomplete="off">
+                    <select id="habitCategory">
+                        <option value="صحة">صحة ولياقة</option>
+                        <option value="تطوير">تطوير ذاتي</option>
+                        <option value="إنتاجية">إنتاجية وعمل</option>
+                        <option value="روحانيات">روحانيات</option>
+                    </select>
+                    <button type="submit" class="btn-primary">إضافة العادة</button>
+                </form>
+            </section>
+
+            <!-- Habits List Section -->
+            <section class="card habits-list-section">
+                <div class="section-header">
+                    <h2>عادات اليوم</h2>
+                    <span id="currentDate" class="date-badge"></span>
+                </div>
+                <div id="habitsContainer" class="habits-container">
+                    <!-- Dynamic Habits Will Go Here -->
+                    <div class="empty-state" id="emptyState">
+                        <p>لا توجد عادات مضافة حتى الآن. ابدأ بإضافة عادتك الأولى!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>تم تصميم هذا التطبيق لمساعدتك على بناء عادات مستدامة. يتم حفظ البيانات محلياً في متصفحك.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
