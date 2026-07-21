@@ -6,15 +6,16 @@
     <title>Tracker M - ابني حياتك يوماً بيوم</title>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
+            --bg-color: #0b0f19;
+            --card-bg: #131b2e;
+            --text-color: #f1f5f9;
             --text-muted: #94a3b8;
-            --primary-color: #38bdf8;
-            --accent-color: #0284c7;
-            --border-color: #334155;
+            --primary-color: #10b981;
+            --accent-color: #059669;
+            --border-color: #1e293b;
             --danger-color: #ef4444;
             --success-color: #22c55e;
+            --gradient-bg: radial-gradient(circle at top left, #2e1065, #0b0f19 60%);
         }
 
         * {
@@ -25,6 +26,7 @@
         }
 
         body {
+            background: var(--gradient-bg);
             background-color: var(--bg-color);
             color: var(--text-color);
             min-height: 100vh;
@@ -39,7 +41,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(7, 10, 18, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,10 +51,10 @@
         .auth-card {
             background: var(--card-bg);
             padding: 40px;
-            border-radius: 16px;
+            border-radius: 20px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             border: 1px solid var(--border-color);
             text-align: center;
         }
@@ -69,7 +71,7 @@
             margin-bottom: 15px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
             font-size: 16px;
         }
@@ -101,9 +103,9 @@
             width: 100%;
             padding: 14px;
             background: var(--primary-color);
-            color: var(--bg-color);
+            color: #0b0f19;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
@@ -117,7 +119,7 @@
         }
 
         .toggle-auth {
-            margin-top: 15px;
+            margin-top: 20px;
             color: var(--text-muted);
             font-size: 14px;
             cursor: pointer;
@@ -135,7 +137,8 @@
             align-items: center;
             padding: 20px 50px;
             border-bottom: 1px solid var(--border-color);
-            background: var(--card-bg);
+            background: rgba(19, 27, 46, 0.8);
+            backdrop-filter: blur(10px);
         }
 
         .logo-area {
@@ -175,7 +178,7 @@
             color: white;
             border: none;
             padding: 8px 15px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
         }
@@ -203,21 +206,21 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Hero الواجهة الرئيسية بالشعار الدائري القديم المتميز */
+        /* Hero الواجهة الرئيسية بالشعار الدائري الأنيق */
         .hero-banner {
             text-align: center;
-            padding: 80px 20px;
+            padding: 90px 20px;
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 24px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .center-logo {
             width: 110px;
             height: 110px;
             background: var(--primary-color);
-            color: var(--bg-color);
+            color: #0b0f19;
             font-size: 60px;
             font-weight: bold;
             display: flex;
@@ -225,11 +228,11 @@
             align-items: center;
             border-radius: 50%;
             margin: 0 auto 25px auto;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
         }
 
         .hero-banner h1 {
-            font-size: 38px;
+            font-size: 40px;
             margin-bottom: 15px;
             color: white;
         }
@@ -243,7 +246,7 @@
         .card-box {
             background: var(--card-bg);
             padding: 30px;
-            border-radius: 16px;
+            border-radius: 20px;
             border: 1px solid var(--border-color);
             margin-bottom: 25px;
         }
@@ -266,7 +269,7 @@
             padding: 12px 15px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
             font-size: 16px;
         }
@@ -274,9 +277,9 @@
         .btn-primary {
             padding: 12px 25px;
             background: var(--primary-color);
-            color: var(--bg-color);
+            color: #0b0f19;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
@@ -298,7 +301,7 @@
             padding: 15px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 12px;
         }
 
@@ -325,18 +328,18 @@
 
         .calc-form input, .calc-form select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 15px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 10px;
             color: white;
         }
 
         .result-box {
             background: var(--bg-color);
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
             text-align: center;
             display: flex;
@@ -358,7 +361,7 @@
             margin-bottom: 15px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
         }
 
@@ -380,7 +383,7 @@
                 
                 <div class="password-wrapper">
                     <input type="password" id="auth-pass" placeholder="كلمة المرور" required>
-                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
+                    <button type="button" class="toggle-password" id="eye-btn" onclick="togglePasswordVisibility()">👁️</button>
                 </div>
 
                 <button type="submit" id="auth-btn">دخول</button>
@@ -405,7 +408,7 @@
         <div class="user-panel">
             <span id="user-display" style="color: var(--text-muted); font-size: 14px;"></span>
             <button class="btn-danger" onclick="deleteAccount()" title="حذف الحساب نهائياً">حذف الحساب</button>
-            <button class="btn-danger" style="background: #64748b;" onclick="logout()">خروج</button>
+            <button class="btn-danger" style="background: #334155;" onclick="logout()">خروج</button>
         </div>
     </header>
 
@@ -500,13 +503,16 @@
             } catch (e) {}
         }
 
-        // إظهار وإخفاء كلمة المرور عبر زر العين
+        // إظهار وإخفاء كلمة المرور مع تبديل شكل العين المغلقة/المفتوحة
         function togglePasswordVisibility() {
             const passInput = document.getElementById('auth-pass');
+            const eyeBtn = document.getElementById('eye-btn');
             if (passInput.type === 'password') {
                 passInput.type = 'text';
+                eyeBtn.textContent = '🔒';
             } else {
                 passInput.type = 'password';
+                eyeBtn.textContent = '👁️';
             }
         }
 
@@ -644,19 +650,19 @@
             document.getElementById('calories-result').textContent = totalCalories + ' سعرة حرارية';
         }
 
-        // إرسال رسالة الدعم بنجاح داخل الصفحة
         function sendSupportMessage() {
             const subject = document.getElementById('support-subject').value;
             const message = document.getElementById('support-message').value;
 
             if (!subject || !message) {
-                alert('يرجى ملء جميع الحقول قبل الإرسال.');
+                alert('يرجى ملء عنوان الرسالة والنص قبل الإرسال.');
                 return;
             }
 
-            alert('تم الإرسال بنجاح!');
-            document.getElementById('support-subject').value = '';
-            document.getElementById('support-message').value = '';
+            const targetEmail = 'mohammedhany2036@gmail.com';
+            const mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+            
+            window.location.href = mailtoLink;
         }
 
         window.onload = function() {
