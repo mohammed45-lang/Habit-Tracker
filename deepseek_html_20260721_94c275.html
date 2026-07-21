@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>موقعي - تتبع العادات</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* ----- القائمة الرأسية (Sidebar) ----- */
+        .sidebar {
+            width: 240px;
+            background-color: #1e293b;
+            color: white;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #facc15;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .sidebar nav a:hover {
+            background-color: #334155;
+            color: white;
+        }
+
+        /* ----- المحتوى الرئيسي ----- */
+        .main {
+            flex: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+        }
+
+        /* ----- الـ Hero (الجزء العلوي) ----- */
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 span {
+            color: #facc15;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #94a3b8;
+        }
+
+        /* ----- التبويبات (Tabs) ----- */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tabs button {
+            padding: 12px 28px;
+            border: none;
+            background-color: #e2e8f0;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .tabs button.active {
+            background-color: #1e293b;
+            color: white;
+        }
+
+        .tabs button:hover {
+            background-color: #cbd5e1;
+        }
+
+        /* ----- قائمة العادات ----- */
+        .habits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .habit-item {
+            background: white;
+            padding: 18px 24px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .habit-item:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .habit-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex: 1;
+        }
+
+        .habit-info input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #1e293b;
+            cursor: pointer;
+        }
+
+        .habit-name {
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .habit-progress {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .progress-bar {
+            width: 150px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #facc15;
+            border-radius: 10px;
+            width: 0%;
+        }
+
+        .streak {
+            background: #fef9c3;
+            color: #854d0e;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- القائمة الرأسية -->
+    <aside class="sidebar">
+        <div class="logo">📈 موقعي</div>
+        <nav>
+            <a href="#">📊 الرئيسية</a>
+            <a href="#" style="background-color:#334155;">✅ تتبع العادات</a>
+            <a href="#">📋 التقارير</a>
+            <a href="#">⚙️ الإعدادات</a>
+        </nav>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main">
+
+        <!-- الـ Hero -->
+        <section class="hero">
+            <h1>حياتك <span>يوم بيوم</span></h1>
+            <p>تابع عاداتك، حسّن صحتك، وابني نسخة أفضل من نفسك</p>
+        </section>
+
+        <!-- التبويبات -->
+        <div class="tabs">
+            <button class="active">🏃 الصحة البدنية</button>
+            <button>☀️ العادات اليومية</button>
+        </div>
+
+        <!-- قائمة العادات اليومية -->
+        <div class="habits-list">
+
+            <!-- عادة 1 -->
+            <div class="habit-item">
+                <div class="habit-info">
+                    <input type="checkbox" />
+                    <span class="habit-name">🚶 مشي 30 دقيقة</span>
+                </div>
+                <div class="habit-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:70%;"></div>
+                    </div>
+                    <span>70%</span>
+                    <span class="streak">🔥 5 أيام</span>
+                </div>
+            </div>
+
+            <!-- عادة 2 -->
+            <div class="habit-item">
+                <div class="habit-info">
+                    <input type="checkbox" />
+                    <span class="habit-name">💧 شرب 2 لتر ماء</span>
+                </div>
+                <div class="habit-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:45%;"></div>
+                    </div>
+                    <span>45%</span>
+                    <span class="streak">🔥 3 أيام</span>
+                </div>
+            </div>
+
+            <!-- عادة 3 -->
+            <div class="habit-item">
+                <div class="habit-info">
+                    <input type="checkbox" />
+                    <span class="habit-name">📖 قراءة 10 صفحات</span>
+                </div>
+                <div class="habit-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:90%;"></div>
+                    </div>
+                    <span>90%</span>
+                    <span class="streak">🔥 12 يوم</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
