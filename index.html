@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracker M - ابني حياتك يوماً بيوم</title>
+    <title>MOOD - ابني حياتك يوماً بيوم</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -130,7 +130,7 @@
             text-decoration: underline;
         }
 
-        /* شريط التنقل العلوي */
+        /* شريط التنقل العلوي مع حرف M على الجانب */
         header {
             display: flex;
             justify-content: space-between;
@@ -142,9 +142,29 @@
         }
 
         .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .side-logo-m {
+            width: 45px;
+            height: 45px;
+            background: var(--primary-color);
+            color: #0b0f19;
+            font-size: 26px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .logo-text {
             font-size: 24px;
             font-weight: bold;
-            color: var(--primary-color);
+            color: white;
             letter-spacing: 1px;
         }
 
@@ -206,33 +226,18 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Hero الواجهة الرئيسية بالشعار الدائري الأنيق */
+        /* واجهة الترحيب */
         .hero-banner {
-            text-align: center;
-            padding: 90px 20px;
+            text-align: right;
+            padding: 70px 40px;
             background: var(--card-bg);
             border-radius: 24px;
             border: 1px solid var(--border-color);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .center-logo {
-            width: 110px;
-            height: 110px;
-            background: var(--primary-color);
-            color: #0b0f19;
-            font-size: 60px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            margin: 0 auto 25px auto;
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
-        }
-
         .hero-banner h1 {
-            font-size: 40px;
+            font-size: 42px;
             margin-bottom: 15px;
             color: white;
         }
@@ -376,7 +381,7 @@
     <!-- نافذة تسجيل الدخول / إنشاء حساب -->
     <div id="auth-modal">
         <div class="auth-card">
-            <h2 id="auth-title">تسجيل الدخول لـ Tracker M</h2>
+            <h2 id="auth-title">تسجيل الدخول لـ MOOD</h2>
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <input type="text" id="auth-name" placeholder="اسم المستخدم" style="display: none;">
                 <input type="email" id="auth-email" placeholder="البريد الإلكتروني" required>
@@ -394,9 +399,12 @@
         </div>
     </div>
 
-    <!-- الشريط العلوي -->
+    <!-- الشريط العلوي مع اللوجو على الجانب -->
     <header>
-        <div class="logo-area">Tracker M</div>
+        <div class="logo-area">
+            <div class="side-logo-m">M</div>
+            <div class="logo-text">MOOD</div>
+        </div>
         <nav>
             <ul>
                 <li><a class="nav-link active" onclick="switchPage('home', event)">الرئيسية</a></li>
@@ -417,8 +425,7 @@
         <!-- 1. الرئيسية -->
         <section id="home" class="page-section active-section">
             <div class="hero-banner">
-                <div class="center-logo">M</div>
-                <h1>ابني حياتك يوماً بيوم</h1>
+                <h1>مرحباً بك في MOOD</h1>
                 <p>نظّم عاداتك، تتبع سعراتك وصحتك، وكن نسخة أفضل من نفسك كل يوم.</p>
             </div>
         </section>
@@ -431,9 +438,7 @@
                     <input type="text" id="habit-input" placeholder="أدخل عادة جديدة تود الالتزام بها...">
                     <button class="btn-primary" onclick="addHabit()">إضافة عادة</button>
                 </div>
-                <ul id="habits-list" class="habits-list">
-                    <!-- سيتم إضافة العادات هنا ديناميكياً -->
-                </ul>
+                <ul id="habits-list" class="habits-list"></ul>
             </div>
         </section>
 
@@ -503,7 +508,6 @@
             } catch (e) {}
         }
 
-        // إظهار وإخفاء كلمة المرور مع تبديل شكل العين المغلقة/المفتوحة
         function togglePasswordVisibility() {
             const passInput = document.getElementById('auth-pass');
             const eyeBtn = document.getElementById('eye-btn');
@@ -518,7 +522,7 @@
 
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
-            document.getElementById('auth-title').textContent = isRegisterMode ? 'إنشاء حساب جديد في Tracker M' : 'تسجيل الدخول لـ Tracker M';
+            document.getElementById('auth-title').textContent = isRegisterMode ? 'إنشاء حساب جديد في MOOD' : 'تسجيل الدخول لـ MOOD';
             document.getElementById('auth-btn').textContent = isRegisterMode ? 'تسجيل وحفظ' : 'دخول';
             document.getElementById('auth-name').style.display = isRegisterMode ? 'block' : 'none';
             document.getElementById('toggle-text').textContent = isRegisterMode ? 'لديك حساب بالفعل؟ اضغط هنا لدخول' : 'ليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد';
@@ -532,11 +536,11 @@
 
             if (isRegisterMode) {
                 const userData = { email, pass, name, habits: [] };
-                localStorage.setItem('tracker_user_' + email, JSON.stringify(userData));
-                localStorage.setItem('tracker_current_email', email);
+                localStorage.setItem('mood_user_' + email, JSON.stringify(userData));
+                localStorage.setItem('mood_current_email', email);
                 alert('تم إنشاء الحساب وحفظ البيانات بنجاح!');
             } else {
-                const storedUser = localStorage.getItem('tracker_user_' + email);
+                const storedUser = localStorage.getItem('mood_user_' + email);
                 if (!storedUser) {
                     alert('الحساب غير موجود! يرجى إنشاء حساب جديد أولاً.');
                     return;
@@ -546,16 +550,16 @@
                     alert('كلمة المرور غير صحيحة!');
                     return;
                 }
-                localStorage.setItem('tracker_current_email', email);
+                localStorage.setItem('mood_current_email', email);
             }
 
             initSession();
         }
 
         function initSession() {
-            const currentEmail = localStorage.getItem('tracker_current_email');
+            const currentEmail = localStorage.getItem('mood_current_email');
             if (currentEmail) {
-                const userData = JSON.parse(localStorage.getItem('tracker_user_' + currentEmail));
+                const userData = JSON.parse(localStorage.getItem('mood_user_' + currentEmail));
                 if (userData) {
                     currentUser = userData;
                     document.getElementById('user-display').textContent = currentUser.email;
@@ -566,7 +570,7 @@
         }
 
         function logout() {
-            localStorage.removeItem('tracker_current_email');
+            localStorage.removeItem('mood_current_email');
             currentUser = null;
             document.getElementById('auth-modal').style.display = 'flex';
         }
@@ -574,8 +578,8 @@
         function deleteAccount() {
             if (confirm('هل أنت متأكد من حذف حسابك نهائياً من النظام؟ لا يمكن التراجع عن هذا الإجراء.')) {
                 if (currentUser) {
-                    localStorage.removeItem('tracker_user_' + currentUser.email);
-                    localStorage.removeItem('tracker_current_email');
+                    localStorage.removeItem('mood_user_' + currentUser.email);
+                    localStorage.removeItem('mood_current_email');
                     alert('تم حذف الحساب بنجاح.');
                     location.reload();
                 }
@@ -630,7 +634,7 @@
 
         function saveUserData() {
             if (currentUser) {
-                localStorage.setItem('tracker_user_' + currentUser.email, JSON.stringify(currentUser));
+                localStorage.setItem('mood_user_' + currentUser.email, JSON.stringify(currentUser));
             }
         }
 
