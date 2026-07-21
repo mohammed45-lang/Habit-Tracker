@@ -15,7 +15,7 @@
             --border-color: #1e293b;
             --danger-color: #ef4444;
             --success-color: #22c55e;
-            --gradient-bg: radial-gradient(circle at top left, #2e1065, #0b0f19 60%);
+            --gradient-bg: radial-gradient(circle at center, #132238 0%, #0b0f19 70%);
         }
 
         * {
@@ -26,15 +26,14 @@
         }
 
         body {
-            background: var(--gradient-bg);
-            background-color: var(--bg-color);
+            background: var(--bg-color);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* نافذة تسجيل الدخول وحساب جديد */
+        /* نافذة تسجيل الدخول */
         #auth-modal {
             position: fixed;
             top: 0;
@@ -130,7 +129,7 @@
             text-decoration: underline;
         }
 
-        /* شريط التنقل العلوي مع حرف M على الجانب */
+        /* الهيدر العلوي */
         header {
             display: flex;
             justify-content: space-between;
@@ -207,7 +206,7 @@
         main {
             flex: 1;
             padding: 40px;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             width: 100%;
         }
@@ -226,28 +225,121 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* واجهة الترحيب */
-        .hero-banner {
-            text-align: right;
-            padding: 70px 40px;
-            background: var(--card-bg);
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        /* واجهة الرئيسية المطابقة للصورة تماماً */
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 50px;
+            padding: 40px 20px;
         }
 
-        .hero-banner h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
+        .hero-left-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 400px;
+        }
+
+        /* الدائرة الكبيرة المضيئة في المنتصف */
+        .big-glowing-circle {
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, #00f2fe 0%, #00c6ff 30%, #10b981 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.4), inset 0 0 30px rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #0b0f19;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .big-glowing-circle span {
+            color: #0b0f19;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+
+        .badge-floating-1, .badge-floating-2 {
+            position: absolute;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .badge-floating-1 {
+            top: 40px;
+            right: 20px;
+        }
+
+        .badge-floating-2 {
+            bottom: 40px;
+            left: 20px;
+        }
+
+        .hero-right-text {
+            text-align: right;
+        }
+
+        .hero-right-text .subtitle-tag {
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .hero-right-text h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
             color: white;
         }
 
-        .hero-banner p {
-            color: var(--text-muted);
-            font-size: 18px;
+        .hero-right-text h1 span {
+            color: #facc15;
         }
 
-        /* البطاقات والأقسام */
+        .hero-right-text p {
+            color: var(--text-muted);
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-action-hero {
+            background: #0ea5e9;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-action-hero:hover {
+            background: #0284c7;
+        }
+
+        /* البطاقات والأقسام العامة */
         .card-box {
             background: var(--card-bg);
             padding: 30px;
@@ -399,7 +491,7 @@
         </div>
     </div>
 
-    <!-- الشريط العلوي مع اللوجو على الجانب -->
+    <!-- الشريط العلوي مع حرف M على الجانب -->
     <header>
         <div class="logo-area">
             <div class="side-logo-m">M</div>
@@ -408,7 +500,7 @@
         <nav>
             <ul>
                 <li><a class="nav-link active" onclick="switchPage('home', event)">الرئيسية</a></li>
-                <li><a class="nav-link" onclick="switchPage('habits', event)">العادات اليومية</a></li>
+                <li><a class="nav-link" onclick="switchPage('habits', event)">متبع العادات</a></li>
                 <li><a class="nav-link" onclick="switchPage('health', event)">الصحة واللياقة</a></li>
                 <li><a class="nav-link" onclick="switchPage('support', event)">الدعم</a></li>
             </ul>
@@ -422,11 +514,28 @@
 
     <!-- المحتوى -->
     <main>
-        <!-- 1. الرئيسية -->
+        <!-- 1. الرئيسية المطابقة للصورة -->
         <section id="home" class="page-section active-section">
-            <div class="hero-banner">
-                <h1>مرحباً بك في MOOD</h1>
-                <p>نظّم عاداتك، تتبع سعراتك وصحتك، وكن نسخة أفضل من نفسك كل يوم.</p>
+            <div class="hero-container">
+                <div class="hero-left-visual">
+                    <div class="badge-floating-1">🔥 التزام مستمر</div>
+                    <div class="big-glowing-circle">
+                        0 عادات نشطة
+                        <span>متابعة ذكية</span>
+                    </div>
+                    <div class="badge-floating-2">⚡ إنجاز سريع</div>
+                </div>
+                <div class="hero-right-text">
+                    <div class="subtitle-tag">التطبيق الأفضل لتنظيم يومك</div>
+                    <h1>ابني حياتك،<br>يوماً بـ<span>يوم.</span></h1>
+                    <p>تطبيق احترافي يساعدك على تتبع عاداتك اليومية، الحفاظ على استمراريتك، وتحقيق أهدافك بذكاء وسهولة تامة.</p>
+                    <button class="btn-action-hero" onclick="switchPage('habits', event)">ابدأ متبع العادات ←</button>
+                </div>
+            </div>
+
+            <div class="card-box" style="margin-top: 40px; text-align: center;">
+                <h2 style="font-size: 24px; margin-bottom: 10px;">لوحة التحكم بالعادات</h2>
+                <p style="color: var(--text-muted);">أضف عاداتك اليومية وتابع تقدمك بانتظام.</p>
             </div>
         </section>
 
@@ -491,22 +600,6 @@
     <script>
         let isRegisterMode = false;
         let currentUser = null;
-
-        function playClickSound() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.15);
-            } catch (e) {}
-        }
 
         function togglePasswordVisibility() {
             const passInput = document.getElementById('auth-pass');
@@ -591,7 +684,9 @@
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active-section');
-            if (event) event.target.classList.add('active');
+            if (event && event.target.classList.contains('nav-link')) {
+                event.target.classList.add('active');
+            }
         }
 
         function addHabit() {
@@ -605,7 +700,6 @@
             
             input.value = '';
             loadHabits();
-            playClickSound();
         }
 
         function deleteHabit(index) {
