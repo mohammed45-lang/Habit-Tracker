@@ -15,7 +15,6 @@
             --border-color: #1e293b;
             --danger-color: #ef4444;
             --success-color: #22c55e;
-            --gradient-bg: radial-gradient(circle at center, #132238 0%, #0b0f19 70%);
         }
 
         * {
@@ -146,18 +145,21 @@
             gap: 12px;
         }
 
+        /* اللوجو الصغير على الشمال في الهيدر */
         .side-logo-m {
-            width: 45px;
-            height: 45px;
-            background: var(--primary-color);
-            color: #0b0f19;
-            font-size: 26px;
-            font-weight: bold;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #131b2e 0%, #0b0f19 100%);
+            border: 2px solid #00f2fe;
+            color: white;
+            font-size: 24px;
+            font-weight: 900;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+            text-shadow: 0 0 10px #00f2fe;
         }
 
         .logo-text {
@@ -225,7 +227,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* واجهة الرئيسية المطابقة للصورة تماماً */
+        /* واجهة الرئيسية */
         .hero-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -239,33 +241,41 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            height: 400px;
+            height: 420px;
         }
 
-        /* الدائرة الكبيرة المضيئة في المنتصف */
+        /* الدائرة الكبيرة وفيها اللوجو الفخم */
         .big-glowing-circle {
-            width: 280px;
-            height: 280px;
-            background: radial-gradient(circle, #00f2fe 0%, #00c6ff 30%, #10b981 100%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #132238 0%, #0b0f19 80%);
+            border: 3px solid rgba(0, 242, 254, 0.4);
             border-radius: 50%;
-            box-shadow: 0 0 50px rgba(16, 185, 129, 0.4), inset 0 0 30px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.25), inset 0 0 30px rgba(0, 242, 254, 0.15);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #0b0f19;
-            font-weight: bold;
             position: relative;
         }
 
+        .circle-logo-m {
+            font-size: 72px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 20px #00f2fe, 0 0 40px #00c6ff;
+            letter-spacing: -2px;
+            margin-bottom: 5px;
+        }
+
         .big-glowing-circle span {
-            color: #0b0f19;
-            font-size: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 6px 15px;
+            color: #94a3b8;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px 14px;
             border-radius: 20px;
-            margin-top: 10px;
+            border: 1px solid var(--border-color);
         }
 
         .badge-floating-1, .badge-floating-2 {
@@ -281,12 +291,12 @@
 
         .badge-floating-1 {
             top: 40px;
-            right: 20px;
+            right: 10px;
         }
 
         .badge-floating-2 {
             bottom: 40px;
-            left: 20px;
+            left: 10px;
         }
 
         .hero-right-text {
@@ -491,7 +501,7 @@
         </div>
     </div>
 
-    <!-- الشريط العلوي مع حرف M على الجانب -->
+    <!-- الشريط العلوي مع اللوجو الفخم على الجانب -->
     <header>
         <div class="logo-area">
             <div class="side-logo-m">M</div>
@@ -514,13 +524,13 @@
 
     <!-- المحتوى -->
     <main>
-        <!-- 1. الرئيسية المطابقة للصورة -->
+        <!-- 1. الرئيسية -->
         <section id="home" class="page-section active-section">
             <div class="hero-container">
                 <div class="hero-left-visual">
                     <div class="badge-floating-1">🔥 التزام مستمر</div>
                     <div class="big-glowing-circle">
-                        0 عادات نشطة
+                        <div class="circle-logo-m">M</div>
                         <span>متابعة ذكية</span>
                     </div>
                     <div class="badge-floating-2">⚡ إنجاز سريع</div>
@@ -531,11 +541,6 @@
                     <p>تطبيق احترافي يساعدك على تتبع عاداتك اليومية، الحفاظ على استمراريتك، وتحقيق أهدافك بذكاء وسهولة تامة.</p>
                     <button class="btn-action-hero" onclick="switchPage('habits', event)">ابدأ متبع العادات ←</button>
                 </div>
-            </div>
-
-            <div class="card-box" style="margin-top: 40px; text-align: center;">
-                <h2 style="font-size: 24px; margin-bottom: 10px;">لوحة التحكم بالعادات</h2>
-                <p style="color: var(--text-muted);">أضف عاداتك اليومية وتابع تقدمك بانتظام.</p>
             </div>
         </section>
 
