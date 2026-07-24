@@ -3,9 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOOD - ابني حياتك يوماً بيوم</title>
+    <title>MOOD - النظام الشامل المتكامل لإدارة الحياة والإنتاجية[cite: 6]</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="MOOD - تطبيق شامل لمتابعة العادات، إدارة الصحة، الإنتاجية، وتحفيز الألعاب (Gamification) لتنظيم حياتك اليومية وتحقيق أهدافك بكفاءة عالية.[cite: 6]">
+    <meta name="keywords" content="إنتاجية, إدارة الحياة, تتبع العادات, بومودورو, مصفوفة أيزنهاور, تنظيم الوقت, تتبع النوم, تطبيق تحفيزي, MOOD[cite: 6]">
+    <meta name="author" content="MOOD System[cite: 6]">
+    <meta name="robots" content="index, follow[cite: 6]">
+    <link rel="canonical" href="https://mood-65023.firebaseapp.com/">
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mood-65023.firebaseapp.com/">
+    <meta property="og:title" content="MOOD - النظام الشامل المتكامل لإدارة الحياة والإنتاجية[cite: 6]">
+    <meta property="og:description" content="تطبيق شامل لمتابعة العادات، إدارة الصحة، الإنتاجية، وتحفيز الألعاب (Gamification) لتنظيم حياتك اليومية.[cite: 6]">
+    <meta property="og:locale" content="ar_AR">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MOOD - النظام الشامل المتكامل لإدارة الحياة والإنتاجية[cite: 6]">
+    <meta name="twitter:description" content="تطبيق شامل لمتابعة العادات، إدارة الصحة، الإنتاجية، وتحفيز الألعاب لتنظيم حياتك اليومية.[cite: 6]">
+
+    <!-- Structured Data (JSON-LD) for Google Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "MOOD",
+      "url": "https://mood-65023.firebaseapp.com/",
+      "description": "النظام الشامل المتكامل لإدارة الحياة والإنتاجية ومتابعة العادات.",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "All",
+      "inLanguage": "ar"
+    }
+    </script>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b0f19'/%3E%3Ctext x='50' y='68' font-size='55' font-weight='900' fill='%23f59e0b' text-anchor='middle' font-family='Arial'%3EM%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK (Modular) with User Real Config & Auth -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyD4E4qDR4hI9-fvBewrse94ytrg-_6tXkw",
+            authDomain: "mood-65023.firebaseapp.com",
+            projectId: "mood-65023",
+            storageBucket: "mood-65023.firebasestorage.app",
+            messagingSenderId: "534852807934",
+            appId: "1:534852807934:web:4e3d9685bc91a4fbfbc9af",
+            measurementId: "G-PD03M87ZP6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        window.db = db;
+        window.auth = auth;
+        window.GoogleAuthProvider = GoogleAuthProvider;
+        window.signInWithPopup = signInWithPopup;
+        window.signInWithRedirect = signInWithRedirect;
+        window.getRedirectResult = getRedirectResult;
+        window.firebaseFirestore = { collection, doc, setDoc, getDocs, getDoc };
+    </script>
+
     <style>
-        /* تعريف الثيمات المختلفة */
         :root[data-theme="gold"] {
             --primary-color: #f59e0b;
             --primary-hover: #d97706;
@@ -15,7 +82,6 @@
             --side-logo-border: #f59e0b;
             --side-logo-shadow: rgba(245, 158, 11, 0.5);
         }
-
         :root[data-theme="blue"] {
             --primary-color: #0ea5e9;
             --primary-hover: #0284c7;
@@ -25,7 +91,6 @@
             --side-logo-border: #00f2fe;
             --side-logo-shadow: rgba(0, 242, 254, 0.5);
         }
-
         :root[data-theme="emerald"] {
             --primary-color: #10b981;
             --primary-hover: #059669;
@@ -34,6 +99,42 @@
             --circle-bg: radial-gradient(circle, #133827 0%, #0b0f19 80%);
             --side-logo-border: #10b981;
             --side-logo-shadow: rgba(16, 185, 129, 0.5);
+        }
+        :root[data-theme="purple"] {
+            --primary-color: #a855f7;
+            --primary-hover: #9333ea;
+            --accent-glow: rgba(168, 85, 247, 0.4);
+            --badge-bg: rgba(168, 85, 247, 0.1);
+            --circle-bg: radial-gradient(circle, #2a1b3d 0%, #0b0f19 80%);
+            --side-logo-border: #a855f7;
+            --side-logo-shadow: rgba(168, 85, 247, 0.5);
+        }
+        :root[data-theme="rose"] {
+            --primary-color: #f43f5e;
+            --primary-hover: #e11d48;
+            --accent-glow: rgba(244, 63, 94, 0.4);
+            --badge-bg: rgba(244, 63, 94, 0.1);
+            --circle-bg: radial-gradient(circle, #3d1b24 0%, #0b0f19 80%);
+            --side-logo-border: #f43f5e;
+            --side-logo-shadow: rgba(244, 63, 94, 0.5);
+        }
+        :root[data-theme="cyberpunk"] {
+            --primary-color: #00f2fe;
+            --primary-hover: #4facfe;
+            --accent-glow: rgba(0, 242, 254, 0.5);
+            --badge-bg: rgba(0, 242, 254, 0.15);
+            --circle-bg: radial-gradient(circle, #0f2027 0%, #0b0f19 80%);
+            --side-logo-border: #00f2fe;
+            --side-logo-shadow: rgba(0, 242, 254, 0.7);
+        }
+        :root[data-theme="forest"] {
+            --primary-color: #22c55e;
+            --primary-hover: #16a34a;
+            --accent-glow: rgba(34, 197, 94, 0.4);
+            --badge-bg: rgba(34, 197, 94, 0.1);
+            --circle-bg: radial-gradient(circle, #14271c 0%, #0b0f19 80%);
+            --side-logo-border: #22c55e;
+            --side-logo-shadow: rgba(34, 197, 94, 0.5);
         }
 
         :root {
@@ -51,7 +152,36 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary-color) !important;
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            outline: none;
+        }
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        input, textarea, button, select {
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 15px;
+            color: var(--text-muted);
+        }
+        .empty-state span {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 10px;
         }
 
         body {
@@ -61,9 +191,119 @@
             display: flex;
             flex-direction: column;
             transition: background 0.3s ease;
+            cursor: default;
+            overflow-x: hidden;
         }
 
-        /* نافذة تسجيل الدخول */
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .background-effects span {
+            position: absolute;
+            display: block;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: var(--accent-glow);
+            filter: blur(120px);
+            animation: float 15s infinite alternate;
+            opacity: .25;
+        }
+
+        .background-effects span:nth-child(1) { top: -200px; left: -100px; }
+        .background-effects span:nth-child(2) { top: 20%; right: -150px; }
+        .background-effects span:nth-child(3) { bottom: -250px; left: 20%; }
+        .background-effects span:nth-child(4) { bottom: 10%; right: 10%; }
+        .background-effects span:nth-child(5) { top: 45%; left: 45%; }
+
+        @keyframes float {
+            from { transform: translateY(-40px) scale(1); }
+            to { transform: translateY(40px) scale(1.2); }
+        }
+
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #070a12;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loading-logo {
+            font-size: 64px;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px var(--accent-glow);
+            animation: pulseLogo 1.5s infinite alternate;
+            margin-bottom: 20px;
+        }
+        @keyframes pulseLogo {
+            from { transform: scale(1); opacity: 0.8; }
+            to { transform: scale(1.1); opacity: 1; }
+        }
+        .loading-bar-container {
+            width: 250px;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .loading-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.2s linear;
+        }
+
+        .glow {
+            position: fixed;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            pointer-events: none;
+            filter: blur(12px);
+            opacity: .5;
+            z-index: 99999;
+            transition: transform 0.1s ease;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 16px 28px;
+            background: #131b2e;
+            border: 1px solid var(--primary-color);
+            border-radius: 12px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 99999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
         #auth-modal {
             position: fixed;
             top: 0;
@@ -74,41 +314,50 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 10000;
+            backdrop-filter: blur(20px);
         }
 
         .auth-card {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 35px 30px;
             border-radius: 20px;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             border: 1px solid var(--border-color);
             text-align: center;
         }
 
         .auth-card h2 {
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             color: var(--primary-color);
-            font-size: 24px;
+            font-size: 26px;
+        }
+
+        .auth-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
         }
 
         .auth-card input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             color: white;
             font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
         }
 
         .password-wrapper {
             position: relative;
             width: 100%;
-            margin-bottom: 12px;
+            margin-bottom: 5px;
         }
 
         .password-wrapper input {
@@ -139,7 +388,8 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-            margin-top: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .auth-card button[type="submit"]:hover {
@@ -148,7 +398,7 @@
         }
 
         .toggle-auth {
-            margin-top: 15px;
+            margin-top: 18px;
             color: var(--text-muted);
             font-size: 14px;
             cursor: pointer;
@@ -178,11 +428,6 @@
             cursor: pointer;
             background: var(--bg-color);
             position: relative;
-            transition: border-color 0.2s;
-        }
-
-        .auth-avatar-circle:hover {
-            border-style: solid;
         }
 
         .auth-avatar-circle img {
@@ -191,12 +436,6 @@
             object-fit: cover;
         }
 
-        .auth-avatar-placeholder {
-            font-size: 22px;
-            color: var(--text-muted);
-        }
-
-        /* نافذة معلومات الحساب والتقدم */
         #profile-modal {
             position: fixed;
             top: 0;
@@ -207,8 +446,8 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1100;
-            backdrop-filter: blur(5px);
+            z-index: 11000;
+            backdrop-filter: blur(10px);
         }
 
         .profile-card {
@@ -216,11 +455,13 @@
             padding: 30px;
             border-radius: 20px;
             width: 100%;
-            max-width: 420px;
+            max-width: 480px;
             border: 1px solid var(--border-color);
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .close-modal {
@@ -250,6 +491,10 @@
             background: var(--bg-color);
         }
 
+        .profile-avatar-container.frame-gold .profile-avatar { border: 4px solid #f59e0b; box-shadow: 0 0 15px rgba(245, 158, 11, 0.6); }
+        .profile-avatar-container.frame-neon .profile-avatar { border: 4px solid #00f2fe; box-shadow: 0 0 20px rgba(0, 242, 254, 0.8); }
+        .profile-avatar-container.frame-crown .profile-avatar { border: 4px solid #a855f7; box-shadow: 0 0 20px rgba(168, 85, 247, 0.8); }
+
         .avatar-upload-label {
             position: absolute;
             bottom: 0;
@@ -264,43 +509,19 @@
             justify-content: center;
             cursor: pointer;
             font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        .progress-box {
-            background: var(--bg-color);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin: 20px 0;
-            text-align: right;
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            background: var(--border-color);
-            height: 8px;
-            border-radius: 4px;
-            margin-top: 8px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: var(--primary-color);
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-        /* الهيدر العلوي */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
+            padding: 15px 40px;
             border-bottom: 1px solid var(--border-color);
-            background: rgba(19, 27, 46, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(19, 27, 46, 0.85);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 999;
             flex-wrap: wrap;
             gap: 15px;
         }
@@ -312,23 +533,22 @@
         }
 
         .side-logo-m {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, #131b2e 0%, #0b0f19 100%);
             border: 2px solid var(--side-logo-border);
             color: white;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 900;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
             box-shadow: 0 0 15px var(--side-logo-shadow);
-            text-shadow: 0 0 10px var(--side-logo-border);
         }
 
         .logo-text {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             color: white;
             letter-spacing: 1px;
@@ -337,7 +557,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
@@ -347,22 +567,37 @@
             font-weight: 500;
             cursor: pointer;
             transition: color 0.2s;
-            font-size: 15px;
+            font-size: 14px;
+            padding: 6px 10px;
+            border-radius: 8px;
         }
 
         nav ul li a:hover, nav ul li a.active {
             color: var(--primary-color);
+            background: var(--badge-bg);
         }
 
         .user-panel {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+        }
+
+        .coin-badge, .streak-badge, .level-badge {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .header-profile-circle {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 2px solid var(--primary-color);
             cursor: pointer;
@@ -371,12 +606,6 @@
             align-items: center;
             justify-content: center;
             background: var(--card-bg);
-            box-shadow: 0 0 10px var(--accent-glow);
-            transition: transform 0.2s;
-        }
-
-        .header-profile-circle:hover {
-            transform: scale(1.08);
         }
 
         .header-profile-circle img {
@@ -385,380 +614,277 @@
             object-fit: cover;
         }
 
-        .theme-switcher {
-            display: flex;
-            gap: 6px;
-            background: var(--bg-color);
-            padding: 5px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-        }
-
-        .theme-btn {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .theme-btn:hover {
-            transform: scale(1.15);
-        }
-
-        .theme-btn.gold { background: #f59e0b; }
-        .theme-btn.blue { background: #0ea5e9; }
-        .theme-btn.emerald { background: #10b981; }
-
-        .btn-danger {
-            background: var(--danger-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        /* المحتوى الرئيسي */
         main {
             flex: 1;
-            padding: 40px;
-            max-width: 1300px;
+            padding: 30px;
+            max-width: 1350px;
             margin: 0 auto;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .page-section {
             display: none;
+            width: 100%;
         }
-
         .page-section.active-section {
             display: block;
-            animation: fadeIn 0.4s ease-in-out;
+            animation: fadeIn 0.5s ease;
         }
-
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: none; }
         }
 
-        /* واجهة الرئيسية */
-        .hero-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 50px;
-            padding: 40px 20px;
-        }
-
-        @media (max-width: 768px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-right-text {
-                text-align: center !important;
-            }
-            header {
-                padding: 15px 20px;
-                justify-content: center;
-            }
-            nav ul {
-                justify-content: center;
-            }
-            main {
-                padding: 20px;
-            }
-            .health-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-
-        .hero-left-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            height: 420px;
-        }
-
-        .big-glowing-circle {
-            width: 300px;
-            height: 300px;
-            background: var(--circle-bg);
-            border: 3px solid var(--accent-glow);
-            border-radius: 50%;
-            box-shadow: 0 0 50px var(--accent-glow), inset 0 0 30px var(--accent-glow);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .circle-logo-m {
-            font-size: 72px;
-            font-weight: 900;
-            color: var(--primary-color);
-            text-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
-            letter-spacing: -2px;
-            margin-bottom: 5px;
-        }
-
-        .big-glowing-circle span {
-            color: #94a3b8;
-            font-size: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 5px 14px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-        }
-
-        .badge-floating-1, .badge-floating-2 {
-            position: absolute;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 10px 18px;
-            border-radius: 30px;
-            font-size: 14px;
-            color: white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        .badge-floating-1 { top: 40px; right: 10px; }
-        .badge-floating-2 { bottom: 40px; left: 10px; }
-
-        .hero-right-text {
-            text-align: right;
-        }
-
-        .hero-right-text .subtitle-tag {
-            color: var(--primary-color);
-            background: var(--badge-bg);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            display: inline-block;
-            margin-bottom: 20px;
-            border: 1px solid var(--accent-glow);
-        }
-
-        .hero-right-text h1 {
-            font-size: 48px;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .hero-right-text h1 .gold-word {
-            color: var(--gold-word);
-            text-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
-        }
-
-        .hero-right-text p {
-            color: var(--text-muted);
-            font-size: 17px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .btn-action-hero {
-            background: var(--primary-color);
-            color: #0b0f19;
-            padding: 14px 28px;
-            border-radius: 12px;
-            border: none;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 10px 20px var(--accent-glow);
-        }
-
-        .btn-action-hero:hover {
-            background: var(--primary-hover);
-            color: white;
-        }
-
-        /* البطاقات والأقسام العامة */
         .card-box {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
             margin-bottom: 25px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
-
+        .card-box:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 25px var(--accent-glow), 0 20px 40px rgba(0,0,0,0.4);
+        }
         .card-box h2 {
             margin-bottom: 20px;
             color: var(--primary-color);
             font-size: 22px;
-        }
-
-        /* العادات اليومية */
-        .habit-input-group {
             display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .habit-input-group input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px 15px;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-        }
-
-        .btn-primary {
-            padding: 12px 25px;
-            background: var(--primary-color);
-            color: #0b0f19;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            color: white;
-        }
-
-        .habits-list {
-            list-style: none;
-        }
-
-        .habit-item {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
             gap: 10px;
         }
 
-        .habit-actions button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            margin-left: 10px;
-        }
-
-        /* الصحة واللياقة */
-        .health-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .calc-form label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-muted);
-        }
-
-        .calc-form input, .calc-form select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
+        .calendar-day {
             background: var(--bg-color);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            color: white;
-        }
-
-        .result-box {
-            background: var(--bg-color);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
+            padding: 14px 0;
             text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+            user-select: none;
+        }
+        .calendar-day:hover:not(.disabled) {
+            border-color: var(--primary-color);
+        }
+        .calendar-day.empty {
+            background: transparent;
+            border: none;
+            cursor: default;
+        }
+        .calendar-day.today {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+        .calendar-day.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .hero-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 60px;
+            padding: 40px 0;
+        }
+        @media(max-width: 968px) {
+            .hero-container { flex-direction: column; text-align: center; gap: 40px; }
+            .hero-right-text { text-align: center !important; }
+            header { padding: 10px 15px; }
+        }
+
+        .big-glowing-circle {
+            width: 380px;
+            height: 380px;
+            background: var(--circle-bg);
+            border: 3px solid var(--accent-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 70px var(--accent-glow), inset 0 0 40px var(--accent-glow);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            margin: 0 auto;
+        }
+        .circle-logo-m {
+            font-size: 96px;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-shadow: 0 0 30px var(--accent-glow);
+            line-height: 1;
+            margin-bottom: 10px;
         }
 
-        .result-box h3 {
-            color: var(--success-color);
-            font-size: 26px;
-            margin-top: 10px;
+        .btn-primary {
+            padding: 14px 30px;
+            background: var(--primary-color);
+            color: #0b0f19;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px var(--accent-glow);
         }
 
-        /* لوحة المتصدرين */
-        .leaderboard-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
         }
+        @media(max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
 
-        .leaderboard-item {
+        .habit-item, .task-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 14px 18px;
             background: var(--bg-color);
-            padding: 18px 25px;
-            border-radius: 14px;
             border: 1px solid var(--border-color);
-            font-size: 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            gap: 10px;
+            transition: border-color 0.2s ease, transform 0.2s ease;
         }
-
-        .leaderboard-item.top-rank {
+        .habit-item:hover, .task-item:hover {
             border-color: var(--primary-color);
-            background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, var(--bg-color) 100%);
-            box-shadow: 0 0 20px var(--accent-glow);
-            transform: scale(1.01);
         }
 
-        /* الدعم والإيميل */
-        .support-form input, .support-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
+        .pomodoro-container {
+            text-align: center;
+            padding: 20px;
+        }
+        .pomodoro-timer {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin: 20px 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .tracker-card {
             background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
         }
 
-        .support-form textarea {
-            height: 135px;
-            resize: vertical;
+        .store-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .store-tab-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .store-tab-btn.active {
+            background: var(--primary-color);
+            color: #0b0f19;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .store-section-content {
+            display: none;
+        }
+        .store-section-content.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .themes-grid, .achievements-grid, .frames-grid, .boosters-grid, .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        .theme-shop-card, .achievement-card, .frame-shop-card, .booster-shop-card, .reward-shop-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+        }
+        .achievement-card.locked {
+            opacity: 0.5;
+            filter: grayscale(1);
         }
     </style>
 </head>
 <body>
 
-    <!-- نافذة تسجيل الدخول -->
+    <div id="loading-screen">
+        <div class="loading-logo">MOOD</div>
+        <div class="loading-bar-container">
+            <div id="loading-bar-fill" class="loading-bar-fill"></div>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 15px; font-size: 14px;">جاري تحميل النظام والبيانات...</p>
+    </div>
+
+    <div class="background-effects">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="glow"></div>
+
+    <div id="toast">
+        <span id="toast-icon">✨</span>
+        <span id="toast-msg">رسالة إشعار</span>
+    </div>
+
     <div id="auth-modal">
         <div class="auth-card">
             <h2 id="auth-title">تسجيل الدخول لـ MOOD</h2>
+            <p id="auth-subtitle">النظام المتكامل لإدارة الحياة والإنتاجية</p>
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <input type="text" id="auth-name" placeholder="اسم المستخدم" style="display: none;">
-
-                <div id="auth-avatar-section" class="auth-avatar-section" style="display: none;">
-                    <div class="auth-avatar-upload" title="اختر صورة البروفايل">
+                
+                <div id="auth-avatar-section" style="display: none;">
+                    <div class="auth-avatar-upload">
                         <label for="auth-avatar-input" class="auth-avatar-circle">
-                            <img id="auth-avatar-preview" src="" alt="" style="display: none;">
-                            <span id="auth-avatar-placeholder" class="auth-avatar-placeholder">📷</span>
+                            <img id="auth-avatar-preview" src="" alt="صورة الملف الشخصي" style="display: none;">
+                            <span id="auth-avatar-placeholder">📷</span>
                         </label>
                         <input type="file" id="auth-avatar-input" accept="image/*" style="display: none;" onchange="previewAuthAvatar(event)">
-                        <span style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">اضغط لإضافة صورة البروفايل</span>
                     </div>
                 </div>
 
@@ -768,50 +894,74 @@
                     <input type="password" id="auth-pass" placeholder="كلمة المرور" required>
                     <button type="button" class="toggle-password" id="eye-btn" onclick="togglePasswordVisibility()">👁️</button>
                 </div>
+                <small id="password-hint" style="color: var(--text-muted); font-size: 12px; display: none; margin-top: 6px; text-align: right; display: block;">كلمة المرور يجب أن تكون 6 أحرف على الأقل</small>
 
-                <button type="submit" id="auth-btn">دخول</button>
+                <button type="submit" id="auth-btn">تسجيل الدخول</button>
             </form>
+
+            <button type="button" class="btn-primary" style="width: 100%; background: #ffffff; color: #1e293b; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; border-radius: 10px; padding: 12px;" onclick="handleGoogleSignIn()">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.19v3.14C3.21 21.37 7.27 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.62H1.19C.43 8.15 0 9.89 0 11.7s.43 3.55 1.19 5.08l4.08-2.54z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.27 0 3.21 2.63 1.19 6.62l4.08 3.14c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+                التسجيل باستخدام جوجل
+            </button>
+
             <div class="toggle-auth" onclick="toggleAuthMode()">
                 <span id="toggle-text">ليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد</span>
             </div>
         </div>
     </div>
 
-    <!-- نافذة معلومات الحساب والتقدم -->
     <div id="profile-modal">
         <div class="profile-card">
             <button class="close-modal" onclick="toggleProfileModal(false)">✕</button>
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;">الملف الشخصي والإنجازات</h3>
             
-            <h3 style="color: var(--primary-color); margin-bottom: 20px;">معلومات الحساب والتقدم</h3>
-            
-            <div class="profile-avatar-container">
-                <img id="modal-avatar-img" src="https://via.placeholder.com/150" alt="صورة البروفايل" class="profile-avatar">
+            <div class="profile-avatar-container" id="profile-modal-avatar-wrapper">
+                <img id="modal-avatar-img" src="" alt="صورة الملف الشخصي" class="profile-avatar">
                 <label for="avatar-file-input" class="avatar-upload-label" title="تغيير الصورة">📷</label>
                 <input type="file" id="avatar-file-input" accept="image/*" style="display: none;" onchange="updateAvatar(event)">
             </div>
 
             <h4 id="modal-user-name" style="color: white; margin-bottom: 5px;">مستخدم MOOD</h4>
-            <p id="modal-user-email" style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">email@domain.com</p>
+            <p id="modal-user-email" style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">email@domain.com</p>
 
-            <div class="progress-box">
-                <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px;">
-                    <span>معدل إنجاز العادات:</span>
-                    <span id="progress-percent" style="color: var(--primary-color); font-weight: bold;">0%</span>
+            <div style="background: var(--bg-color); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 15px; text-align: right;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: bold;">
+                    <span id="profile-level-text">المستوى 1</span>
+                    <span id="profile-xp-text" style="color: var(--primary-color);">0 / 100 XP</span>
                 </div>
-                <div class="progress-bar-container">
-                    <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                <div style="width: 100%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden;">
+                    <div id="profile-xp-fill" style="height: 100%; background: var(--primary-color); width: 0%;"></div>
                 </div>
-                <p id="progress-details" style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">تم إنجاز 0 من أصل 0 عادة</p>
             </div>
 
-            <div style="display: flex; gap: 10px; margin-top: 25px;">
-                <button class="btn-danger" style="flex: 1;" onclick="deleteAccount()">حذف الحساب</button>
-                <button class="btn-danger" style="flex: 1; background: #334155;" onclick="logout()">تسجيل الخروج</button>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                <div style="background: var(--bg-color); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--text-muted); font-size: 12px;">Coins المتاحة</div>
+                    <div id="profile-coins" style="font-size: 20px; font-weight: bold; color: var(--primary-color);">0 🪙</div>
+                </div>
+                <div style="background: var(--bg-color); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--text-muted); font-size: 12px;">Streak الحالي</div>
+                    <div id="profile-streak" style="font-size: 20px; font-weight: bold; color: var(--success-color);">0 أيام 🔥</div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-primary" style="flex: 1; background: #ef4444; color: white;" onclick="deleteAccount()">حذف الحساب</button>
+                <button class="btn-primary" style="flex: 1; background: #334155; color: white;" onclick="logout()">تسجيل الخروج</button>
             </div>
         </div>
     </div>
 
-    <!-- الهيدر العلوي المتجاوب -->
+    <!-- نافذة عرض عادات اليوم عند الضغط على التقويم -->
+    <div id="day-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 10, 18, 0.85); display: none; justify-content: center; align-items: center; z-index: 12000; backdrop-filter: blur(10px);">
+        <div class="profile-card" style="max-width: 450px; text-align: right;">
+            <button class="close-modal" onclick="closeDayModal()">✕</button>
+            <h3 id="day-modal-title" style="color: var(--primary-color); margin-bottom: 15px;">عادات اليوم</h3>
+            <div id="day-modal-habits-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;"></div>
+            <button class="btn-primary" style="width: 100%;" onclick="closeDayModal()">إغلاق</button>
+        </div>
+    </div>
+
     <header>
         <div class="logo-area">
             <div class="side-logo-m">M</div>
@@ -820,133 +970,380 @@
         <nav>
             <ul>
                 <li><a class="nav-link active" onclick="switchPage('home', event)">الرئيسية</a></li>
-                <li><a class="nav-link" onclick="switchPage('habits', event)">متابعة العادات</a></li>
-                <li><a class="nav-link" onclick="switchPage('health', event)">الصحة واللياقة</a></li>
-                <li><a class="nav-link" onclick="switchPage('leaderboard', event)">المتصدّرين</a></li>
-                <li><a class="nav-link" onclick="switchPage('support', event)">الدعم</a></li>
+                <li><a class="nav-link" onclick="switchPage('habits', event)">العادات</a></li>
+                <li><a class="nav-link" onclick="switchPage('challenges', event)">تحديات 30 يوماً</a></li>
+                <li><a class="nav-link" onclick="switchPage('health', event)">الصحة والإنتاجية</a></li>
+                <li><a class="nav-link" onclick="switchPage('store', event)">المتجر والإنجازات</a></li>
+                <li><a class="nav-link" onclick="switchPage('community', event)">المجتمع</a></li>
+                <li><a class="nav-link" onclick="switchPage('ai', event)">AI Coach</a></li>
             </ul>
         </nav>
         <div class="user-panel">
-            <div class="theme-switcher" title="تغيير لون التطبيق">
-                <button class="theme-btn gold" onclick="setTheme('gold')" title="ذهبي"></button>
-                <button class="theme-btn blue" onclick="setTheme('blue')" title="أزرق"></button>
-                <button class="theme-btn emerald" onclick="setTheme('emerald')" title="أخضر"></button>
-            </div>
+            <div class="level-badge" id="nav-level">⭐ Lv.1</div>
+            <div class="coin-badge" id="nav-coins">🪙 0</div>
+            <div class="streak-badge" id="nav-streak">🔥 0</div>
 
-            <div class="header-profile-circle" onclick="toggleProfileModal(true)" title="عرض معلومات الحساب والتقدم">
-                <img id="header-avatar-img" src="https://via.placeholder.com/150" alt="البروفايل">
+            <div class="header-profile-circle" id="header-avatar-wrapper" onclick="toggleProfileModal(true)">
+                <img id="header-avatar-img" alt="صورة الملف الشخصي">
             </div>
         </div>
     </header>
 
-    <!-- المحتوى -->
     <main>
-        <!-- 1. الرئيسية -->
         <section id="home" class="page-section active-section">
             <div class="hero-container">
-                <div class="hero-left-visual">
-                    <div class="badge-floating-1">🔥 التزام مستمر</div>
+                <div class="hero-right-visual">
                     <div class="big-glowing-circle">
                         <div class="circle-logo-m">M</div>
-                        <span>متابعة ذكية</span>
+                        <span style="color: var(--text-muted); font-size: 15px; margin-top: 5px;">النظام الذكي</span>
                     </div>
-                    <div class="badge-floating-2">⚡ إنجاز سريع</div>
                 </div>
-                <div class="hero-right-text">
-                    <div class="subtitle-tag">التطبيق الأفضل لتنظيم يومك</div>
-                    <h1>ابني حياتك،<br>يوماً <span class="gold-word">بيوم.</span></h1>
-                    <p>تطبيق احترافي يساعدك على تتبع عاداتك اليومية، الحفاظ على استمراريتك، وتحقيق أهدافك بذكاء وسهولة تامة.</p>
-                    <button class="btn-action-hero" onclick="switchPage('habits', event)">ابدأ بمتابعة العادات ←</button>
+                <div class="hero-left-text" style="flex: 1; text-align: right;">
+                    <span style="color: var(--primary-color); background: var(--badge-bg); padding: 8px 20px; border-radius: 50px; font-size: 1rem; display: inline-block; margin-bottom: 25px; border: 1px solid var(--accent-glow);">أداتك الأولى لتنظيم حياتك والارتقاء بإنتاجيتك</span>
+                    <h1 style="font-size: 4rem; margin-bottom: 25px; line-height: 1.2; font-weight: 800;">ابني مستقبلك،<br>يوماً <span style="color: var(--primary-color);">بيوم.</span></h1>
+                    <p style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.6; margin-bottom: 35px; max-width: 600px;">تطبيق شامل يدمج متابعة العادات، إدارة الصحة، تحليلات الذكاء الاصطناعي، وتحديات الـ 30 يوماً لتعظيم إنجازاتك اليومية[cite: 4].</p>
+                    <button class="btn-primary" onclick="switchPage('habits', event)">ابدأ الآن ←</button>
                 </div>
             </div>
         </section>
 
-        <!-- 2. العادات اليومية -->
         <section id="habits" class="page-section">
             <div class="card-box">
-                <h2>إدارة عاداتك اليومية</h2>
-                <div class="habit-input-group">
-                    <input type="text" id="habit-input" placeholder="أدخل عادة جديدة تود الالتزام بها...">
+                <h2>🎯 إدارة العادات (مصفوفة أيزنهاور)</h2>
+                <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <input type="text" id="habit-input" placeholder="أدخل عادة جديدة..." style="flex: 1; min-width: 200px; padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                    
+                    <select id="habit-category" style="padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                        <option value="q1">🔴 مهم وعاجل</option>
+                        <option value="q2">🟡 مهم وليس عاجل</option>
+                        <option value="q3">🔵 غير مهم ولكن عاجل</option>
+                        <option value="q4">⚪ غير مهم وغير عاجل</option>
+                    </select>
+
                     <button class="btn-primary" onclick="addHabit()">إضافة عادة</button>
                 </div>
-                <ul id="habits-list" class="habits-list"></ul>
+                
+                <div class="matrix-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <div style="background: var(--bg-color); border: 1px solid #ef4444; border-radius: 12px; padding: 15px;">
+                        <h3 style="color: #ef4444; font-size: 16px; margin-bottom: 10px;">مهم وعاجل</h3>
+                        <ul id="habits-q1" style="list-style: none;"></ul>
+                    </div>
+                    <div style="background: var(--bg-color); border: 1px solid #f59e0b; border-radius: 12px; padding: 15px;">
+                        <h3 style="color: #f59e0b; font-size: 16px; margin-bottom: 10px;">مهم وليس عاجل</h3>
+                        <ul id="habits-q2" style="list-style: none;"></ul>
+                    </div>
+                    <div style="background: var(--bg-color); border: 1px solid #3b82f6; border-radius: 12px; padding: 15px;">
+                        <h3 style="color: #3b82f6; font-size: 16px; margin-bottom: 10px;">غير مهم ولكن عاجل</h3>
+                        <ul id="habits-q3" style="list-style: none;"></ul>
+                    </div>
+                    <div style="background: var(--bg-color); border: 1px solid #94a3b8; border-radius: 12px; padding: 15px;">
+                        <h3 style="color: #94a3b8; font-size: 16px; margin-bottom: 10px;">غير مهم وغير عاجل</h3>
+                        <ul id="habits-q4" style="list-style: none;"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تقويم الالتزام أسفل قسم العادات -->
+            <div class="card-box" id="commitment-calendar-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h2 style="margin-bottom: 0;">🗓️ تقويم الالتزام - <span id="calendar-month-year">يوليو 2026</span></h2>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-primary" style="padding: 6px 12px; font-size: 13px; background: #334155; color: white;" onclick="changeMonth(-1)">السابق ←</button>
+                        <button class="btn-primary" style="padding: 6px 12px; font-size: 13px; background: #334155; color: white;" onclick="goToCurrentMonth()">الشهر الحالي</button>
+                        <button class="btn-primary" style="padding: 6px 12px; font-size: 13px; background: #334155; color: white;" onclick="changeMonth(1)">→ التالي</button>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">اضغط على أي يوم لعرض وتعديل العادات المسجلة في ذلك اليوم ✅</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; margin-bottom: 10px; font-weight: bold; color: var(--primary-color); font-size: 14px;">
+                    <div>السبت</div>
+                    <div>الأحد</div>
+                    <div>الإثنين</div>
+                    <div>الثلاثاء</div>
+                    <div>الأربعاء</div>
+                    <div>الخميس</div>
+                    <div>الجمعة</div>
+                </div>
+                
+                <div id="calendar-days-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;"></div>
             </div>
         </section>
 
-        <!-- 3. الصحة واللياقة -->
-        <section id="health" class="page-section">
+        <!-- قسم تحديات الـ 30 يوماً الجديد -->
+        <section id="challenges" class="page-section">
             <div class="card-box">
-                <h2>مؤشرات الصحة واللياقة</h2>
-                <div class="health-grid">
-                    <div class="calc-form">
-                        <label>الوزن (كجم):</label>
-                        <input type="number" id="calc-weight" placeholder="مثال: 75">
-                        
-                        <label>الطول (سم):</label>
-                        <input type="number" id="calc-height" placeholder="مثال: 175">
+                <h2>🚀 تحديات الـ 30 يوماً لبناء العادات المستدامة</h2>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">التزم بتحدٍ لمدّة 30 يوماً لترسيخ عاداتك وتحقيق قفزة نوعية في إنتاجيتك ومستواك[cite: 4]!</p>
+                
+                <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <input type="text" id="challenge-input" placeholder="عنوان التحدي (مثلاً: قراءة 20 صفحة يومياً، الاستيقاظ مبكراً)..." style="flex: 1; min-width: 250px; padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                    <button class="btn-primary" onclick="add30DayChallenge()">بدء التحدي الجديد</button>
+                </div>
 
-                        <label>مستوى النشاط البدني:</label>
-                        <select id="calc-activity">
-                            <option value="1.2">قليل الحركة (بدون تمارينات)</option>
-                            <option value="1.375">نشاط خفيف (تمارين خفيفة 1-3 أيام أسبوعياً)</option>
-                            <option value="1.55">نشاط متوسط (تمارين 3-5 أيام أسبوعياً)</option>
-                            <option value="1.725">نشاط عالي (تمارين مكثفة 6-7 أيام أسبوعياً)</option>
-                        </select>
+                <div id="challenges-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;"></div>
+            </div>
+        </section>
 
-                        <button class="btn-primary" onclick="calculateHealthMetrics()" style="width: 100%;">حساب السعرات والـ BMI</button>
+        <section id="health" class="page-section">
+            <div class="grid-2">
+                <div class="card-box">
+                    <h2>⏱️ مؤقت بومودورو (Pomodoro)</h2>
+                    <div class="pomodoro-container">
+                        <div id="pomo-mode-label" style="color: var(--primary-color); font-weight: bold; margin-bottom: 5px; font-size: 15px;">🎯 جلسة تركيز</div>
+                        <div class="pomodoro-timer" id="pomo-timer">00:25:00</div>
+                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px;">
+                            <button class="btn-primary" id="pomo-start-btn" onclick="startPomodoro()">تشغيل</button>
+                            <button class="btn-primary" style="background: #334155; color: white;" onclick="pausePomodoro()">إيقاف مؤقت</button>
+                            <button class="btn-primary" style="background: #334155; color: white;" onclick="resetPomodoro()">إعادة ضبط</button>
+                        </div>
+                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                            <div>
+                                <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px;">وقت التركيز (دقيقة)</label>
+                                <input type="number" id="pomo-work-input" min="1" max="300" value="25" onchange="updatePomoSettings()" style="width: 90px; padding: 8px; text-align: center; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: white;">
+                            </div>
+                            <div>
+                                <label style="display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px;">وقت الراحة (دقيقة)</label>
+                                <input type="number" id="pomo-break-input" min="1" max="120" value="5" onchange="updatePomoSettings()" style="width: 90px; padding: 8px; text-align: center; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; color: white;">
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="result-box">
-                        <p style="color: var(--text-muted); font-size: 15px;">السعرات الحرارية اليومية (لثبات الوزن):</p>
-                        <h3 id="calories-result">0 سعرة حرارية</h3>
-                        
-                        <p style="color: var(--text-muted); font-size: 15px; margin-top: 15px;">مؤشر كتلة الجسم (BMI):</p>
-                        <h3 id="bmi-result" style="color: var(--primary-color); font-size: 20px;">--</h3>
+                <div class="card-box">
+                    <h2>😴 متابعة النوم والصحة</h2>
+                    <div class="tracker-grid">
+                        <div class="tracker-card">
+                            <div style="color: var(--text-muted);">ساعات النوم الفعلية</div>
+                            <h3 id="sleep-count" style="font-size: 32px; color: var(--primary-color); margin: 10px 0;">0 ساعات</h3>
+                            <div style="display: flex; gap: 8px; justify-content: center;">
+                                <input type="number" id="sleep-input" min="0" max="24" step="0.5" placeholder="عدد الساعات" style="width: 120px; padding: 10px; text-align: center; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                                <button class="btn-primary" id="sleep-btn" onclick="logSleep()">تسجيل 😴 (5 نقاط)</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. لوحة المتصدّرين -->
-        <section id="leaderboard" class="page-section">
+        <section id="store" class="page-section">
             <div class="card-box">
-                <h2>🏆 لوحة المتصدّرين (الأكثر إنجازاً)</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">أكثر المستخدمين التزاماً بإنجاز العادات اليومية وترتيبهم تنازلياً:</p>
-                <ul class="leaderboard-list" id="leaderboard-list"></ul>
+                <h2>🏆 نظام الإنجازات (Achievements)</h2>
+                <div class="achievements-grid" id="achievements-grid"></div>
+            </div>
+
+            <div class="card-box">
+                <h2>🛍️ متجر المكافآت والتخصيص الشامل (MOOD Store)</h2>
+                <div class="store-tabs">
+                    <button class="store-tab-btn active" onclick="switchStoreTab('themes', event)">🎨 الثيمات</button>
+                    <button class="store-tab-btn" onclick="switchStoreTab('frames', event)">🖼️ إطارات البروفايل</button>
+                    <button class="store-tab-btn" onclick="switchStoreTab('boosters', event)">⚡ معززات الإنتاجية</button>
+                    <button class="store-tab-btn" onclick="switchStoreTab('rewards', event)">🎁 مكافآت واقعية</button>
+                </div>
+
+                <div id="store-themes" class="store-section-content active"></div>
+                <div id="store-frames" class="store-section-content"></div>
+                <div id="store-boosters" class="store-section-content"></div>
+                <div id="store-rewards" class="store-section-content"></div>
             </div>
         </section>
 
-        <!-- 5. الدعم والمساعدة الفنية -->
-        <section id="support" class="page-section">
+        <section id="community" class="page-section">
+            <!-- قسم روابط المجتمع والتواصل -->
             <div class="card-box">
-                <h2>الدعم والمساعدة الفنية</h2>
-                <p style="color: var(--text-muted); margin-bottom: 25px;">تواجه مشكلة تقنية أو لديك اقتراح لتطوير المنصة؟ فريقنا جاهز لدعمك على مدار الساعة.</p>
-                
-                <div class="support-form">
-                    <input type="text" id="support-subject" placeholder="عنوان الرسالة (مثال: اقتراح ميزة جديدة)...">
-                    <textarea id="support-message" placeholder="اكتب تفاصيل رسالتك أو المشكلة التي تواجهها هنا..."></textarea>
-                    <button class="btn-primary" onclick="sendSupportMessage()" style="width: 100%;">إرسال الرسالة الآن ✉️</button>
+                <h2>🌐 مجتمع MOOD وروابط التواصل</h2>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">انضم إلى مجتمعنا على الديسكورد وتتابع قناتنا على اليوتيوب للمزيد من المحتوى والتحديثات!</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                    <a href="https://discord.gg/QRAWXSF6M" target="_blank" style="text-decoration: none;">
+                        <div style="background: var(--bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; text-align: center; transition: 0.2s; cursor: pointer;" onmouseover="this.style.borderColor='var(--primary-color)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                            <div style="font-size: 32px; margin-bottom: 10px;">💬</div>
+                            <h4 style="color: white; margin-bottom: 5px;">سيرفر الديسكورد</h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">انضم لمجتمع النقاش والفعاليات</p>
+                        </div>
+                    </a>
+                    <a href="https://youtube.com/@moo-d47y?si=c_qASUh8ld4cpbmY" target="_blank" style="text-decoration: none;">
+                        <div style="background: var(--bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; text-align: center; transition: 0.2s; cursor: pointer;" onmouseover="this.style.borderColor='var(--primary-color)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="#FF0000" style="margin-bottom: 10px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            <h4 style="color: white; margin-bottom: 5px;">قناة اليوتيوب</h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">شاهد الفيديوهات والشروحات</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-box">
+                <h2>🌍 لوحة المتصدّرين الحقيقية (Leaderboard)</h2>
+                <ul id="leaderboard-list" style="list-style: none;"></ul>
+            </div>
+        </section>
+
+        <section id="ai" class="page-section">
+            <div class="card-box" style="display: flex; justify-content: center; align-items: center; min-height: 60vh; padding: 30px;">
+                <div style="text-align: center; width: 100%; max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <div style="font-size: 60px; margin-bottom: 15px; display: inline-block;">🤖</div>
+                    <h2 style="justify-content: center; width: 100%;">المساعد الذكي (AI Coach) وتحليل الأداء</h2>
+                    <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto 25px auto; line-height: 1.6;">
+                        مساعدك الشخصي المدعوم بالذكاء الاصطناعي لتحليل عاداتك، اقتراح عادات جديدة تتناسب مع أهدافك، وإعطائك نصائح حصرية لزيادة إنتاجيتك.
+                    </p>
+                    <button class="btn-primary" onclick="runAICoach()">تحليل الأداء واقتراح عادات ذكية 💡</button>
+                    <div id="ai-result-box" style="margin-top: 25px; background: var(--bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: right; width: 100%; display: none;"></div>
                 </div>
             </div>
         </section>
     </main>
 
     <script>
+        const DEFAULT_AVATAR = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1e293b"/><circle cx="50" cy="38" r="18" fill="#64748b"/><path d="M18 90c0-20 14-34 32-34s32 14 32 34" fill="#64748b"/></svg>');
+        document.getElementById('header-avatar-img').src = DEFAULT_AVATAR;
+        document.getElementById('modal-avatar-img').src = DEFAULT_AVATAR;
+
         let isRegisterMode = false;
         let currentUser = null;
         let tempAuthAvatarBase64 = '';
+        let currentCalendarDate = new Date();
+
+        function getLocalDateString(date = new Date()) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function toast(msg, icon = '✨') {
+            const t = document.getElementById("toast");
+            document.getElementById("toast-msg").textContent = msg;
+            document.getElementById("toast-icon").textContent = icon;
+            t.classList.add("show");
+            setTimeout(() => { t.classList.remove("show"); }, 3000);
+        }
+
+        const glow = document.querySelector(".glow");
+        document.addEventListener("mousemove", e => {
+            if(glow) {
+                glow.style.left = e.clientX + "px";
+                glow.style.top = e.clientY + "px";
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            let progress = 0;
+            const bar = document.getElementById('loading-bar-fill');
+            const interval = setInterval(() => {
+                progress += 10;
+                if(bar) bar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    const lScreen = document.getElementById('loading-screen');
+                    if(lScreen) {
+                        lScreen.style.opacity = '0';
+                        setTimeout(() => { lScreen.style.display = 'none'; }, 500);
+                    }
+                }
+            }, 100);
+
+            const savedTheme = localStorage.getItem('mood_theme') || 'gold';
+            setTheme(savedTheme);
+
+            if (window.auth && window.getRedirectResult) {
+                try {
+                    const result = await window.getRedirectResult(window.auth);
+                    if (result && result.user) {
+                        await processGoogleUser(result.user);
+                    }
+                } catch (error) {
+                    console.error("Redirect Result Error:", error);
+                }
+            }
+
+            initSession();
+            renderPomoTime();
+        });
 
         function setTheme(themeName) {
             document.documentElement.setAttribute('data-theme', themeName);
             localStorage.setItem('mood_theme', themeName);
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('mood_theme') || 'gold';
-            setTheme(savedTheme);
-            initSession();
-            loadLeaderboard();
-        });
+        function switchStoreTab(tabId, event) {
+            document.querySelectorAll('.store-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.store-section-content').forEach(sec => sec.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('store-' + tabId).classList.add('active');
+        }
+
+        function purchaseTheme(themeId, price) {
+            if (!currentUser) { setTheme(themeId); return; }
+            if (!currentUser.ownedThemes) currentUser.ownedThemes = ['gold'];
+            const owned = currentUser.ownedThemes.includes(themeId);
+            if (owned) {
+                setTheme(themeId);
+                toast("🎨 تم تفعيل الثيم بنجاح");
+            } else {
+                if (currentUser.coins < price) {
+                    toast("❌ لا يوجد كوينز كافية لشراء هذا الثيم!");
+                    return;
+                }
+                currentUser.coins -= price;
+                currentUser.ownedThemes.push(themeId);
+                saveUserData();
+                updateUserDataUI();
+                setTheme(themeId);
+                toast(`🎉 تم شراء الثيم وتفعيله! (-${price} 🪙)`);
+            }
+            loadStore();
+        }
+
+        function purchaseFrame(frameId, price) {
+            if (!currentUser) return;
+            if (!currentUser.ownedFrames) currentUser.ownedFrames = ['default'];
+            const owned = currentUser.ownedFrames.includes(frameId);
+            if (owned) {
+                currentUser.activeFrame = frameId;
+                saveUserData();
+                updateUserDataUI();
+                toast("🖼️ تم تفعيل إطار البروفايل بنجاح");
+            } else {
+                if (currentUser.coins < price) {
+                    toast("❌ لا يوجد كوينز كافية لشراء هذا الإطار!");
+                    return;
+                }
+                currentUser.coins -= price;
+                currentUser.ownedFrames.push(frameId);
+                currentUser.activeFrame = frameId;
+                saveUserData();
+                updateUserDataUI();
+                toast(`🎉 تم شراء الإطار وتفعيله! (-${price} 🪙)`);
+            }
+            loadStore();
+        }
+
+        function purchaseBooster(boosterId, price) {
+            if (!currentUser) return;
+            if (currentUser.coins < price) {
+                toast("❌ لا يوجد كوينز كافية لشراء هذا المعزز!");
+                return;
+            }
+            currentUser.coins -= price;
+            if(!currentUser.boosters) currentUser.boosters = {};
+            currentUser.boosters[boosterId] = (currentUser.boosters[boosterId] || 0) + 1;
+            saveUserData();
+            updateUserDataUI();
+            toast(`⚡ تم شراء المعزز بنجاح! (-${price} 🪙)`);
+            loadStore();
+        }
+
+        function redeemReward(rewardName, price) {
+            if (!currentUser) return;
+            if (currentUser.coins < price) {
+                toast("❌ لا يوجد كوينز كافية للحصول على هذه المكافأة!");
+                return;
+            }
+            currentUser.coins -= price;
+            saveUserData();
+            updateUserDataUI();
+            toast(`🎁 مبروك! استبدلت النقاط بـ "${rewardName}". استمتع بمكافأتك! (+ مكافأة واقعية)`);
+            loadStore();
+        }
 
         function togglePasswordVisibility() {
             const passInput = document.getElementById('auth-pass');
@@ -963,15 +1360,12 @@
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
             document.getElementById('auth-title').textContent = isRegisterMode ? 'إنشاء حساب جديد في MOOD' : 'تسجيل الدخول لـ MOOD';
-            document.getElementById('auth-btn').textContent = isRegisterMode ? 'تسجيل وحفظ' : 'دخول';
+            document.getElementById('auth-subtitle').textContent = isRegisterMode ? 'أنشئ حسابك وابدأ رحلة الإنتاجية' : 'النظام المتكامل لإدارة الحياة والإنتاجية';
+            document.getElementById('auth-btn').textContent = isRegisterMode ? 'تسجيل وحفظ' : 'تسجيل الدخول';
             document.getElementById('auth-name').style.display = isRegisterMode ? 'block' : 'none';
-            document.getElementById('auth-avatar-section').style.display = isRegisterMode ? 'flex' : 'none';
+            document.getElementById('auth-avatar-section').style.display = isRegisterMode ? 'block' : 'none';
+            document.getElementById('password-hint').style.display = isRegisterMode ? 'block' : 'none';
             document.getElementById('toggle-text').textContent = isRegisterMode ? 'لديك حساب بالفعل؟ اضغط هنا لدخول' : 'ليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد';
-            
-            tempAuthAvatarBase64 = '';
-            document.getElementById('auth-avatar-preview').style.display = 'none';
-            document.getElementById('auth-avatar-preview').src = '';
-            document.getElementById('auth-avatar-placeholder').style.display = 'block';
         }
 
         function previewAuthAvatar(event) {
@@ -989,39 +1383,149 @@
             }
         }
 
-        function handleAuth(event) {
-            event.preventDefault();
-            const email = document.getElementById('auth-email').value;
-            const pass = document.getElementById('auth-pass').value;
-            const name = document.getElementById('auth-name').value;
+        async function processGoogleUser(user) {
+            const email = user.email;
+            const name = user.displayName || 'مستخدم جوجل';
+            const avatar = user.photoURL || '';
+            const todayStr = getLocalDateString();
 
-            if (isRegisterMode) {
-                const userData = { 
-                    email, 
-                    pass, 
-                    name: name || 'مستخدم جديد', 
-                    habits: [], 
-                    avatar: tempAuthAvatarBase64 || ''
-                };
-                localStorage.setItem('mood_user_' + email, JSON.stringify(userData));
-                localStorage.setItem('mood_current_email', email);
-                alert('تم إنشاء الحساب وحفظ البيانات بنجاح!');
-            } else {
-                const storedUser = localStorage.getItem('mood_user_' + email);
-                if (!storedUser) {
-                    alert('الحساب غير موجود! يرجى إنشاء حساب جديد أولاً.');
-                    return;
+            let parsed = null;
+            if (window.db && window.firebaseFirestore) {
+                try {
+                    const { doc, getDoc } = window.firebaseFirestore;
+                    const docSnap = await getDoc(doc(window.db, "users", email));
+                    if (docSnap.exists()) {
+                        parsed = docSnap.data();
+                    }
+                } catch (e) {
+                    console.error("Error fetching user from Firestore:", e);
                 }
-                const parsed = JSON.parse(storedUser);
-                if (parsed.pass !== pass) {
-                    alert('كلمة المرور غير صحيحة!');
-                    return;
-                }
-                localStorage.setItem('mood_current_email', email);
             }
 
+            if (!parsed) {
+                const storedUser = localStorage.getItem('mood_user_' + email);
+                if (storedUser) {
+                    parsed = JSON.parse(storedUser);
+                }
+            }
+
+            if (parsed) {
+                currentUser = parsed;
+            } else {
+                currentUser = {
+                    email,
+                    pass: 'GOOGLE_AUTH',
+                    name,
+                    avatar,
+                    xp: 0, level: 1, coins: 50, streak: 1,
+                    habits: [], sleep: 0,
+                    lastSleepDate: '',
+                    dailyHabits: { [todayStr]: [] },
+                    challenges30: [],
+                    lastActiveDate: todayStr,
+                    sleepRewardClaimed: false,
+                    ownedThemes: ['gold'],
+                    ownedFrames: ['default'],
+                    activeFrame: 'default',
+                    boosters: { streakFreeze: 0, xpBoost: false },
+                    achievements: [ { id: 1, title: 'البداية الطموحة', unlocked: true }, { id: 2, title: 'سيد العادات', unlocked: false } ]
+                };
+            }
+
+            if(!currentUser.dailyHabits) currentUser.dailyHabits = {};
+            if(!currentUser.challenges30) currentUser.challenges30 = [];
+            if(!currentUser.dailyHabits[todayStr]) currentUser.dailyHabits[todayStr] = [];
+            currentUser.habits = currentUser.dailyHabits[todayStr];
+            currentUser.lastActiveDate = todayStr;
+
+            localStorage.setItem('mood_user_' + email, JSON.stringify(currentUser));
+            localStorage.setItem('mood_current_email', email);
+            await saveUserData();
+            toast("🎉 تم تسجيل الدخول بحساب جوجل بنجاح!");
+        }
+
+        async function handleGoogleSignIn() {
+            if (!window.auth || !window.GoogleAuthProvider || !window.signInWithRedirect) {
+                toast("❌ خدمة مصادقة جوجل غير متوفرة حالياً");
+                return;
+            }
+            try {
+                const provider = new window.GoogleAuthProvider();
+                await window.signInWithRedirect(window.auth, provider);
+            } catch (error) {
+                console.error("Google Sign-In Error:", error);
+                toast("❌ حدث خطأ أثناء تسجيل الدخول: " + error.message);
+            }
+        }
+
+        async function handleAuth(event) {
+            event.preventDefault();
+            const email = document.getElementById('auth-email').value.trim();
+            const pass = document.getElementById('auth-pass').value;
+            const name = document.getElementById('auth-name').value;
+            const todayStr = getLocalDateString();
+
+            if (isRegisterMode) {
+                if (pass.length < 6) {
+                    toast("❌ كلمة المرور يجب ألا تقل عن 6 أحرف!");
+                    return;
+                }
+
+                const userData = {
+                    email, pass,
+                    name: name || 'مستخدم جديد',
+                    avatar: tempAuthAvatarBase64 || '',
+                    xp: 0, level: 1, coins: 50, streak: 1,
+                    habits: [], sleep: 0,
+                    lastSleepDate: '',
+                    dailyHabits: { [todayStr]: [] },
+                    challenges30: [],
+                    lastActiveDate: todayStr,
+                    sleepRewardClaimed: false,
+                    ownedThemes: ['gold'],
+                    ownedFrames: ['default'],
+                    activeFrame: 'default',
+                    boosters: { streakFreeze: 0, xpBoost: false },
+                    achievements: [ { id: 1, title: 'البداية الطموحة', unlocked: true }, { id: 2, title: 'سيد العادات', unlocked: false } ]
+                };
+                currentUser = userData;
+                localStorage.setItem('mood_user_' + email, JSON.stringify(userData));
+                localStorage.setItem('mood_current_email', email);
+                await saveUserData();
+                toast("🎉 تم إنشاء الحساب بنجاح وإعطاؤك 50 Coin هدية!");
+            } else {
+                let parsed = null;
+                if (window.db && window.firebaseFirestore) {
+                    try {
+                        const { doc, getDoc } = window.firebaseFirestore;
+                        const docSnap = await getDoc(doc(window.db, "users", email));
+                        if (docSnap.exists()) {
+                            parsed = docSnap.data();
+                        }
+                    } catch (e) {
+                        console.error("Error fetching user from Firestore: ", e);
+                    }
+                }
+                
+                if (!parsed) {
+                    const storedUser = localStorage.getItem('mood_user_' + email);
+                    if (!storedUser) { toast("❌ الحساب غير موجود!"); return; }
+                    parsed = JSON.parse(storedUser);
+                }
+
+                if (parsed.pass !== pass) { toast("❌ كلمة المرور غير صحيحة!"); return; }
+                currentUser = parsed;
+                if(!currentUser.dailyHabits) currentUser.dailyHabits = {};
+                if(!currentUser.challenges30) currentUser.challenges30 = [];
+                if(!currentUser.lastSleepDate) currentUser.lastSleepDate = '';
+                currentUser.lastActiveDate = todayStr;
+
+                localStorage.setItem('mood_user_' + email, JSON.stringify(currentUser));
+                localStorage.setItem('mood_current_email', email);
+                await saveUserData();
+                toast("✨ أهلاً بك مجدداً في MOOD");
+            }
             initSession();
-            loadLeaderboard();
         }
 
         function initSession() {
@@ -1030,18 +1534,40 @@
                 const userData = JSON.parse(localStorage.getItem('mood_user_' + currentEmail));
                 if (userData) {
                     currentUser = userData;
-                    document.getElementById('auth-modal').style.display = 'none';
-                    
-                    document.getElementById('modal-user-email').textContent = currentUser.email;
-                    document.getElementById('modal-user-name').textContent = currentUser.name || 'مستخدم MOOD';
-                    
-                    const avatarSrc = currentUser.avatar || 'https://via.placeholder.com/150';
-                    document.getElementById('header-avatar-img').src = avatarSrc;
-                    document.getElementById('modal-avatar-img').src = avatarSrc;
+                    const todayStr = getLocalDateString();
 
+                    if(!currentUser.xp) currentUser.xp = 0;
+                    if(!currentUser.level) currentUser.level = 1;
+                    if(!currentUser.coins) currentUser.coins = 0;
+                    if(!currentUser.streak) currentUser.streak = 1;
+                    if(!currentUser.ownedThemes) currentUser.ownedThemes = ['gold'];
+                    if(!currentUser.ownedFrames) currentUser.ownedFrames = ['default'];
+                    if(!currentUser.activeFrame) currentUser.activeFrame = 'default';
+                    if(!currentUser.boosters) currentUser.boosters = { streakFreeze: 0, xpBoost: false };
+                    if(!currentUser.dailyHabits) currentUser.dailyHabits = {};
+                    if(!currentUser.challenges30) currentUser.challenges30 = [];
+                    if(!currentUser.lastSleepDate) currentUser.lastSleepDate = '';
+                    
+                    currentUser.lastActiveDate = todayStr;
+
+                    if (!currentUser.dailyHabits[todayStr]) {
+                        currentUser.dailyHabits[todayStr] = [];
+                    }
+                    currentUser.habits = currentUser.dailyHabits[todayStr];
+
+                    if(currentUser.sleepRewardClaimed === undefined) currentUser.sleepRewardClaimed = false;
+
+                    const savedTheme = localStorage.getItem('mood_theme') || 'gold';
+                    setTheme(currentUser.ownedThemes.includes(savedTheme) ? savedTheme : 'gold');
+
+                    document.getElementById('auth-modal').style.display = 'none';
+                    updateUserDataUI();
                     loadHabits();
-                    updateProgressStats();
-                    switchPage('home');
+                    loadChallenges();
+                    renderCalendar();
+                    loadStore();
+                    loadLeaderboard();
+                    checkSleepButtonStatus();
                 }
             }
         }
@@ -1051,25 +1577,35 @@
             currentUser = null;
             document.getElementById('profile-modal').style.display = 'none';
             document.getElementById('auth-modal').style.display = 'flex';
+            toast("👋 تم تسجيل الخروج");
         }
 
         function deleteAccount() {
-            const confirmation = confirm('تحذير: هل أنت متأكد من حذف حسابك؟ سيتم فقدان كل التقدم والعادات والبيانات بشكل نهائي ولن يمكنك استرجاعها.');
-            if (confirmation) {
-                if (currentUser) {
-                    localStorage.removeItem('mood_user_' + currentUser.email);
-                    localStorage.removeItem('mood_current_email');
-                    alert('تم حذف الحساب وجميع البيانات المرتبطة به بنجاح.');
-                    location.reload();
-                }
+            if (confirm('هل أنت متأكد من حذف الحساب نهائياً؟')) {
+                localStorage.removeItem('mood_user_' + currentUser.email);
+                localStorage.removeItem('mood_current_email');
+                location.reload();
             }
         }
 
         function toggleProfileModal(show) {
-            const modal = document.getElementById('profile-modal');
-            modal.style.display = show ? 'flex' : 'none';
-            if(show) {
-                updateProgressStats();
+            document.getElementById('profile-modal').style.display = show ? 'flex' : 'none';
+            if (show) {
+                document.getElementById('modal-user-name').textContent = currentUser.name;
+                document.getElementById('modal-user-email').textContent = currentUser.email;
+                document.getElementById('modal-avatar-img').src = currentUser.avatar || DEFAULT_AVATAR;
+                
+                const modalWrapper = document.getElementById('profile-modal-avatar-wrapper');
+                modalWrapper.className = 'profile-avatar-container';
+                if (currentUser.activeFrame && currentUser.activeFrame !== 'default') {
+                    modalWrapper.classList.add('frame-' + currentUser.activeFrame);
+                }
+
+                document.getElementById('profile-level-text').textContent = `المستوى ${currentUser.level}`;
+                document.getElementById('profile-xp-text').textContent = `${currentUser.xp} / ${currentUser.level * 100} XP`;
+                document.getElementById('profile-xp-fill').style.width = Math.min(100, (currentUser.xp / (currentUser.level * 100)) * 100) + '%';
+                document.getElementById('profile-coins').textContent = currentUser.coins + ' 🪙';
+                document.getElementById('profile-streak').textContent = currentUser.streak + ' أيام 🔥';
             }
         }
 
@@ -1078,223 +1614,692 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const base64Image = e.target.result;
-                    currentUser.avatar = base64Image;
+                    currentUser.avatar = e.target.result;
                     saveUserData();
-                    
-                    document.getElementById('header-avatar-img').src = base64Image;
-                    document.getElementById('modal-avatar-img').src = base64Image;
-                    loadLeaderboard();
+                    updateUserDataUI();
+                    document.getElementById('modal-avatar-img').src = currentUser.avatar;
+                    toast("📷 تم تحديث صورة البروفايل");
                 };
                 reader.readAsDataURL(file);
+            }
+        }
+
+        function updateUserDataUI() {
+            document.getElementById('header-avatar-img').src = currentUser.avatar || DEFAULT_AVATAR;
+            
+            const headerWrapper = document.getElementById('header-avatar-wrapper');
+            headerWrapper.className = 'header-profile-circle';
+            if (currentUser.activeFrame && currentUser.activeFrame !== 'default') {
+                headerWrapper.style.border = currentUser.activeFrame === 'gold' ? '2px solid #f59e0b' : currentUser.activeFrame === 'neon' ? '2px solid #00f2fe' : '2px solid #a855f7';
+                headerWrapper.style.boxShadow = '0 0 10px var(--accent-glow)';
+            } else {
+                headerWrapper.style.border = '2px solid var(--primary-color)';
+                headerWrapper.style.boxShadow = 'none';
+            }
+
+            document.getElementById('nav-level').textContent = `⭐ Lv.${currentUser.level}`;
+            document.getElementById('nav-coins').textContent = `🪙 ${currentUser.coins}`;
+            document.getElementById('nav-streak').textContent = `🔥 ${currentUser.streak}`;
+            document.getElementById('sleep-count').textContent = `${currentUser.sleep || 0} ساعات`;
+            checkSleepButtonStatus();
+        }
+
+        function addXP(amount) {
+            let finalXP = amount;
+            if (currentUser.boosters && currentUser.boosters.xpBoost) {
+                finalXP *= 2;
+            }
+            currentUser.xp += finalXP;
+            currentUser.coins += Math.round(finalXP / 2);
+            let neededXP = currentUser.level * 100;
+            if (currentUser.xp >= neededXP) {
+                currentUser.level++;
+                currentUser.xp -= neededXP;
+                toast(`🎉 مبروك! ترقيت إلى المستوى ${currentUser.level}!`, '⭐');
+            }
+            saveUserData();
+            updateUserDataUI();
+        }
+
+        async function saveUserData() {
+            if (currentUser) {
+                localStorage.setItem('mood_user_' + currentUser.email, JSON.stringify(currentUser));
+                if (window.db && window.firebaseFirestore) {
+                    try {
+                        const { doc, setDoc } = window.firebaseFirestore;
+                        await setDoc(doc(window.db, "users", currentUser.email), currentUser, { merge: true });
+                    } catch (e) {
+                        console.error("Error saving to Firestore:", e);
+                    }
+                }
             }
         }
 
         function switchPage(pageId, event) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-section'));
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-
             document.getElementById(pageId).classList.add('active-section');
-            
             if (event && event.target.classList.contains('nav-link')) {
                 event.target.classList.add('active');
             } else {
                 document.querySelectorAll('.nav-link').forEach(link => {
-                    if(link.getAttribute('onclick').includes(pageId)) {
-                        link.classList.add('active');
-                    }
+                    if (link.getAttribute('onclick').includes(pageId)) link.classList.add('active');
                 });
             }
+            if(pageId === 'habits') {
+                renderCalendar();
+            }
+            if(pageId === 'community') {
+                loadLeaderboard();
+            }
+            if(pageId === 'challenges') {
+                loadChallenges();
+            }
+        }
+
+        function changeMonth(direction) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        function goToCurrentMonth() {
+            currentCalendarDate = new Date();
+            renderCalendar();
+        }
+
+        function openDayHabitsModal(year, month, day) {
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const arabicMonths = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+            
+            document.getElementById('day-modal-title').textContent = `عادات يوم ${day} ${arabicMonths[month]} ${year}`;
+            
+            if (!currentUser.dailyHabits) currentUser.dailyHabits = {};
+            if (!currentUser.dailyHabits[dateStr]) {
+                currentUser.dailyHabits[dateStr] = [];
+            }
+
+            renderDayModalHabits(dateStr);
+            document.getElementById('day-modal').style.display = 'flex';
+        }
+
+        function closeDayModal() {
+            document.getElementById('day-modal').style.display = 'none';
+            renderCalendar();
+        }
+
+        function renderDayModalHabits(dateStr) {
+            const listEl = document.getElementById('day-modal-habits-list');
+            const habits = currentUser.dailyHabits[dateStr] || [];
+            
+            if (habits.length === 0) {
+                listEl.innerHTML = `<div class="empty-state">لا توجد عادات مسجلة لهذا اليوم</div>`;
+                return;
+            }
+
+            listEl.innerHTML = '';
+            habits.forEach((h, index) => {
+                const item = document.createElement('div');
+                item.className = 'habit-item';
+                item.style.padding = '10px 14px';
+                item.style.marginBottom = '8px';
+                item.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" ${h.completed ? 'checked' : ''} onchange="toggleDayHabit('${dateStr}', ${index})" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-color);">
+                        <span style="font-size: 14px; ${h.completed ? 'text-decoration: line-through; color: var(--text-muted);' : ''}">${h.text}</span>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-muted);">${h.category ? h.category.toUpperCase() : ''}</span>
+                `;
+                listEl.appendChild(item);
+            });
+        }
+
+        function toggleDayHabit(dateStr, index) {
+            if (currentUser.dailyHabits && currentUser.dailyHabits[dateStr] && currentUser.dailyHabits[dateStr][index]) {
+                currentUser.dailyHabits[dateStr][index].completed = !currentUser.dailyHabits[dateStr][index].completed;
+                saveUserData();
+                renderDayModalHabits(dateStr);
+            }
+        }
+
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            const arabicMonths = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+            const monthYearEl = document.getElementById('calendar-month-year');
+            if (monthYearEl) {
+                monthYearEl.textContent = `${arabicMonths[month]} ${year}`;
+            }
+
+            const grid = document.getElementById('calendar-days-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const startOffset = (firstDayIndex + 1) % 7;
+            const totalDays = new Date(year, month + 1, 0).getDate();
+
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            for (let i = 0; i < startOffset; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day empty';
+                grid.appendChild(emptyCell);
+            }
+
+            for (let day = 1; day <= totalDays; day++) {
+                const cellDate = new Date(year, month, day);
+                cellDate.setHours(0,0,0,0);
+
+                const isToday = cellDate.getTime() === today.getTime();
+                const isFuture = cellDate > today;
+
+                const dayCell = document.createElement('div');
+                let className = 'calendar-day';
+                if (isToday) className += ' today';
+                if (isFuture) className += ' disabled';
+                dayCell.className = className;
+                dayCell.textContent = day;
+
+                if (!isFuture) {
+                    dayCell.onclick = () => openDayHabitsModal(year, month, day);
+                }
+
+                grid.appendChild(dayCell);
+            }
+        }
+
+        /* دوال تحديات الـ 30 يوماً الجديدة */
+        function add30DayChallenge() {
+            const input = document.getElementById('challenge-input');
+            const val = input.value.trim();
+            if(!val) return;
+
+            if(!currentUser.challenges30) currentUser.challenges30 = [];
+            
+            const newChallenge = {
+                id: Date.now(),
+                title: val,
+                progress: 0, // من 0 إلى 30
+                lastCheckInDate: ''
+            };
+
+            currentUser.challenges30.push(newChallenge);
+            saveUserData();
+            input.value = '';
+            loadChallenges();
+            toast("🚀 تم بدء التحدي بنجاح! استمر يومياً لتحقيق الهدف");
+        }
+
+        function checkInChallenge(id) {
+            const todayStr = getLocalDateString();
+            const challenge = currentUser.challenges30.find(c => c.id === id);
+            if(!challenge) return;
+
+            if(challenge.lastCheckInDate === todayStr) {
+                toast("⚠️ لقد قمت بتسجيل تقدم اليوم لهذا التحدي مسبقاً!");
+                return;
+            }
+
+            challenge.lastCheckInDate = todayStr;
+            challenge.progress++;
+
+            if(challenge.progress >= 30) {
+                addXP(200);
+                toast("🏆 مبروك! أتممت تحدي الـ 30 يوماً بنجاح! +200 XP ومكافأة كوينز ضخمة", "🎉");
+            } else {
+                addXP(20); // التعديل: 20 نقطة لكل يوم
+                toast(`🔥 أحسنت! تقدمت في التحدي (${challenge.progress}/30 يوم). +20 نقطة`);
+            }
+
+            saveUserData();
+            loadChallenges();
+        }
+
+        function deleteChallenge(id) {
+            currentUser.challenges30 = currentUser.challenges30.filter(c => c.id !== id);
+            saveUserData();
+            loadChallenges();
+            toast("🗑️ تم حذف التحدي");
+        }
+
+        function loadChallenges() {
+            const container = document.getElementById('challenges-list');
+            if(!container) return;
+
+            if(!currentUser.challenges30 || currentUser.challenges30.length === 0) {
+                container.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">لا توجد تحديات 30 يوماً نشطة حالياً. أضف تحدياً وابدأ رحلة الالتزام!</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            currentUser.challenges30.forEach(c => {
+                const todayStr = getLocalDateString();
+                const checkedToday = c.lastCheckInDate === todayStr;
+                const percent = Math.round((c.progress / 30) * 100);
+
+                const card = document.createElement('div');
+                card.className = 'card-box';
+                card.style.marginBottom = '0';
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h4 style="color: white; font-size: 16px;">${c.title}</h4>
+                        <button class="btn-primary" style="background: #ef4444; padding: 4px 8px; font-size: 11px;" onclick="deleteChallenge(${c.id})">حذف</button>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">
+                        <span>التقدم: ${c.progress} / 30 يوم</span>
+                        <span style="color: var(--primary-color); font-weight: bold;">${percent}%</span>
+                    </div>
+                    <div style="width: 100%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 15px;">
+                        <div style="height: 100%; background: var(--primary-color); width: ${percent}%;"></div>
+                    </div>
+                    <button class="btn-primary" style="width: 100%; font-size: 13px; padding: 10px; ${checkedToday ? 'background: #334155; color: white;' : ''}" ${checkedToday ? 'disabled' : ''} onclick="checkInChallenge(${c.id})">
+                        ${checkedToday ? 'تم تسجيل اليوم ✓ (يفتح غداً)' : 'تسجيل إنجاز اليوم ✅ (+20 نقطة)'}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
         }
 
         function addHabit() {
             const input = document.getElementById('habit-input');
+            const categoryInput = document.getElementById('habit-category');
             const val = input.value.trim();
-            if (!val) return;
-
-            if (!currentUser.habits) currentUser.habits = [];
-            currentUser.habits.push({ text: val, completed: false });
-            saveUserData();
+            const category = categoryInput.value;
             
+            if (!val) return;
+            
+            const todayStr = getLocalDateString();
+            if (!currentUser.dailyHabits) currentUser.dailyHabits = {};
+            if (!currentUser.dailyHabits[todayStr]) {
+                currentUser.dailyHabits[todayStr] = [];
+            }
+            
+            const newHabit = { text: val, completed: false, category: category, rewardClaimed: false };
+            currentUser.dailyHabits[todayStr].push(newHabit);
+            currentUser.habits = currentUser.dailyHabits[todayStr];
+
+            saveUserData();
             input.value = '';
             loadHabits();
-            updateProgressStats();
-            loadLeaderboard();
+            toast("✅ تمت إضافة العادة لليوم بنجاح");
         }
 
-        function toggleHabitComplete(index) {
-            currentUser.habits[index].completed = !currentUser.habits[index].completed;
+        function toggleHabit(index) {
+            const todayStr = getLocalDateString();
+            const habit = currentUser.dailyHabits[todayStr][index];
+            habit.completed = !habit.completed;
+            
+            if (habit.completed && !habit.rewardClaimed) {
+                habit.rewardClaimed = true;
+                addXP(10);
+                toast("🎯 أحسنت! اكتسبت كوينز و 10 XP لإنجاز هذه العادة", "🎉");
+            } else if (habit.completed && habit.rewardClaimed) {
+                toast("✅ تم تحديد العادة", "🎯");
+            }
+
             saveUserData();
             loadHabits();
-            updateProgressStats();
-            loadLeaderboard();
         }
 
         function deleteHabit(index) {
-            currentUser.habits.splice(index, 1);
+            const todayStr = getLocalDateString();
+            currentUser.dailyHabits[todayStr].splice(index, 1);
+            currentUser.habits = currentUser.dailyHabits[todayStr];
             saveUserData();
             loadHabits();
-            updateProgressStats();
-            loadLeaderboard();
         }
 
         function loadHabits() {
-            const list = document.getElementById('habits-list');
-            list.innerHTML = '';
-            if (!currentUser || !currentUser.habits) return;
+            const todayStr = getLocalDateString();
+            if (!currentUser.dailyHabits) currentUser.dailyHabits = {};
+            if (!currentUser.dailyHabits[todayStr]) {
+                currentUser.dailyHabits[todayStr] = [];
+            }
+            currentUser.habits = currentUser.dailyHabits[todayStr];
 
-            currentUser.habits.forEach((habit, index) => {
+            const categories = ['q1', 'q2', 'q3', 'q4'];
+            
+            categories.forEach(q => {
+                const container = document.getElementById(`habits-${q}`);
+                if (container) {
+                    container.innerHTML = `<li class="empty-state" style="font-size:12px; color: var(--text-muted); text-align: center; padding: 10px;">لا توجد عادات هنا</li>`;
+                }
+            });
+
+            if (!currentUser.habits || currentUser.habits.length === 0) return;
+
+            currentUser.habits.forEach((h, i) => {
+                if (h.rewardClaimed === undefined) h.rewardClaimed = false;
+                const targetCategory = h.category || 'q1';
+                const container = document.getElementById(`habits-${targetCategory}`);
+                if (!container) return;
+                
+                if (container.querySelector('.empty-state')) {
+                    container.innerHTML = '';
+                }
+
                 const li = document.createElement('li');
                 li.className = 'habit-item';
+                li.style.padding = '8px 12px';
                 li.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <input type="checkbox" ${habit.completed ? 'checked' : ''} onchange="toggleHabitComplete(${index})" style="width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary-color);">
-                        <span style="${habit.completed ? 'text-decoration: line-through; color: var(--text-muted);' : 'font-size: 16px;'}">${habit.text}</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" ${h.completed ? 'checked' : ''} onchange="toggleHabit(${i})" style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary-color);">
+                        <span style="font-size: 14px; ${h.completed ? 'text-decoration: line-through; color: var(--text-muted);' : ''}">${h.text}</span>
                     </div>
-                    <div class="habit-actions">
-                        <button onclick="deleteHabit(${index})" title="حذف العادة">🗑️</button>
-                    </div>
+                    <button class="btn-primary" style="background: #ef4444; padding: 4px 8px; font-size: 0.8rem;" onclick="deleteHabit(${i})">حذف</button>
                 `;
-                list.appendChild(li);
+                container.appendChild(li);
             });
         }
 
-        function updateProgressStats() {
-            if (!currentUser || !currentUser.habits) return;
-            const total = currentUser.habits.length;
-            const completed = currentUser.habits.filter(h => h.completed).length;
-            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+        let pomoInterval;
+        let pomoWorkMinutes = 25;
+        let pomoBreakMinutes = 5;
+        let pomoMode = 'work';
+        let pomoTime = pomoWorkMinutes * 60;
 
-            document.getElementById('progress-percent').textContent = percent + '%';
-            document.getElementById('progress-bar-fill').style.width = percent + '%';
-            document.getElementById('progress-details').textContent = `تم إنجاز ${completed} من أصل ${total} عادة`;
+        function updatePomoSettings() {
+            const workInput = document.getElementById('pomo-work-input');
+            const breakInput = document.getElementById('pomo-break-input');
+            let work = parseInt(workInput.value, 10);
+            let brk = parseInt(breakInput.value, 10);
+            if (isNaN(work) || work < 1) work = 25;
+            if (isNaN(brk) || brk < 1) brk = 5;
+            pomoWorkMinutes = work;
+            pomoBreakMinutes = brk;
+            workInput.value = work;
+            breakInput.value = brk;
+            resetPomodoro();
         }
 
-        function saveUserData() {
-            if (currentUser) {
-                localStorage.setItem('mood_user_' + currentUser.email, JSON.stringify(currentUser));
+        function renderPomoTime() {
+            let hours = Math.floor(pomoTime / 3600);
+            let minutes = Math.floor((pomoTime % 3600) / 60);
+            let seconds = pomoTime % 60;
+            const timerEl = document.getElementById('pomo-timer');
+            if(timerEl) {
+                timerEl.textContent = `${hours < 10 ? '0':''}${hours}:${minutes < 10 ? '0':''}${minutes}:${seconds < 10 ? '0':''}${seconds}`;
             }
         }
 
-        function loadLeaderboard() {
-            const leaderboardList = document.getElementById('leaderboard-list');
-            leaderboardList.innerHTML = '';
-
-            let users = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('mood_user_')) {
-                    try {
-                        const uData = JSON.parse(localStorage.getItem(key));
-                        const habits = uData.habits || [];
-                        const completedCount = habits.filter(h => h.completed).length;
-                        
-                        let finalScore = completedCount;
-                        if (uData.name && uData.name.trim().toLowerCase() === 'احمد') {
-                            finalScore = 13;
-                        }
-
-                        users.push({
-                            name: uData.name || 'مستخدم',
-                            score: finalScore,
-                            isCurrent: currentUser && currentUser.email === uData.email
-                        });
-                    } catch (e) {}
+        function startPomodoro() {
+            clearInterval(pomoInterval);
+            document.getElementById('pomo-start-btn').textContent = 'استئناف';
+            pomoInterval = setInterval(() => {
+                if (pomoTime > 0) {
+                    pomoTime--;
+                    renderPomoTime();
+                } else {
+                    clearInterval(pomoInterval);
+                    if (pomoMode === 'work') {
+                        addXP(50);
+                        toast("🎉 أنجزت جلسة تركيز بنجاح! +50 XP، وقت الراحة الآن", "🍅");
+                        pomoMode = 'break';
+                        pomoTime = pomoBreakMinutes * 60;
+                        document.getElementById('pomo-mode-label').textContent = '☕ جلسة راحة';
+                    } else {
+                        toast("✅ انتهت الراحة، جاهز لجلسة تركيز جديدة!", "💪");
+                        pomoMode = 'work';
+                        pomoTime = pomoWorkMinutes * 60;
+                        document.getElementById('pomo-mode-label').textContent = '🎯 جلسة تركيز';
+                    }
+                    renderPomoTime();
+                    document.getElementById('pomo-start-btn').textContent = 'تشغيل';
                 }
-            }
-
-            let ahmedExists = users.find(u => u.name.trim().toLowerCase() === 'احمد');
-            if (!ahmedExists) {
-                users.push({ name: 'احمد', score: 13, isCurrent: false });
-            }
-
-            const dummyUsers = [
-                { name: 'سارة خالد', score: 9, isCurrent: false },
-                { name: 'محمد علي', score: 5, isCurrent: false }
-            ];
-
-            users.push(...dummyUsers);
-
-            users.forEach(u => {
-                if (u.name.trim().toLowerCase() === 'احمد') {
-                    u.score = 13;
-                }
-            });
-
-            users.sort((a, b) => b.score - a.score);
-
-            if (users[0].name.trim().toLowerCase() !== 'احمد') {
-                const ahmedIndex = users.findIndex(u => u.name.trim().toLowerCase() === 'احمد');
-                if (ahmedIndex !== -1) {
-                    const ahmedObj = users.splice(ahmedIndex, 1)[0];
-                    ahmedObj.score = 13;
-                    users.unshift(ahmedObj);
-                }
-            } else {
-                users[0].score = 13;
-            }
-
-            for (let i = 1; i < users.length; i++) {
-                if (users[i].score >= 13) {
-                    users[i].score = 13 - i;
-                    if (users[i].score < 0) users[i].score = 0;
-                }
-            }
-
-            users.forEach((user, index) => {
-                const li = document.createElement('li');
-                li.className = `leaderboard-item ${index === 0 ? 'top-rank' : ''}`;
-                li.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <span style="font-weight: bold; color: var(--primary-color); width: 35px; font-size: 20px;">#${index + 1}</span>
-                        <span style="color: white; font-weight: bold; font-size: 19px;">${user.name} ${user.isCurrent ? '(أنت)' : ''}</span>
-                    </div>
-                    <div style="color: var(--success-color); font-weight: bold; font-size: 20px;">
-                        🔥 ${user.score} إنجاز
-                    </div>
-                `;
-                leaderboardList.appendChild(li);
-            });
+            }, 1000);
         }
 
-        function calculateHealthMetrics() {
-            const weight = parseFloat(document.getElementById('calc-weight').value);
-            const height = parseFloat(document.getElementById('calc-height').value);
-            const activity = parseFloat(document.getElementById('calc-activity').value);
-
-            if (!weight || !height) {
-                alert('يرجى إدخال الوزن والطول بشكل صحيح.');
-                return;
-            }
-
-            const bmr = (10 * weight) + (6.25 * height) - (5 * 20) + 5;
-            const totalCalories = Math.round(bmr * activity);
-            document.getElementById('calories-result').textContent = totalCalories + ' سعرة حرارية';
-
-            const heightInMeters = height / 100;
-            const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
-            let bmiStatus = '';
-            if (bmi < 18.5) bmiStatus = 'نحافة';
-            else if (bmi >= 18.5 && bmi < 25) bmiStatus = 'وزن مثالي ✨';
-            else if (bmi >= 25 && bmi < 30) bmiStatus = 'زيادة وزن';
-            else bmiStatus = 'سمنة';
-
-            document.getElementById('bmi-result').textContent = `${bmi} (${bmiStatus})`;
+        function pausePomodoro() {
+            clearInterval(pomoInterval);
+            document.getElementById('pomo-start-btn').textContent = 'استئناف';
         }
 
-        function sendSupportMessage() {
-            const subject = document.getElementById('support-subject').value;
-            const message = document.getElementById('support-message').value;
+        function resetPomodoro() {
+            clearInterval(pomoInterval);
+            pomoMode = 'work';
+            pomoTime = pomoWorkMinutes * 60;
+            document.getElementById('pomo-mode-label').textContent = '🎯 جلسة تركيز';
+            document.getElementById('pomo-start-btn').textContent = 'تشغيل';
+            renderPomoTime();
+        }
 
-            if (!subject || !message) {
-                alert('يرجى ملء عنوان الرسالة والنص قبل الإرسال.');
-                return;
-            }
-
-            const targetEmail = 'mohammedhany2036@gmail.com';
-            const mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        function checkSleepButtonStatus() {
+            const todayStr = getLocalDateString();
+            const sleepBtn = document.getElementById('sleep-btn');
+            if (!sleepBtn) return;
             
-            window.location.href = mailtoLink;
+            if (currentUser && currentUser.lastSleepDate === todayStr) {
+                sleepBtn.disabled = true;
+                sleepBtn.style.background = '#334155';
+                sleepBtn.style.color = '#ffffff';
+                sleepBtn.textContent = 'تم تسجيل النوم اليوم ✓ (يفتح غداً)';
+            } else {
+                sleepBtn.disabled = false;
+                sleepBtn.style.background = 'var(--primary-color)';
+                sleepBtn.style.color = '#0b0f19';
+                sleepBtn.textContent = 'تسجيل 😴 (5 نقاط)';
+            }
+        }
+
+        function logSleep() {
+            const todayStr = getLocalDateString();
+            if (currentUser && currentUser.lastSleepDate === todayStr) {
+                toast("⚠️ لقد قمت بتسجيل ساعات النوم اليوم مسبقاً! يفتح التسجيل مجدداً غداً.");
+                return;
+            }
+
+            const input = document.getElementById('sleep-input');
+            const hours = parseFloat(input.value);
+            if (isNaN(hours) || hours < 0 || hours > 24) {
+                toast("❌ من فضلك أدخل عدد ساعات صحيح (0 - 24)");
+                return;
+            }
+            currentUser.sleep = hours;
+            currentUser.lastSleepDate = todayStr;
+            
+            addXP(5); // التعديل: 5 نقاط فقط لتسجيل ساعات النوم
+            toast(`😴 تم تسجيل ${hours} ساعات نوم بنجاح! (+5 نقاط)`);
+
+            saveUserData();
+            document.getElementById('sleep-count').textContent = `${currentUser.sleep} ساعات`;
+            checkSleepButtonStatus();
+        }
+
+        function loadStore() {
+            const achGrid = document.getElementById('achievements-grid');
+            if(achGrid) {
+                achGrid.innerHTML = `
+                    <div class="achievement-card">
+                        <div style="font-size: 30px;">🚀</div>
+                        <h4 style="margin: 10px 0;">البداية الطموحة</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">سجل حسابك وابدأ رحلتك</p>
+                    </div>
+                    <div class="achievement-card ${currentUser && currentUser.level >= 3 ? '' : 'locked'}">
+                        <div style="font-size: 30px;">⭐</div>
+                        <h4 style="margin: 10px 0;">المحترف</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">الوصول للمستوى 3</p>
+                    </div>
+                `;
+            }
+
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'gold';
+            const themesGrid = document.getElementById('store-themes');
+            const themes = [
+                { id: 'gold', name: 'ذهبي ملكي', color: '#f59e0b', price: 0 },
+                { id: 'blue', name: 'أزرق تقني', color: '#0ea5e9', price: 20 },
+                { id: 'emerald', name: 'زمردي أخضر', color: '#10b981', price: 40 },
+                { id: 'purple', name: 'بنفسجي ملكي', color: '#a855f7', price: 60 },
+                { id: 'rose', name: 'وردي أنيق', color: '#f43f5e', price: 80 },
+                { id: 'cyberpunk', name: 'سايبربانك مستقبلي', color: '#00f2fe', price: 100 },
+                { id: 'forest', name: 'غابة الزين', color: '#22c55e', price: 80 }
+            ];
+            if(currentUser && !currentUser.ownedThemes) currentUser.ownedThemes = ['gold'];
+            if(themesGrid) {
+                themesGrid.innerHTML = '';
+                themes.forEach(t => {
+                    const owned = currentUser && currentUser.ownedThemes ? currentUser.ownedThemes.includes(t.id) : (t.id === 'gold');
+                    const isActive = currentTheme === t.id;
+                    const card = document.createElement('div');
+                    card.className = 'theme-shop-card';
+                    let priceLabel = t.price === 0 ? 'مجاني' : (owned ? 'مملوك' : t.price + ' 🪙 Coins');
+                    let btnLabel = isActive ? 'مفعّل حالياً ✓' : (owned ? 'تفعيل' : 'شراء وتفعيل');
+                    card.innerHTML = `
+                        <div style="width: 30px; height: 30px; background: ${t.color}; border-radius: 50%; margin: 0 auto 10px auto; ${isActive ? 'box-shadow: 0 0 0 3px var(--accent-glow);' : ''}"></div>
+                        <h4 style="margin-bottom: 5px;">${t.name}</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">${priceLabel}</p>
+                        <button class="btn-primary" style="padding: 6px 14px; font-size: 13px; ${isActive ? 'background: #334155; color: white; cursor: default;' : ''}" ${isActive ? 'disabled' : ''} onclick="purchaseTheme('${t.id}', ${t.price})">${btnLabel}</button>
+                    `;
+                    themesGrid.appendChild(card);
+                });
+            }
+
+            const framesGrid = document.getElementById('store-frames');
+            const frames = [
+                { id: 'default', name: 'إطار افتراضي', price: 0 },
+                { id: 'gold', name: 'الإطار الذهبي الفاخر', price: 50 },
+                { id: 'neon', name: 'إطار النيون المتوهج', price: 90 },
+                { id: 'crown', name: 'إطار التاج الملكي', price: 150 }
+            ];
+            if(currentUser && !currentUser.ownedFrames) currentUser.ownedFrames = ['default'];
+            if(currentUser && !currentUser.activeFrame) currentUser.activeFrame = 'default';
+            if(framesGrid) {
+                framesGrid.innerHTML = '';
+                frames.forEach(f => {
+                    const owned = currentUser.ownedFrames.includes(f.id);
+                    const isActive = currentUser.activeFrame === f.id;
+                    const card = document.createElement('div');
+                    card.className = 'frame-shop-card';
+                    let priceLabel = f.price === 0 ? 'مجاني' : (owned ? 'مملوك' : f.price + ' 🪙 Coins');
+                    let btnLabel = isActive ? 'مفعّل ✓' : (owned ? 'تفعيل' : 'شراء');
+                    card.innerHTML = `
+                        <div style="font-size: 28px; margin-bottom: 10px;">🖼️</div>
+                        <h4 style="margin-bottom: 5px;">${f.name}</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">${priceLabel}</p>
+                        <button class="btn-primary" style="padding: 6px 14px; font-size: 13px; ${isActive ? 'background: #334155; color: white; cursor: default;' : ''}" ${isActive ? 'disabled' : ''} onclick="purchaseFrame('${f.id}', ${f.price})">${btnLabel}</button>
+                    `;
+                    framesGrid.appendChild(card);
+                });
+            }
+
+            const boostersGrid = document.getElementById('store-boosters');
+            const boosters = [
+                { id: 'streakFreeze', name: '🛡️ درع حماية Streak', desc: 'يحمي استمراريتك من الضياع في يوم انشغال', price: 40 },
+                { id: 'xpBoost', name: '⚡ مضاعف الخبرة (XP x2)', desc: 'مضاعفة نقاط الخبرة المكتسبة لمدة 24 ساعة', price: 70 }
+            ];
+            if(boostersGrid) {
+                boostersGrid.innerHTML = '';
+                boosters.forEach(b => {
+                    const count = currentUser && currentUser.boosters ? (currentUser.boosters[b.id] || 0) : 0;
+                    const card = document.createElement('div');
+                    card.className = 'booster-shop-card';
+                    card.innerHTML = `
+                        <h4 style="margin-bottom: 5px;">${b.name}</h4>
+                        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">${b.desc}</p>
+                        <p style="font-size: 13px; font-weight: bold; color: var(--primary-color); margin-bottom: 10px;">${b.price} 🪙 (مملوك: ${count})</p>
+                        <button class="btn-primary" style="padding: 6px 14px; font-size: 13px;" onclick="purchaseBooster('${b.id}', ${b.price})">شراء معزز</button>
+                    `;
+                    boostersGrid.appendChild(card);
+                });
+            }
+
+            const rewardsGrid = document.getElementById('store-rewards');
+            const rewards = [
+                { id: 'coffee', name: '☕ استراحة قهوة فاخرة', desc: 'استبدل كوينز التطبيق بقهوتك المفضلة في الواقع', price: 100 },
+                { id: 'game', name: '🎮 ساعة ترفيهية بلا قيود', desc: 'استمتع بساعة لعب فيديو جيمز أو ترفيه كجائزة إنجاز', price: 150 },
+                { id: 'snack', name: '🍫 وجبة خفيفة مفضلة', desc: 'كافئ نفسك بسناك لذيذ بعد يوم عمل شاق', price: 80 }
+            ];
+            if(rewardsGrid) {
+                rewardsGrid.innerHTML = '';
+                rewards.forEach(r => {
+                    const card = document.createElement('div');
+                    card.className = 'reward-shop-card';
+                    card.innerHTML = `
+                        <h4 style="margin-bottom: 5px;">${r.name}</h4>
+                        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">${r.desc}</p>
+                        <p style="font-size: 13px; font-weight: bold; color: var(--success-color); margin-bottom: 10px;">${r.price} 🪙</p>
+                        <button class="btn-primary" style="padding: 6px 14px; font-size: 13px; background: var(--success-color); color: white;" onclick="redeemReward('${r.name}', ${r.price})">استبدال المكافأة</button>
+                    `;
+                    rewardsGrid.appendChild(card);
+                });
+            }
+        }
+
+        async function loadLeaderboard() {
+            const list = document.getElementById('leaderboard-list');
+            if(!list) return;
+            list.innerHTML = `<li class="empty-state" style="text-align: center; color: var(--text-muted); padding: 15px;">جاري تحميل المتصدرين من السحابة...</li>`;
+            
+            let allUsers = [];
+
+            if (window.db && window.firebaseFirestore) {
+                try {
+                    const { collection, getDocs } = window.firebaseFirestore;
+                    const querySnapshot = await getDocs(collection(window.db, "users"));
+                    querySnapshot.forEach((docSnap) => {
+                        allUsers.push(docSnap.data());
+                    });
+                } catch (e) {
+                    console.error("Error fetching leaderboard from Firestore:", e);
+                }
+            }
+
+            if (allUsers.length === 0) {
+                for(let i = 0; i < localStorage.length; i++) {
+                    let key = localStorage.key(i);
+                    if(key && key.startsWith('mood_user_')) {
+                        try {
+                            allUsers.push(JSON.parse(localStorage.getItem(key)));
+                        } catch(e) {}
+                    }
+                }
+            }
+            
+            if(currentUser && !allUsers.some(u => u.email === currentUser.email)) {
+                allUsers.push(currentUser);
+            }
+
+            allUsers.sort((a, b) => (b.xp || 0) - (a.xp || 0));
+            
+            list.innerHTML = '';
+            if (allUsers.length === 0) {
+                list.innerHTML = `<li class="empty-state">لا يوجد مستخدمون حتى الآن</li>`;
+                return;
+            }
+
+            allUsers.forEach((u, index) => {
+                let isMe = currentUser && u.email === currentUser.email ? " (أنت)" : "";
+                let medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`;
+                let honorTitle = index === 0 ? '👑 الأسطورة' : index === 1 ? '⭐ الخبير' : index === 2 ? '⚡ النجم الصاعد' : '🌱 مستخدم نشط';
+                
+                list.innerHTML += `
+                    <li class="habit-item" style="${isMe ? 'border-color: var(--primary-color); background: var(--badge-bg);' : ''}">
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <span style="color: var(--primary-color); font-weight: bold; font-size: 18px;">${medal}</span>
+                            <img src="${u.avatar || DEFAULT_AVATAR}" alt="صورة" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                            <div>
+                                <h4 style="color: white; font-size: 14px; margin-bottom: 2px;">${u.name || u.email}${isMe}</h4>
+                                <span style="font-size: 11px; color: var(--text-muted);">${honorTitle} - Level ${u.level || 1}</span>
+                            </div>
+                        </div>
+                        <div style="font-size: 14px; font-weight: bold; color: var(--primary-color);">
+                            ${u.xp || 0} XP
+                        </div>
+                    </li>
+                `;
+            });
+        }
+
+        function runAICoach() {
+            const resBox = document.getElementById('ai-result-box');
+            resBox.style.display = 'block';
+            resBox.innerHTML = `
+                <h4 style="color: var(--primary-color); margin-bottom: 8px;">💡 تحليل الذكاء الاصطناعي لعاداتك:</h4>
+                <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted);">
+                    أهلاً بك يا ${currentUser ? currentUser.name : 'بطل'}! بناءً على نشاطك الحالي، أنت تسير بخطى ثابتة. أنصحك بالتركيز على جدول عادات مصفوفة أيزنهاور (المهام المهمة وليست عاجلة) لضمان الإنتاجية طويلة المدى، مع الحفاظ على النوم المنتظم لتجديد طاقتك الذهنية. استمر في التحديات اليومية[cite: 4]!
+                </p>
+            `;
         }
     </script>
 </body>
