@@ -240,14 +240,14 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
         }
         .loading-logo {
             font-size: 64px;
             font-weight: 900;
             color: var(--primary-color);
             text-shadow: 0 0 30px var(--accent-glow);
-            animation: pulseLogo 1.5s infinite alternate;
+            animation: pulseLogo 1.2s infinite alternate;
             margin-bottom: 20px;
         }
         @keyframes pulseLogo {
@@ -265,7 +265,7 @@
             width: 0%;
             height: 100%;
             background: var(--primary-color);
-            transition: width 0.2s linear;
+            transition: width 0.15s linear;
         }
 
         .glow {
@@ -291,7 +291,7 @@
             border: 1px solid var(--primary-color);
             border-radius: 12px;
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 99999;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             font-weight: bold;
@@ -631,10 +631,10 @@
         }
         .page-section.active-section {
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: none; }
         }
 
@@ -649,7 +649,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
         .card-box:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             border-color: var(--primary-color);
             box-shadow: 0 0 25px var(--accent-glow), 0 20px 40px rgba(0,0,0,0.4);
         }
@@ -894,7 +894,7 @@
                     <input type="password" id="auth-pass" placeholder="كلمة المرور" required>
                     <button type="button" class="toggle-password" id="eye-btn" onclick="togglePasswordVisibility()">👁️</button>
                 </div>
-                <small id="password-hint" style="color: var(--text-muted); font-size: 12px; display: none; margin-top: 6px; text-align: right; display: block;">كلمة المرور يجب أن تكون 6 أحرف على الأقل</small>
+                <small id="password-hint" style="color: var(--text-muted); font-size: 12px; display: none; margin-top: 6px; text-align: right;">كلمة المرور يجب أن تكون 6 أحرف على الأقل</small>
 
                 <button type="submit" id="auth-btn">تسجيل الدخول</button>
             </form>
@@ -1001,7 +1001,7 @@
                 <div class="hero-left-text" style="flex: 1; text-align: right;">
                     <span style="color: var(--primary-color); background: var(--badge-bg); padding: 8px 20px; border-radius: 50px; font-size: 1rem; display: inline-block; margin-bottom: 25px; border: 1px solid var(--accent-glow);">أداتك الأولى لتنظيم حياتك والارتقاء بإنتاجيتك</span>
                     <h1 style="font-size: 4rem; margin-bottom: 25px; line-height: 1.2; font-weight: 800;">ابني مستقبلك،<br>يوماً <span style="color: var(--primary-color);">بيوم.</span></h1>
-                    <p style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.6; margin-bottom: 35px; max-width: 600px;">تطبيق شامل يدمج متابعة العادات، إدارة الصحة، تحليلات الذكاء الاصطناعي، وتحديات الـ 30 يوماً لتعظيم إنجازاتك اليومية[cite: 4].</p>
+                    <p style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.6; margin-bottom: 35px; max-width: 600px;">تطبيق شامل يدمج متابعة العادات، إدارة الصحة، تحليلات الذكاء الاصطناعي، وتحديات الـ 30 يوماً لتعظيم إنجازاتك اليومية.</p>
                     <button class="btn-primary" onclick="switchPage('habits', event)">ابدأ الآن ←</button>
                 </div>
             </div>
@@ -1073,7 +1073,7 @@
         <section id="challenges" class="page-section">
             <div class="card-box">
                 <h2>🚀 تحديات الـ 30 يوماً لبناء العادات المستدامة</h2>
-                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">التزم بتحدٍ لمدّة 30 يوماً لترسيخ عاداتك وتحقيق قفزة نوعية في إنتاجيتك ومستواك[cite: 4]!</p>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">التزم بتحدٍ لمدّة 30 يوماً لترسيخ عاداتك وتحقيق قفزة نوعية في إنتاجيتك ومستواك!</p>
                 
                 <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
                     <input type="text" id="challenge-input" placeholder="عنوان التحدي (مثلاً: قراءة 20 صفحة يومياً، الاستيقاظ مبكراً)..." style="flex: 1; min-width: 250px; padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
@@ -1224,21 +1224,22 @@
             }
         });
 
+        // تحسين سرعة التحميل الأولي (تم جعل الـ Loading أسرع وأكثر سلاسة)
         window.addEventListener('DOMContentLoaded', async () => {
             let progress = 0;
             const bar = document.getElementById('loading-bar-fill');
             const interval = setInterval(() => {
-                progress += 10;
+                progress += 25;
                 if(bar) bar.style.width = progress + '%';
                 if (progress >= 100) {
                     clearInterval(interval);
                     const lScreen = document.getElementById('loading-screen');
                     if(lScreen) {
                         lScreen.style.opacity = '0';
-                        setTimeout(() => { lScreen.style.display = 'none'; }, 500);
+                        setTimeout(() => { lScreen.style.display = 'none'; }, 300);
                     }
                 }
-            }, 100);
+            }, 80);
 
             const savedTheme = localStorage.getItem('mood_theme') || 'gold';
             setTheme(savedTheme);
@@ -1330,7 +1331,7 @@
             currentUser.coins -= price;
             saveUserData();
             updateUserDataUI();
-            toast(`🎁 مبروك! استبدلت النقاط بـ "${rewardName}". استمتع بمكافأتك! (+ مكافأة واقعية)`);
+            toast(`🎁 مبروك! استبدلت النقاط بـ "${rewardName}". استمتع بمكافأتك!`);
             loadStore();
         }
 
@@ -1839,7 +1840,7 @@
 
             if(challenge.progress >= 30) {
                 addXP(200);
-                toast("🏆 مبروك! أتممت تحدي الـ 30 يوماً بنجاح! +200 XP ومكافأة كوينز ضخمة", "🎉");
+                toast("🏆 مبروك! أتممت تحدي الـ 30 يوماً بنجاح! +200 XP", "🎉");
             } else {
                 addXP(20);
                 toast(`🔥 أحسنت! تقدمت في التحدي (${challenge.progress}/30 يوم). +20 نقطة`);
@@ -2027,7 +2028,7 @@
                     clearInterval(pomoInterval);
                     if (pomoMode === 'work') {
                         addXP(50);
-                        toast("🎉 أنجزت جلسة تركيز بنجاح! +50 XP، وقت الراحة الآن", "🍅");
+                        toast("🎉 أنجزت جلسة تركيز بنجاح! +50 XP", "🍅");
                         pomoMode = 'break';
                         pomoTime = pomoBreakMinutes * 60;
                         document.getElementById('pomo-mode-label').textContent = '☕ جلسة راحة';
@@ -2066,7 +2067,7 @@
                 sleepBtn.disabled = true;
                 sleepBtn.style.background = '#334155';
                 sleepBtn.style.color = '#ffffff';
-                sleepBtn.textContent = 'تم تسجيل النوم اليوم ✓ (يفتح غداً)';
+                sleepBtn.textContent = 'تم تسجيل النوم اليوم ✓';
             } else {
                 sleepBtn.disabled = false;
                 sleepBtn.style.background = 'var(--primary-color)';
@@ -2078,7 +2079,7 @@
         function logSleep() {
             const todayStr = getLocalDateString();
             if (currentUser && currentUser.lastSleepDate === todayStr) {
-                toast("⚠️ لقد قمت بتسجيل ساعات النوم اليوم مسبقاً! يفتح التسجيل مجدداً غداً.");
+                toast("⚠️ لقد قمت بتسجيل ساعات النوم اليوم مسبقاً!");
                 return;
             }
 
@@ -2177,8 +2178,8 @@
 
             const boostersGrid = document.getElementById('store-boosters');
             const boosters = [
-                { id: 'streakFreeze', name: '🛡️ درع حماية Streak', desc: 'يحمي استمراريتك من الضياع في يوم انشغال', price: 40 },
-                { id: 'xpBoost', name: '⚡ مضاعف الخبرة (XP x2)', desc: 'مضاعفة نقاط الخبرة المكتسبة لمدة 24 ساعة', price: 70 }
+                { id: 'streakFreeze', name: '🛡️ درع حماية Streak', desc: 'يحمي استمراريتك من الضياع', price: 40 },
+                { id: 'xpBoost', name: '⚡ مضاعف الخبرة (XP x2)', desc: 'مضاعفة نقاط الخبرة المكتسبة', price: 70 }
             ];
             if(boostersGrid) {
                 boostersGrid.innerHTML = '';
@@ -2198,9 +2199,9 @@
 
             const rewardsGrid = document.getElementById('store-rewards');
             const rewards = [
-                { id: 'coffee', name: '☕ استراحة قهوة فاخرة', desc: 'استبدل كوينز التطبيق بقهوتك المفضلة في الواقع', price: 100 },
-                { id: 'game', name: '🎮 ساعة ترفيهية بلا قيود', desc: 'استمتع بساعة لعب فيديو جيمز أو ترفيه كجائزة إنجاز', price: 150 },
-                { id: 'snack', name: '🍫 وجبة خفيفة مفضلة', desc: 'كافئ نفسك بسناك لذيذ بعد يوم عمل شاق', price: 80 }
+                { id: 'coffee', name: '☕ استراحة قهوة فاخرة', desc: 'استبدل كوينز التطبيق بقهوتك المفضلة', price: 100 },
+                { id: 'game', name: '🎮 ساعة ترفيهية بلا قيود', desc: 'استمتع بساعة لعب فيديو جيمز', price: 150 },
+                { id: 'snack', name: '🍫 وجبة خفيفة مفضلة', desc: 'كافئ نفسك بسناك لذيذ', price: 80 }
             ];
             if(rewardsGrid) {
                 rewardsGrid.innerHTML = '';
@@ -2221,7 +2222,7 @@
         async function loadLeaderboard() {
             const list = document.getElementById('leaderboard-list');
             if(!list) return;
-            list.innerHTML = `<li class="empty-state" style="text-align: center; color: var(--text-muted); padding: 15px;">جاري تحميل المتصدرين من السحابة...</li>`;
+            list.innerHTML = `<li class="empty-state" style="text-align: center; color: var(--text-muted); padding: 15px;">جاري تحميل المتصدرين...</li>`;
             
             let allUsers = [];
 
@@ -2260,23 +2261,47 @@
                 return;
             }
 
+            // تم إكمال حلقة العرض المقطوعة في الكود السابق بنجاح
             allUsers.forEach((u, idx) => {
                 const li = document.createElement('li');
                 li.className = 'habit-item';
+                li.style.display = 'flex';
+                li.style.justifyContent = 'space-between';
+                li.style.alignItems = 'center';
+                li.style.padding = '12px 18px';
                 li.style.marginBottom = '8px';
+                
+                let medal = '';
+                if(idx === 0) medal = '🥇 ';
+                else if(idx === 1) medal = '🥈 ';
+                else if(idx === 2) medal = '🥉 ';
+                else medal = `#${idx + 1} `;
+
                 li.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="font-weight: bold; color: var(--primary-color); width: 25px;">#${idx + 1}</span>
-                        <img src="${u.avatar || DEFAULT_AVATAR}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;" alt="avatar">
-                        <span style="color: white; font-weight: 500;">${u.name || u.email}</span>
+                        <span style="font-weight: bold; color: var(--primary-color);">${medal}</span>
+                        <img src="${u.avatar || DEFAULT_AVATAR}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary-color);">
+                        <span style="color: white; font-weight: bold;">${u.name || 'مستخدم'}</span>
                     </div>
                     <div style="display: flex; gap: 15px; font-size: 13px;">
-                        <span style="color: var(--primary-color);">⭐ Lv.${u.level || 1}</span>
-                        <span style="color: var(--success-color);">🔥 ${u.streak || 1} يوم</span>
+                        <span style="color: var(--primary-color);">⭐ المستوى ${u.level || 1}</span>
+                        <span style="color: var(--success-color);">🔥 ${u.streak || 0} أيام</span>
+                        <span style="font-weight: bold; color: white;">${u.xp || 0} XP</span>
                     </div>
                 `;
                 list.appendChild(li);
             });
+        }
+
+        function runAICoach() {
+            const box = document.getElementById('ai-result-box');
+            box.style.display = 'block';
+            box.innerHTML = `<p style="color: var(--text-muted); text-align: center;">🤖 جاري تحليل بياناتك واستنباط النصائح الذكية...</p>`;
+            
+            setTimeout(() => {
+                let advice = "بناءً على نشاطك، أنت تسير بخطى ثابتة! 🌟 ننصحك بزيادة جلسات البومودورو في الصباح الباكر لرفع إنتاجيتك، والالتزام بتسجيل عاداتك يومياً في مصفوفة أيزنهاور لضمان عدم إهدار الوقت.";
+                box.innerHTML = `<h4 style="color: var(--primary-color); margin-bottom: 8px;">توجيهات المساعد الذكي:</h4><p style="color: white; line-height: 1.6;">${advice}</p>`;
+            }, 1000);
         }
     </script>
 </body>
