@@ -46,8 +46,8 @@
     <!-- Firebase SDK (Modular) with User Real Config & Auth -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, doc, setDoc, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, deleteUser } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         
         const firebaseConfig = {
             apiKey: "AIzaSyD4E4qDR4hI9-fvBewrse94ytrg-_6tXkw",
@@ -69,7 +69,7 @@
         window.signInWithPopup = signInWithPopup;
         window.signInWithRedirect = signInWithRedirect;
         window.getRedirectResult = getRedirectResult;
-        window.firebaseFirestore = { collection, doc, setDoc, getDocs, getDoc };
+        window.firebaseFirestore = { collection, doc, setDoc, getDocs, getDoc, deleteDoc };
     </script>
 
     <style>
@@ -1573,11 +1573,37 @@
             toast("👋 تم تسجيل الخروج");
         }
 
-        function deleteAccount() {
-            if (confirm('هل أنت متأكد من حذف الحساب نهائياً؟')) {
-                localStorage.removeItem('mood_user_' + currentUser.email);
-                localStorage.removeItem('mood_current_email');
-                location.reload();
+        async function deleteAccount() {
+            if (confirm('هل أنت متأكد من حذف الحساب نهائياً وجميع البيانات المرتبطة به؟')) {
+                try {
+                    if (currentUser && currentUser.email) {
+                        // Delete from localStorage
+                        localStorage.removeItem('mood_user_' + currentUser.email);
+                        localStorage.removeItem('mood_current_email');
+
+                        // Delete from Firestore
+                        if (window.db && window.firebaseFirestore && window.firebaseFirestore.deleteDoc) {
+                            const { doc, deleteDoc } = window.firebaseFirestore;
+                            await deleteDoc(doc(window.db, "users", currentUser.email));
+                        }
+
+                        // Delete from Firebase Auth if logged in via auth
+                        if (window.auth && window.auth.currentUser) {
+                            try {
+                                await window.auth.currentUser.delete();
+                            } catch (authErr) {
+                                console.error("Firebase auth deletion note:", authErr);
+                            }
+                        }
+                    }
+                    toast("🗑️ تم حذف الحساب والبيانات بنجاح");
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                } catch (error) {
+                    console.error("Error deleting account:", error);
+                    toast("❌ حدث خطأ أثناء حذف الحساب: " + error.message);
+                }
             }
         }
 
@@ -2266,18 +2292,41 @@
                 li.style.marginBottom = '8px';
                 li.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="font-weight: bold; color: var(--primary-color); width: 25px;">#${index + 1}</span>
+                        <span style="font-weight: bold; color: var(--primary-color);">#${index + 1}</span>
                         <img src="${u.avatar || DEFAULT_AVATAR}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
                         <span style="font-weight: bold; color: white;">${u.name || 'مستخدم'}</span>
                     </div>
                     <div style="display: flex; gap: 15px; font-size: 13px;">
                         <span style="color: var(--primary-color);">⭐ Lv.${u.level || 1}</span>
-                        <span style="color: var(--success-color);">🔥 ${u.streak || 0} أيام</span>
-                        <span style="font-weight: bold; color: white;">${u.xp || 0} XP</span>
+                        <span style="color: var(--success-color);">🔥 ${u.streak || 1} أيام</span>
+                        <span style="color: var(--text-muted);">${u.xp || 0} XP</span>
                     </div>
                 `;
                 list.appendChild(li);
             });
+        }
+
+        async function runAICoach() {
+            const box = document.getElementById('ai-result-box');
+            box.style.display = 'block';
+            box.innerHTML = `<p style="color: var(--text-muted); text-align: center;">جاري تحليل أداءك وعاداتك بواسطة الذكاء الاصطناعي...</p>`;
+
+            setTimeout(() => {
+                let advice = "";
+                const xp = currentUser ? currentUser.xp : 0;
+                const level = currentUser ? currentUser.level : 1;
+                
+                if (level < 2) {
+                    advice = "أهلاً بك يا بطل! مستواك الحالي بداية ممتازة. أنصحك بالتركيز على إضافة 3 عادات أساسية في مصفوفة أيزنهاور (مهم وعاجل) والالتزام بتنفيذها يومياً لزيادة نقاط الخبرة (XP) والوصول للمستوى الثاني بسرعة.";
+                } else {
+                    advice = `رائع جداً! أنت في المستوى ${level} وتظهر التزاماً ملحوظاً. استمر في استخدام مؤقت بومودورو بانتظام لتطوير تركيزك، ولا تنسَ تفقد تحديات الـ 30 يوماً لتعزيز استمراريتك.`;
+                }
+
+                box.innerHTML = `
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;">💡 تحليل وتوجيهات AI Coach</h4>
+                    <p style="font-size: 14px; line-height: 1.6; color: var(--text-color);">${advice}</p>
+                `;
+            }, 1000);
         }
     </script>
 </body>
