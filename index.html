@@ -1,19 +1,1981 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet" />
-    <title>حياتي RPG — حول حياتك إلى لعبة</title>
-    <meta property="og:image" content="https://bolt.new/static/og_default.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://bolt.new/static/og_default.png" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="gold">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOOD - النظام الشامل المتكامل لإدارة الحياة والإنتاجية</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="MOOD - تطبيق شامل لمتابعة العادات، إدارة الصحة، الإنتاجية، وتحفيز الألعاب (Gamification) لتنظيم حياتك اليومية وتحقيق أهدافك بكفاءة عالية.">
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b0f19'/%3E%3Ctext x='50' y='68' font-size='55' font-weight='900' fill='%23f59e0b' text-anchor='middle' font-family='Arial'%3EM%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN (Preflight disabled to protect existing CSS) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { corePlugins: { preflight: false } }
+    </script>
+    
+    <!-- Firebase SDK (Modular) with User Real Config & Auth -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import {
+            getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult,
+            createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,
+            signOut, onAuthStateChanged, updateProfile, deleteUser
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyD4E4qDR4hI9-fvBewrse94ytrg-_6tXkw",
+            authDomain: "mood-65023.firebaseapp.com",
+            projectId: "mood-65023",
+            storageBucket: "mood-65023.firebasestorage.app",
+            messagingSenderId: "534852807934",
+            appId: "1:534852807934:web:4e3d9685bc91a4fbfbc9af",
+            measurementId: "G-PD03M87ZP6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        window.db = db;
+        window.auth = auth;
+        window.GoogleAuthProvider = GoogleAuthProvider;
+        window.signInWithPopup = signInWithPopup;
+        window.signInWithRedirect = signInWithRedirect;
+        window.getRedirectResult = getRedirectResult;
+        window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.sendPasswordResetEmail = sendPasswordResetEmail;
+        window.firebaseSignOut = signOut;
+        window.onAuthStateChanged = onAuthStateChanged;
+        window.updateFirebaseProfile = updateProfile;
+        window.deleteFirebaseUser = deleteUser;
+        window.firebaseFirestore = { collection, doc, setDoc, getDocs, getDoc, deleteDoc };
+    </script>
+
+    <style>
+        :root[data-theme="gold"] { --primary-color: #f59e0b; --primary-hover: #d97706; --accent-glow: rgba(245, 158, 11, 0.4); --badge-bg: rgba(245, 158, 11, 0.1); --circle-bg: radial-gradient(circle, #272115 0%, #0b0f19 80%); --side-logo-border: #f59e0b; --side-logo-shadow: rgba(245, 158, 11, 0.5); }
+        :root[data-theme="blue"] { --primary-color: #0ea5e9; --primary-hover: #0284c7; --accent-glow: rgba(14, 165, 233, 0.4); --badge-bg: rgba(14, 165, 233, 0.1); --circle-bg: radial-gradient(circle, #132238 0%, #0b0f19 80%); --side-logo-border: #00f2fe; --side-logo-shadow: rgba(0, 242, 254, 0.5); }
+        :root[data-theme="emerald"] { --primary-color: #10b981; --primary-hover: #059669; --accent-glow: rgba(16, 185, 129, 0.4); --badge-bg: rgba(16, 185, 129, 0.1); --circle-bg: radial-gradient(circle, #133827 0%, #0b0f19 80%); --side-logo-border: #10b981; --side-logo-shadow: rgba(16, 185, 129, 0.5); }
+        :root[data-theme="purple"] { --primary-color: #a855f7; --primary-hover: #9333ea; --accent-glow: rgba(168, 85, 247, 0.4); --badge-bg: rgba(168, 85, 247, 0.1); --circle-bg: radial-gradient(circle, #2a1b3d 0%, #0b0f19 80%); --side-logo-border: #a855f7; --side-logo-shadow: rgba(168, 85, 247, 0.5); }
+        :root[data-theme="rose"] { --primary-color: #f43f5e; --primary-hover: #e11d48; --accent-glow: rgba(244, 63, 94, 0.4); --badge-bg: rgba(244, 63, 94, 0.1); --circle-bg: radial-gradient(circle, #3d1b24 0%, #0b0f19 80%); --side-logo-border: #f43f5e; --side-logo-shadow: rgba(244, 63, 94, 0.5); }
+        :root[data-theme="cyberpunk"] { --primary-color: #00f2fe; --primary-hover: #4facfe; --accent-glow: rgba(0, 242, 254, 0.5); --badge-bg: rgba(0, 242, 254, 0.15); --circle-bg: radial-gradient(circle, #0f2027 0%, #0b0f19 80%); --side-logo-border: #00f2fe; --side-logo-shadow: rgba(0, 242, 254, 0.7); }
+        :root[data-theme="forest"] { --primary-color: #22c55e; --primary-hover: #16a34a; --accent-glow: rgba(34, 197, 94, 0.4); --badge-bg: rgba(34, 197, 94, 0.1); --circle-bg: radial-gradient(circle, #14271c 0%, #0b0f19 80%); --side-logo-border: #22c55e; --side-logo-shadow: rgba(34, 197, 94, 0.5); }
+
+        :root { --bg-color: #0b0f19; --card-bg: #131b2e; --text-color: #f1f5f9; --text-muted: #94a3b8; --border-color: #1e293b; --danger-color: #ef4444; --success-color: #22c55e; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary-color) !important; box-shadow: 0 0 0 3px var(--accent-glow); outline: none; }
+        
+        body { background: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s ease; overflow-x: hidden; }
+        .background-effects { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+        .background-effects span { position: absolute; display: block; width: 500px; height: 500px; border-radius: 50%; background: var(--accent-glow); filter: blur(120px); animation: float 15s infinite alternate; opacity: .25; }
+        .background-effects span:nth-child(1) { top: -200px; left: -100px; }
+        .background-effects span:nth-child(2) { top: 20%; right: -150px; }
+        .background-effects span:nth-child(3) { bottom: -250px; left: 20%; }
+        @keyframes float { from { transform: translateY(-40px) scale(1); } to { transform: translateY(40px) scale(1.2); } }
+
+        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #070a12; z-index: 999999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.4s ease; }
+        .loading-logo { width: 80px; height: 80px; border-radius: 20px; object-fit: cover; box-shadow: 0 0 30px var(--accent-glow); animation: pulseLogo 1.2s infinite alternate; margin-bottom: 20px; border: 2px solid var(--primary-color); }
+        @keyframes pulseLogo { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.1); opacity: 1; } }
+        .loading-bar-container { width: 250px; height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; }
+        .loading-bar-fill { width: 0%; height: 100%; background: var(--primary-color); transition: width 0.15s linear; }
+
+        .glow { position: fixed; width: 18px; height: 18px; border-radius: 50%; background: var(--primary-color); pointer-events: none; filter: blur(12px); opacity: .5; z-index: 99999; transition: transform 0.1s ease; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); padding: 16px 28px; background: #131b2e; border: 1px solid var(--primary-color); border-radius: 12px; opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 99999; box-shadow: 0 10px 30px rgba(0,0,0,0.6); font-weight: bold; display: flex; align-items: center; gap: 12px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        #auth-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 10, 18, 0.95); display: flex; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(15px); }
+        #profile-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 10, 18, 0.85); display: none; justify-content: center; align-items: center; z-index: 11000; backdrop-filter: blur(10px); }
+        .profile-card { background: var(--card-bg); padding: 30px; border-radius: 20px; width: 100%; max-width: 480px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 15px; left: 15px; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; }
+        .profile-avatar-container { position: relative; width: 90px; height: 90px; margin: 0 auto 15px auto; }
+        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #f59e0b; background: var(--bg-color); }
+        .avatar-upload-label { position: absolute; bottom: 0; right: 0; background: var(--primary-color); color: #0b0f19; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; border-bottom: 1px solid var(--border-color); background: rgba(19, 27, 46, 0.85); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 999; flex-wrap: wrap; gap: 15px; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .side-logo-m { width: 44px; height: 44px; background: linear-gradient(135deg, #131b2e 0%, #0b0f19 100%); border: 2px solid var(--side-logo-border); color: white; font-size: 22px; font-weight: 900; display: flex; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 0 15px var(--side-logo-shadow); }
+        .logo-text { font-size: 22px; font-weight: bold; color: white; letter-spacing: 1px; }
+        nav ul { display: flex; list-style: none; gap: 12px; flex-wrap: wrap; }
+        nav ul li a { text-decoration: none; color: var(--text-muted); font-weight: 500; cursor: pointer; transition: color 0.2s; font-size: 14px; padding: 6px 10px; border-radius: 8px; }
+        nav ul li a:hover, nav ul li a.active { color: var(--primary-color); background: var(--badge-bg); }
+        .user-panel { display: flex; align-items: center; gap: 12px; }
+        .coin-badge, .streak-badge, .level-badge { background: var(--bg-color); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
+        .header-profile-circle { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #f59e0b; cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--card-bg); }
+        .header-profile-circle img { width: 100%; height: 100%; object-fit: cover; }
+        
+        main { flex: 1; padding: 30px; max-width: 1350px; margin: 0 auto; width: 100%; display: flex; justify-content: center; align-items: center; }
+        .page-section { display: none; width: 100%; }
+        .page-section.active-section { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: none; } }
+        
+        .card-box { background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--border-color); margin-bottom: 25px; backdrop-filter: blur(16px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        .card-box:hover { transform: translateY(-3px); border-color: var(--primary-color); box-shadow: 0 0 25px var(--accent-glow), 0 20px 40px rgba(0,0,0,0.4); }
+        .card-box h2 { margin-bottom: 20px; color: var(--primary-color); font-size: 22px; display: flex; align-items: center; gap: 10px; }
+        
+        .calendar-day { background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 0; text-align: center; cursor: pointer; font-size: 14px; transition: 0.2s; user-select: none; }
+        .calendar-day:hover:not(.disabled) { border-color: var(--primary-color); }
+        .calendar-day.empty { background: transparent; border: none; cursor: default; }
+        .calendar-day.today { border-color: var(--primary-color); box-shadow: 0 0 12px var(--accent-glow); }
+        .calendar-day.disabled { opacity: 0.4; cursor: not-allowed; }
+        
+        .hero-container { display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; gap: 60px; padding: 40px 0; }
+        @media(max-width: 968px) { .hero-container { flex-direction: column; text-align: center; gap: 40px; } .hero-right-text { text-align: center !important; } header { padding: 10px 15px; } }
+        .big-glowing-circle { width: 380px; height: 380px; background: var(--circle-bg); border: 3px solid var(--accent-glow); border-radius: 50%; box-shadow: 0 0 70px var(--accent-glow), inset 0 0 40px var(--accent-glow); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto; }
+        .circle-logo-m { font-size: 96px; font-weight: 900; color: var(--primary-color); text-shadow: 0 0 30px var(--accent-glow); line-height: 1; margin-bottom: 10px; }
+        .btn-primary { padding: 14px 30px; background: var(--primary-color); color: #0b0f19; border: none; border-radius: 12px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; box-shadow: 0 8px 25px var(--accent-glow); }
+        .btn-primary:hover { background: var(--primary-hover); color: white; transform: translateY(-2px); }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+        @media(max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        
+        .habit-item, .task-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 12px; gap: 10px; transition: border-color 0.2s ease; }
+        .habit-item:hover, .task-item:hover { border-color: var(--primary-color); }
+        
+        .pomodoro-container { text-align: center; padding: 20px; }
+        .pomodoro-timer { font-size: 56px; font-weight: 900; color: var(--primary-color); margin: 20px 0; text-shadow: 0 0 20px var(--accent-glow); }
+        .tracker-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .tracker-card { background: var(--bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 16px; text-align: center; }
+        
+        .store-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .store-tab-btn { background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-muted); padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .store-tab-btn.active { background: var(--primary-color); color: #0b0f19; border-color: var(--primary-color); box-shadow: 0 0 15px var(--accent-glow); }
+        .store-section-content { display: none; }
+        .store-section-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; animation: fadeIn 0.3s ease; }
+        
+        .themes-grid, .achievements-grid, .frames-grid, .boosters-grid, .rewards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .theme-shop-card, .achievement-card, .frame-shop-card, .booster-shop-card, .reward-shop-card { background: var(--bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; text-align: center; }
+        .achievement-card.locked { opacity: 0.5; filter: grayscale(1); }
+        .theme-shop-card, .booster-shop-card, .frame-shop-card, .reward-shop-card { transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; position: relative; }
+        .theme-shop-card:hover, .booster-shop-card:hover, .frame-shop-card:hover, .reward-shop-card:hover { transform: translateY(-3px); border-color: var(--primary-color); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
+        .theme-shop-card.active-store-item { border-color: var(--primary-color); box-shadow: 0 0 20px var(--accent-glow); }
+        .store-swatch { width: 38px; height: 38px; border-radius: 50%; margin: 0 auto 12px; border: 2px solid rgba(255,255,255,0.15); }
+        .store-badge { position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: #0b0f19; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 999px; letter-spacing: 0.5px; }
+        .booster-icon { font-size: 30px; margin-bottom: 8px; }
+        .store-owned-count { font-size: 11px; color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
+        .theme-shop-card button:disabled { opacity: 0.6; cursor: default; box-shadow: none; }
+        .store-action-row { display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:10px; }
+        .store-use-btn { padding:5px 9px !important; font-size:11px !important; border-radius:8px !important; min-width:52px; box-shadow:none !important; }
+        .store-use-btn:disabled { opacity:.45; cursor:not-allowed; }
+        .store-owned-count { min-height:14px; }
+        .auth-message { display:none; margin:0 0 16px; padding:10px 12px; border-radius:10px; font-size:12px; line-height:1.5; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-muted); }
+        .auth-message.show { display:block; }
+        .auth-message[data-type="error"] { color: #fca5a5; border-color: rgba(239,68,68,.35); }
+        .auth-message[data-type="success"] { color: #86efac; border-color: rgba(34,197,94,.35); }
+
+        /* =====================================================
+           MOOD AUTH — SAME DESIGN SYSTEM AS THE MAIN WEBSITE
+           ===================================================== */
+        #auth-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--primary-color) 12%, transparent), transparent 35%),
+                radial-gradient(circle at 80% 80%, color-mix(in srgb, var(--primary-color) 8%, transparent), transparent 35%),
+                rgba(7, 10, 18, 0.96);
+            backdrop-filter: blur(18px);
+            font-family: 'Poppins', sans-serif;
+        }
+        #auth-modal::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            opacity: 0.06;
+            filter: blur(100px);
+            pointer-events: none;
+        }
+        #auth-modal .auth-card {
+            position: relative;
+            width: min(920px, calc(100% - 30px));
+            min-height: 560px;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(19, 27, 46, 0.98), rgba(11, 15, 25, 0.98));
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+            margin: 20px;
+        }
+        @media (max-width: 768px) {
+            #auth-modal .auth-card { grid-template-columns: 1fr; min-height: auto; }
+            #auth-modal .auth-brand-panel { display: none; }
+        }
+
+        .auth-brand-panel { position: relative; background: rgba(0,0,0,0.2); border-right: 1px solid var(--border-color); }
+        .auth-brand-content { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; }
+        .auth-brand-logo { width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 26px; font-size: 56px; font-weight: 900; color: var(--primary-color); border: 1px solid var(--primary-color); background: color-mix(in srgb, var(--primary-color) 7%, transparent); box-shadow: 0 0 50px color-mix(in srgb, var(--primary-color) 15%, transparent); margin-bottom: 22px; }
+        .auth-brand-title { font-size: 30px; font-weight: 900; letter-spacing: 6px; color: var(--text-color); }
+        .auth-brand-subtitle { margin-top: 8px; color: var(--text-muted); font-size: 11px; letter-spacing: 2px; }
+        .auth-mini-stats { display: flex; gap: 10px; margin-top: 35px; }
+        .auth-mini-stats div { width: 72px; padding: 12px 5px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .auth-mini-stats strong { color: var(--primary-color); font-size: 11px; letter-spacing: 1px; }
+        .auth-mini-stats span { color: var(--text-color); font-weight: 700; font-size: 14px; }
+
+        .auth-form-panel { padding: 44px 46px; display: flex; flex-direction: column; justify-content: center; overflow-y: auto; }
+        .auth-tabs { display: flex; background: var(--bg-color); border: 1px solid var(--border-color); padding: 4px; border-radius: 999px; margin-bottom: 28px; max-width: 260px; }
+        .auth-tab { width: 50%; padding: 10px 18px; border: none; border-radius: 999px; background: transparent; color: var(--text-muted); font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.25s ease; }
+        .auth-tab.active { background: var(--primary-color); color: #080b12; box-shadow: 0 5px 20px color-mix(in srgb, var(--primary-color) 20%, transparent); }
+
+        .auth-form-title { font-size: 26px; font-weight: 800; color: var(--text-color); margin: 0 0 4px 0; }
+        .auth-form-subtitle { font-size: 12px; color: var(--text-muted); margin: 0 0 24px 0; }
+
+        .auth-google-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-color); color: var(--text-color); font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s; margin-bottom: 22px; }
+        .auth-google-btn:hover { border-color: var(--primary-color); }
+
+        .auth-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+        .auth-divider span:not(#dividerText) { flex: 1; height: 1px; background: var(--border-color); }
+        #dividerText { color: var(--text-muted); font-size: 11px; }
+
+        .auth-field { margin-bottom: 16px; }
+        .auth-label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 6px; }
+        .auth-input { width: 100%; padding: 12px 14px; font-size: 14px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-color); font-weight: 500; transition: 0.2s; }
+        .auth-input:focus { border-color: var(--primary-color) !important; box-shadow: 0 0 0 3px var(--accent-glow); outline: none; }
+        .auth-hint { color: var(--text-muted); font-size: 11px; display: none; margin-top: 4px; }
+        .auth-password-wrap { position: relative; }
+        .auth-password-wrap .auth-input { padding-right: 40px; }
+        .auth-eye-btn { position: absolute; top: 0; bottom: 0; right: 0; display: flex; align-items: center; padding: 0 12px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; }
+        .auth-eye-btn:hover { color: var(--text-color); }
+
+        .auth-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; margin-bottom: 20px; }
+        .auth-remember { display: flex; align-items: center; gap: 8px; color: var(--text-muted); cursor: pointer; }
+        .auth-remember input { width: 14px; height: 14px; margin: 0; accent-color: var(--primary-color); }
+        .auth-link-btn { background: transparent; border: none; padding: 0; color: var(--text-muted); font-weight: 500; font-size: 12px; cursor: pointer; }
+        .auth-link-btn:hover { color: var(--primary-color); }
+
+        .auth-submit-btn { width: 100%; padding: 14px; border-radius: 12px; border: none; background: var(--primary-color); color: #0b0f19; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s; box-shadow: 0 8px 25px var(--accent-glow); }
+        .auth-submit-btn:hover { background: var(--primary-hover); }
+    </style>
+</head>
+<body>
+
+    <div id="loading-screen">
+        <img src="https://i.pinimg.com/1200x/32/d0/8e/32d08e697fd30cea7a74b80684fb7eb1.jpg" alt="MOOD Logo" class="loading-logo">
+        <div class="loading-bar-container">
+            <div id="loading-bar-fill" class="loading-bar-fill"></div>
+        </div>
+        <p style="color: var(--text-muted); margin-top: 15px; font-size: 14px;">جاري تحميل النظام والبيانات...</p>
+    </div>
+
+    <div class="background-effects">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="glow"></div>
+
+    <div id="toast">
+        <span id="toast-icon">✨</span>
+        <span id="toast-msg">رسالة إشعار</span>
+    </div>
+
+    <!-- نافذة تسجيل الدخول (نفس هوية الموقع الداكنة + Gamification) -->
+    <div id="auth-modal" dir="ltr">
+        <div id="mainCard" class="auth-card">
+
+            <div class="auth-brand-panel">
+                <div class="auth-brand-content">
+                    <div class="auth-brand-logo">M</div>
+                    <div class="auth-brand-title">MOOD</div>
+                    <p class="auth-brand-subtitle">TURN YOUR LIFE INTO A GAME</p>
+                    <div class="auth-mini-stats">
+                        <div><strong>XP</strong><span>0</span></div>
+                        <div><strong>LV</strong><span>1</span></div>
+                        <div><strong>🔥</strong><span>0</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-form-panel">
+                <div id="tabContainer" class="auth-tabs">
+                    <button id="signupTab" onclick="toggleAuthMode(true)" class="auth-tab">Sign Up</button>
+                    <button id="loginTab" onclick="toggleAuthMode(false)" class="auth-tab active">Log In</button>
+                </div>
+
+                <h2 id="formTitle" class="auth-form-title">Welcome Back</h2>
+                <p id="formSubtitle" class="auth-form-subtitle">Log In to your gamified workspace</p>
+
+                <button type="button" onclick="handleGoogleSignIn()" id="googleBtn" class="auth-google-btn">
+                    <i class="fa-brands fa-google" style="color:#ef4444;"></i>
+                    Continue with Google
+                </button>
+
+                <div class="auth-divider">
+                    <span id="dividerLine1"></span>
+                    <span id="dividerText">or</span>
+                    <span id="dividerLine2"></span>
+                </div>
+
+                <div id="authMessage" class="auth-message"></div>
+
+                <form id="auth-form" onsubmit="handleAuth(event)">
+
+                    <div id="nameFieldContainer" class="auth-field" style="display: none;">
+                        <label id="nameLabel" class="auth-label">Username</label>
+                        <input type="text" id="auth-name" placeholder="John Doe" class="auth-input">
+                    </div>
+
+                    <div class="auth-field">
+                        <label id="emailLabel" class="auth-label">Email Address</label>
+                        <input type="email" id="auth-email" required placeholder="example@mail.com" class="auth-input">
+                    </div>
+
+                    <div class="auth-field">
+                        <label id="passwordLabel" class="auth-label">Password</label>
+                        <div class="auth-password-wrap">
+                            <input type="password" id="auth-pass" required placeholder="Enter your password" class="auth-input">
+                            <button type="button" onclick="togglePasswordVisibility()" class="auth-eye-btn">
+                                <i id="eyeIcon" class="fa-regular fa-eye-slash"></i>
+                            </button>
+                        </div>
+                        <small id="password-hint" class="auth-hint">Password must be at least 6 characters</small>
+                    </div>
+
+                    <div class="auth-row">
+                        <label id="rememberLabel" class="auth-remember">
+                            <input type="checkbox" id="rememberMe">
+                            Remember me
+                        </label>
+                        <button type="button" onclick="openForgotModal()" id="forgotPasswordBtn" class="auth-link-btn">Forgot Password?</button>
+                    </div>
+
+                    <button type="submit" id="auth-btn" class="auth-submit-btn">
+                        Log In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة استعادة كلمة المرور -->
+    <div id="forgotModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-[10500] backdrop-blur-sm" dir="ltr" style="font-family: 'Poppins', sans-serif;">
+        <div style="background:var(--card-bg); color:var(--text-color); border:1px solid var(--border-color); padding:24px; border-radius:20px; width:100%; max-width:390px; box-shadow:0 20px 60px rgba(0,0,0,.55);">
+            <h3 class="text-lg font-bold mb-2 m-0" style="color:var(--text-color);">Reset Password</h3>
+            <p class="text-xs mb-4 m-0" style="color:var(--text-muted);">Enter your email and we'll send you a link to reset your password.</p>
+            <div id="resetMessage" class="auth-message"></div>
+            <input type="email" id="resetEmail" placeholder="example@mail.com" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl mb-4 outline-none focus:ring-2 focus:ring-sky-100 m-0 text-black">
+            <div class="flex gap-2">
+                <button onclick="closeForgotModal()" class="flex-1 py-2.5 text-sm text-gray-500 hover:bg-gray-100 rounded-xl transition border-none cursor-pointer bg-transparent">Cancel</button>
+                <button onclick="sendReset()" class="flex-1 py-2.5 text-sm bg-black text-white rounded-xl hover:bg-gray-800 transition border-none cursor-pointer">Send Link</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الملف الشخصي (مكان رفع وتغيير الصورة الشخصية بعد التسجيل) -->
+    <div id="profile-modal">
+        <div class="profile-card">
+            <button class="close-modal" onclick="toggleProfileModal(false)">✕</button>
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;">الملف الشخصي وإنجازاتك</h3>
+            
+            <div class="profile-avatar-container" id="profile-modal-avatar-wrapper">
+                <img id="modal-avatar-img" src="" alt="صورة الملف الشخصي" class="profile-avatar">
+                <label for="avatar-file-input" class="avatar-upload-label" title="تغيير الصورة">📷</label>
+                <input type="file" id="avatar-file-input" accept="image/*" style="display: none;" onchange="updateAvatar(event)">
+            </div>
+
+            <h4 id="modal-user-name" style="color: white; margin-bottom: 5px;">مستخدم MOOD</h4>
+            <p id="modal-user-email" style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">email@domain.com</p>
+
+            <div style="background: var(--bg-color); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 15px; text-align: right;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: bold;">
+                    <span id="profile-level-text">المستوى 1</span>
+                    <span id="profile-xp-text" style="color: var(--primary-color);">0 / 100 XP</span>
+                </div>
+                <div style="width: 100%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden;">
+                    <div id="profile-xp-fill" style="height: 100%; background: var(--primary-color); width: 0%;"></div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                <div style="background: var(--bg-color); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--text-muted); font-size: 12px;">Coins المتاحة</div>
+                    <div id="profile-coins" style="font-size: 20px; font-weight: bold; color: var(--primary-color);">0 🪙</div>
+                </div>
+                <div style="background: var(--bg-color); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--text-muted); font-size: 12px;">Streak الحالي</div>
+                    <div id="profile-streak" style="font-size: 20px; font-weight: bold; color: var(--success-color);">0 أيام 🔥</div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-primary" style="flex: 1; background: #ef4444; color: white;" onclick="deleteAccount()">حذف الحساب</button>
+                <button class="btn-primary" style="flex: 1; background: #334155; color: white;" onclick="logout()">تسجيل الخروج</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة عرض عادات اليوم -->
+    <div id="day-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 10, 18, 0.85); display: none; justify-content: center; align-items: center; z-index: 12000; backdrop-filter: blur(10px);">
+        <div class="profile-card" style="max-width: 450px; text-align: right;">
+            <button class="close-modal" onclick="closeDayModal()">✕</button>
+            <h3 id="day-modal-title" style="color: var(--primary-color); margin-bottom: 15px;">عادات اليوم</h3>
+            <div id="day-modal-habits-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;"></div>
+            <button class="btn-primary" style="width: 100%;" onclick="closeDayModal()">إغلاق</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo-area">
+            <div class="side-logo-m">M</div>
+            <div class="logo-text">MOOD</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a class="nav-link active" onclick="switchPage('home', event)">الرئيسية</a></li>
+                <li><a class="nav-link" onclick="switchPage('habits', event)">العادات</a></li>
+                <li><a class="nav-link" onclick="switchPage('challenges', event)">تحديات 30 يوماً</a></li>
+                <li><a class="nav-link" onclick="switchPage('health', event)">الصحة والإنتاجية</a></li>
+                <li><a class="nav-link" onclick="switchPage('store', event)">المتجر والإنجازات</a></li>
+                <li><a class="nav-link" onclick="switchPage('community', event)">المجتمع</a></li>
+                <li><a class="nav-link" onclick="switchPage('ai', event)">AI Coach</a></li>
+            </ul>
+        </nav>
+        <div class="user-panel">
+            <div class="level-badge" id="nav-level">⭐ Lv.1</div>
+            <div class="coin-badge" id="nav-coins">🪙 0</div>
+            <div class="streak-badge" id="nav-streak">🔥 0</div>
+            <div class="header-profile-circle" id="header-avatar-wrapper" onclick="toggleProfileModal(true)">
+                <img id="header-avatar-img" alt="صورة الملف الشخصي">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="page-section active-section">
+            <div class="hero-container">
+                <div class="hero-right-visual">
+                    <div class="big-glowing-circle">
+                        <div class="circle-logo-m">M</div>
+                        <span style="color: var(--text-muted); font-size: 15px; margin-top: 5px;">النظام الذكي</span>
+                    </div>
+                </div>
+                <div class="hero-left-text" style="flex: 1; text-align: right;">
+                    <span style="color: var(--primary-color); background: var(--badge-bg); padding: 8px 20px; border-radius: 50px; font-size: 1rem; display: inline-block; margin-bottom: 25px; border: 1px solid var(--accent-glow);">أداتك الأولى لتنظيم حياتك والارتقاء بإنتاجيتك</span>
+                    <h1 style="font-size: 4rem; margin-bottom: 25px; line-height: 1.2; font-weight: 800;">ابني مستقبلك،<br>يوماً <span style="color: var(--primary-color);">بيوم.</span></h1>
+                    <p style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.6; margin-bottom: 35px; max-width: 600px;">تطبيق شامل يدمج متابعة العادات، إدارة الصحة، تحليلات الذكاء الاصطناعي، وتحديات الـ 30 يوماً لتعظيم إنجازاتك اليومية.</p>
+                    <button class="btn-primary" onclick="switchPage('habits', event)">ابدأ الآن ←</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="habits" class="page-section">
+            <div class="card-box">
+                <h2>🎯 إدارة العادات (مصفوفة أيزنهاور)</h2>
+                <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <input type="text" id="habit-input" placeholder="أدخل عادة جديدة..." style="flex: 1; min-width: 200px; padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                    <select id="habit-category" style="padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                        <option value="q1">🔴 مهم وعاجل</option>
+                        <option value="q2">🟡 مهم وليس عاجل</option>
+                        <option value="q3">🔵 غير مهم ولكن عاجل</option>
+                        <option value="q4">⚪ غير مهم وغير عاجل</option>
+                    </select>
+                    <button class="btn-primary" onclick="addHabit()">إضافة عادة</button>
+                </div>
+                <div class="matrix-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <div style="background: var(--bg-color); border: 1px solid #ef4444; border-radius: 12px; padding: 15px;">
+                        <h3 style="color: #ef4444; font-size: 16px; margin-bottom: 10px;">مهم وعاجل</h3>
+                        <ul id="habits-q1" style="list-style: none;"></ul>
+                    </div>
+                    <div style="background: var(--bg-color); border: 1px solid #f59e0b; border-radius: 12px; padding: 15px;">
+                        <h3 style="color: #f59e0b; font-size: 16px; margin-bottom: 10px;">مهم وليس عاجل</h3>
+                        <ul id="habits-q2" style="list-style: none;"></ul>
+                    </div>
+                    <div style="background: var(--bg-color); border: 1px solid #3b82f6; border-radius: 12px; padding: 15px;">
+                        <h3 style="color: #3b82f6; font-size: 16px; margin-bottom: 10px;">غير مهم ولكن عاجل</h3>
+                        <ul id="habits-q3" style="list-style: none;"></ul>
+                    </div>
+                    <div style="background: var(--bg-color); border: 1px solid #94a3b8; border-radius: 12px; padding: 15px;">
+                        <h3 style="color: #94a3b8; font-size: 16px; margin-bottom: 10px;">غير مهم وغير عاجل</h3>
+                        <ul id="habits-q4" style="list-style: none;"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-box" id="commitment-calendar-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h2 style="margin-bottom: 0;">🗓️ تقويم الالتزام - <span id="calendar-month-year">يوليو 2026</span></h2>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-primary" style="padding: 6px 12px; font-size: 13px; background: #334155; color: white;" onclick="changeMonth(-1)">السابق ←</button>
+                        <button class="btn-primary" style="padding: 6px 12px; font-size: 13px; background: #334155; color: white;" onclick="goToCurrentMonth()">الشهر الحالي</button>
+                        <button class="btn-primary" style="padding: 6px 12px; font-size: 13px; background: #334155; color: white;" onclick="changeMonth(1)">→ التالي</button>
+                    </div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">اضغط على أي يوم لعرض وتعديل العادات المسجلة في ذلك اليوم ✅</p>
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; margin-bottom: 10px; font-weight: bold; color: var(--primary-color); font-size: 14px;">
+                    <div>السبت</div><div>الأحد</div><div>الإثنين</div><div>الثلاثاء</div><div>الأربعاء</div><div>الخميس</div><div>الجمعة</div>
+                </div>
+                <div id="calendar-days-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;"></div>
+            </div>
+        </section>
+
+        <section id="challenges" class="page-section">
+            <div class="card-box">
+                <h2>🚀 تحديات الـ 30 يوماً لبناء العادات المستدامة</h2>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">التزم بتحدٍ لمدّة 30 يوماً لترسيخ عاداتك وتحقيق قفزة نوعية في إنتاجيتك ومستواك!</p>
+                <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <input type="text" id="challenge-input" placeholder="عنوان التحدي (مثلاً: قراءة 20 صفحة يومياً، الاستيقاظ مبكراً)..." style="flex: 1; min-width: 250px; padding: 12px; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                    <button class="btn-primary" onclick="add30DayChallenge()">بدء التحدي الجديد</button>
+                </div>
+                <div id="challenges-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;"></div>
+            </div>
+        </section>
+
+        <section id="health" class="page-section">
+            <div class="grid-2">
+                <div class="card-box">
+                    <h2>⏱️ مؤقت بومودورو (Pomodoro)</h2>
+                    <div class="pomodoro-container">
+                        <div id="pomo-mode-label" style="color: var(--primary-color); font-weight: bold; margin-bottom: 5px; font-size: 15px;">🎯 جلسة تركيز</div>
+                        <div class="pomodoro-timer" id="pomo-timer">00:25:00</div>
+                        <div style="display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <label style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">ساعات</label>
+                                <input type="number" id="pomo-hours-input" min="0" max="23" value="0" style="width: 70px; padding: 8px; text-align: center; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <label style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">دقائق</label>
+                                <input type="number" id="pomo-minutes-input" min="0" max="59" value="25" style="width: 70px; padding: 8px; text-align: center; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                            </div>
+                            <button class="btn-primary" id="pomo-set-btn" style="align-self: flex-end; padding: 9px 14px; font-size: 13px;" onclick="setPomoDuration()">ضبط الوقت</button>
+                        </div>
+                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px;">
+                            <button class="btn-primary" id="pomo-start-btn" onclick="startPomodoro()">تشغيل</button>
+                            <button class="btn-primary" style="background: #334155; color: white;" onclick="pausePomodoro()">إيقاف مؤقت</button>
+                            <button class="btn-primary" style="background: #334155; color: white;" onclick="resetPomodoro()">إعادة ضبط</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <h2>😴 متابعة النوم والصحة</h2>
+                    <div class="tracker-grid">
+                        <div class="tracker-card">
+                            <div style="color: var(--text-muted);">ساعات النوم الفعلية</div>
+                            <h3 id="sleep-count" style="font-size: 32px; color: var(--primary-color); margin: 10px 0;">0 ساعات</h3>
+                            <div style="display: flex; gap: 8px; justify-content: center;">
+                                <input type="number" id="sleep-input" min="0" max="24" step="0.5" placeholder="عدد الساعات" style="width: 120px; padding: 10px; text-align: center; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 10px; color: white;">
+                                <button class="btn-primary" id="sleep-btn" onclick="logSleep()">تسجيل 😴 (10 نقاط)</button>
+                            </div>
+                            <p id="sleep-lock-msg" style="font-size: 12px; color: var(--text-muted); margin-top: 10px; display: none;">✅ تم تسجيل نومك اليوم. يمكنك التسجيل مجدداً غداً.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="store" class="page-section">
+            <div class="card-box">
+                <h2>🏆 نظام الإنجازات (Achievements)</h2>
+                <div class="achievements-grid" id="achievements-grid"></div>
+            </div>
+
+            <div class="card-box">
+                <h2>🛍️ متجر المكافآت والتخصيص الشامل (MOOD Store)</h2>
+                <div class="store-tabs">
+                    <button class="store-tab-btn active" onclick="switchStoreTab('themes', event)">🎨 الثيمات</button>
+                    <button class="store-tab-btn" onclick="switchStoreTab('frames', event)">🖼️ إطارات البروفايل</button>
+                    <button class="store-tab-btn" onclick="switchStoreTab('boosters', event)">⚡ معززات الإنتاجية</button>
+                    <button class="store-tab-btn" onclick="switchStoreTab('rewards', event)">🎁 مكافآت واقعية</button>
+                                    </div>
+                <div id="store-themes" class="store-section-content active"></div>
+                <div id="store-frames" class="store-section-content"></div>
+                <div id="store-boosters" class="store-section-content"></div>
+                <div id="store-rewards" class="store-section-content"></div>
+            </div>
+        </section>
+
+        <section id="community" class="page-section">
+            <div class="card-box">
+                <h2>🌐 مجتمع MOOD وروابط التواصل</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                    <a href="https://discord.gg/QRAWXSF6M" target="_blank" style="text-decoration: none;">
+                        <div style="background: var(--bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; text-align: center; transition: 0.2s; cursor: pointer;">
+                            <div style="font-size: 32px; margin-bottom: 10px;">💬</div>
+                            <h4 style="color: white; margin-bottom: 5px;">سيرفر الديسكورد</h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">انضم لمجتمع النقاش والفعاليات</p>
+                        </div>
+                    </a>
+                    <a href="https://youtube.com/@moo-d47y?si=c_qASUh8ld4cpbmY" target="_blank" style="text-decoration: none;">
+                        <div style="background: var(--bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; text-align: center; transition: 0.2s; cursor: pointer;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="#FF0000" style="margin-bottom: 10px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            <h4 style="color: white; margin-bottom: 5px;">قناة اليوتيوب</h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">شاهد الفيديوهات والشروحات</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card-box">
+                <h2>🌍 لوحة المتصدّرين (Leaderboard)</h2>
+                <ul id="leaderboard-list" style="list-style: none;"></ul>
+            </div>
+        </section>
+
+        <section id="ai" class="page-section">
+            <div class="card-box" style="display: flex; justify-content: center; align-items: center; min-height: 60vh; padding: 30px;">
+                <div style="text-align: center; width: 100%; max-width: 700px; margin: 0 auto;">
+                    <div style="font-size: 60px; margin-bottom: 15px;">🤖</div>
+                    <h2 style="justify-content: center; width: 100%;">المساعد الذكي (AI Coach) وتحليل الأداء</h2>
+                    <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto 25px auto; line-height: 1.6;">
+                        مساعدك الشخصي المدعوم بالذكاء الاصطناعي لتحليل عاداتك، اقتراح عادات جديدة تتناسب مع أهدافك، وإعطائك نصائح حصرية لزيادة إنتاجيتك.
+                    </p>
+                    <button class="btn-primary" onclick="runAICoach()">تحليل الأداء واقتراح عادات ذكية 💡</button>
+                    <div id="ai-result-box" style="margin-top: 25px; background: var(--bg-color); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; text-align: right; width: 100%; display: none;"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const DEFAULT_AVATAR = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1e293b"/><circle cx="50" cy="38" r="18" fill="#64748b"/><path d="M18 90c0-20 14-34 32-34s32 14 32 34" fill="#64748b"/></svg>');
+        let isRegisterMode = false;
+        let currentUser = null;
+        let currentCalendarDate = new Date();
+
+        // Pomodoro State
+        let pomoTime = 25 * 60;
+        let pomoInterval = null;
+        let isPomoRunning = false;
+        let isWorkMode = true;
+
+        function getLocalDateString(date = new Date()) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function toast(msg, icon = '✨') {
+            const t = document.getElementById("toast");
+            document.getElementById("toast-msg").textContent = msg;
+            document.getElementById("toast-icon").textContent = icon;
+            t.classList.add("show");
+            setTimeout(() => { t.classList.remove("show"); }, 3000);
+        }
+
+        const glow = document.querySelector(".glow");
+        document.addEventListener("mousemove", e => {
+            if(glow) {
+                glow.style.left = e.clientX + "px";
+                glow.style.top = e.clientY + "px";
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            let progress = 0;
+            const bar = document.getElementById('loading-bar-fill');
+            const interval = setInterval(() => {
+                progress += 25;
+                if(bar) bar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    const lScreen = document.getElementById('loading-screen');
+                    if(lScreen) {
+                        lScreen.style.opacity = '0';
+                        setTimeout(() => { lScreen.style.display = 'none'; }, 300);
+                    }
+                }
+            }, 80);
+
+            const savedTheme = localStorage.getItem('mood_theme') || 'gold';
+            setTheme(savedTheme);
+            initSession();
+            renderPomoTime();
+        });
+
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('mood_theme', themeName);
+        }
+
+        function toggleAuthMode(forceMode) {
+            if (typeof forceMode !== 'undefined') {
+                isRegisterMode = forceMode;
+            } else {
+                isRegisterMode = !isRegisterMode;
+            }
+
+            const formTitle = document.getElementById('formTitle');
+            const formSubtitle = document.getElementById('formSubtitle');
+            const submitBtn = document.getElementById('auth-btn');
+            const nameContainer = document.getElementById('nameFieldContainer');
+            const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+            const passwordHint = document.getElementById('password-hint');
+            
+            const signupTab = document.getElementById('signupTab');
+            const loginTab = document.getElementById('loginTab');
+
+            if (isRegisterMode) {
+                formTitle.textContent = "Create Character";
+                formSubtitle.textContent = "Sign Up to start your journey";
+                submitBtn.textContent = "Sign Up";
+                nameContainer.style.display = "block";
+                forgotPasswordBtn.style.display = "none";
+                passwordHint.style.display = "block";
+                
+                signupTab.classList.add('active');
+                loginTab.classList.remove('active');
+            } else {
+                formTitle.textContent = "Welcome Back";
+                formSubtitle.textContent = "Log In to your gamified workspace";
+                submitBtn.textContent = "Log In";
+                nameContainer.style.display = "none";
+                forgotPasswordBtn.style.display = "block";
+                passwordHint.style.display = "none";
+                
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById('auth-pass');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                passInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        function getAuthErrorMessage(error) {
+            const code = error?.code || '';
+            const messages = {
+                'auth/invalid-email': '❌ البريد الإلكتروني غير صحيح.',
+                'auth/email-already-in-use': '❌ هذا البريد الإلكتروني مستخدم بالفعل. جرّب تسجيل الدخول.',
+                'auth/weak-password': '❌ كلمة المرور ضعيفة. استخدم 6 أحرف على الأقل.',
+                'auth/user-not-found': '❌ لا يوجد حساب بهذا البريد الإلكتروني.',
+                'auth/wrong-password': '❌ كلمة المرور غير صحيحة.',
+                'auth/invalid-credential': '❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.',
+                'auth/too-many-requests': '⏳ تم إجراء محاولات كثيرة. حاول مرة أخرى لاحقاً.',
+                'auth/network-request-failed': '🌐 تعذر الاتصال بخدمة Firebase. تحقق من الإنترنت.',
+                'auth/operation-not-allowed': '⚙️ تسجيل الدخول بالبريد غير مفعّل في Firebase Authentication.',
+                'auth/user-disabled': '🚫 هذا الحساب معطّل.',
+                'auth/popup-closed-by-user': 'تم إغلاق نافذة Google قبل إكمال تسجيل الدخول.'
+            };
+            return messages[code] || `❌ حدث خطأ: ${error?.message || 'خطأ غير معروف'}`;
+        }
+
+        function showAuthMessage(text, type = 'error') {
+            const msg = document.getElementById('authMessage');
+            if (!msg) return;
+            msg.textContent = text;
+            msg.dataset.type = type;
+            msg.classList.add('show');
+        }
+
+        function clearAuthMessage() {
+            const msg = document.getElementById('authMessage');
+            if (!msg) return;
+            msg.textContent = '';
+            msg.classList.remove('show');
+        }
+
+        function openForgotModal() {
+            const modal = document.getElementById('forgotModal');
+            const emailInput = document.getElementById('resetEmail');
+            const msg = document.getElementById('resetMessage');
+            emailInput.value = document.getElementById('auth-email').value.trim();
+            msg.classList.remove('show');
+            msg.textContent = '';
+            modal.classList.remove('hidden');
+            setTimeout(() => emailInput.focus(), 50);
+        }
+
+        function closeForgotModal() {
+            document.getElementById('forgotModal').classList.add('hidden');
+        }
+
+        async function sendReset() {
+            const emailVal = document.getElementById('resetEmail').value.trim().toLowerCase();
+            const msg = document.getElementById('resetMessage');
+            const btn = document.querySelector('#forgotModal button[onclick="sendReset()"]');
+
+            if (!emailVal) {
+                msg.textContent = 'الرجاء إدخال البريد الإلكتروني.';
+                msg.classList.add('show');
+                return;
+            }
+
+            if (!window.auth || !window.sendPasswordResetEmail) {
+                msg.textContent = '❌ Firebase Authentication غير متاح حالياً.';
+                msg.classList.add('show');
+                return;
+            }
+
+            try {
+                if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+                await window.sendPasswordResetEmail(window.auth, emailVal);
+                msg.textContent = '✅ تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. افحص Inbox وSpam.';
+                msg.classList.add('show');
+            } catch (error) {
+                msg.textContent = getAuthErrorMessage(error);
+                msg.classList.add('show');
+            } finally {
+                if (btn) { btn.disabled = false; btn.textContent = 'Send Link'; }
+            }
+        }
+
+        async function processGoogleUser(user) {
+            const email = (user.email || '').toLowerCase();
+            const name = user.displayName || 'مستخدم جوجل';
+            const avatar = user.photoURL || DEFAULT_AVATAR;
+            const todayStr = getLocalDateString();
+
+            let parsed = null;
+            if (window.db && window.firebaseFirestore) {
+                try {
+                    const { doc, getDoc } = window.firebaseFirestore;
+                    const docSnap = await getDoc(doc(window.db, "users", email));
+                    if (docSnap.exists()) parsed = docSnap.data();
+                } catch (e) { console.error(e); }
+            }
+
+            if (!parsed) {
+                const storedUser = localStorage.getItem('mood_user_' + email);
+                if (storedUser) {
+                    try { parsed = JSON.parse(storedUser); } catch (_) {}
+                }
+            }
+
+            if (parsed) {
+                currentUser = { ...parsed, email, name: parsed.name || name, avatar: parsed.avatar || avatar };
+            } else {
+                currentUser = {
+                    email, name, avatar,
+                    xp: 0, level: 1, coins: 50, streak: 1,
+                    habits: [], sleep: 0, dailyHabits: { [todayStr]: [] },
+                    challenges30: [], lastActiveDate: todayStr,
+                    ownedThemes: ['gold'], ownedFrames: ['default'], activeFrame: 'default', boosters: {},
+                    achievements: [{ id: 1, title: 'البداية الطموحة', unlocked: true }]
+                };
+            }
+
+            if (!currentUser.dailyHabits) currentUser.dailyHabits = {};
+            if (!currentUser.challenges30) currentUser.challenges30 = [];
+            if (!currentUser.dailyHabits[todayStr]) currentUser.dailyHabits[todayStr] = [];
+            currentUser.habits = currentUser.dailyHabits[todayStr];
+            currentUser.lastActiveDate = todayStr;
+
+            localStorage.setItem('mood_user_' + email, JSON.stringify(currentUser));
+            setRememberedSession(email);
+            await saveUserData();
+            toast("🎉 تم تسجيل الدخول بحساب جوجل بنجاح!");
+            document.getElementById('auth-modal').style.display = 'none';
+        }
+
+        async function handleGoogleSignIn() {
+            if (!window.auth || !window.GoogleAuthProvider || !window.signInWithPopup) {
+                toast("❌ خدمة مصادقة جوجل غير متوفرة حالياً");
+                return;
+            }
+            clearAuthMessage();
+            try {
+                const provider = new window.GoogleAuthProvider();
+                const result = await window.signInWithPopup(window.auth, provider);
+                if (result && result.user) {
+                    await processGoogleUser(result.user);
+                    initSession();
+                }
+            } catch (error) {
+                console.error(error);
+                showAuthMessage(getAuthErrorMessage(error));
+            }
+        }
+
+        async function handleAuth(event) {
+            event.preventDefault();
+            clearAuthMessage();
+
+            const email = document.getElementById('auth-email').value.trim().toLowerCase();
+            const pass = document.getElementById('auth-pass').value;
+            const name = document.getElementById('auth-name').value.trim();
+            const todayStr = getLocalDateString();
+            const submitBtn = document.getElementById('auth-btn');
+
+            if (!email || !pass) return;
+            if (!window.auth) {
+                showAuthMessage('❌ Firebase Authentication غير متاح.');
+                return;
+            }
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = isRegisterMode ? 'Creating...' : 'Logging in...';
+
+                if (isRegisterMode) {
+                    if (pass.length < 6) {
+                        showAuthMessage('❌ كلمة المرور يجب ألا تقل عن 6 أحرف!');
+                        return;
+                    }
+
+                    const credential = await window.createUserWithEmailAndPassword(window.auth, email, pass);
+                    const firebaseUser = credential.user;
+
+                    if (name && window.updateFirebaseProfile) {
+                        await window.updateFirebaseProfile(firebaseUser, { displayName: name });
+                    }
+
+                    const existing = localStorage.getItem('mood_user_' + email);
+                    let oldData = null;
+                    if (existing) {
+                        try { oldData = JSON.parse(existing); } catch (_) {}
+                    }
+
+                    currentUser = {
+                        ...(oldData || {}),
+                        email,
+                        name: name || oldData?.name || 'مستخدم جديد',
+                        avatar: oldData?.avatar || DEFAULT_AVATAR,
+                        xp: oldData?.xp ?? 0,
+                        level: oldData?.level ?? 1,
+                        coins: oldData?.coins ?? 50,
+                        streak: oldData?.streak ?? 1,
+                        habits: oldData?.habits || [],
+                        sleep: oldData?.sleep ?? 0,
+                        dailyHabits: oldData?.dailyHabits || { [todayStr]: [] },
+                        challenges30: oldData?.challenges30 || [],
+                        lastActiveDate: todayStr,
+                        ownedThemes: oldData?.ownedThemes || ['gold'],
+                        ownedFrames: oldData?.ownedFrames || ['default'],
+                        activeFrame: oldData?.activeFrame || 'default',
+                        boosters: oldData?.boosters || {},
+                        achievements: oldData?.achievements || [{ id: 1, title: 'البداية الطموحة', unlocked: true }]
+                    };
+
+                    delete currentUser.pass;
+                    if (!currentUser.dailyHabits[todayStr]) currentUser.dailyHabits[todayStr] = currentUser.habits || [];
+                    currentUser.habits = currentUser.dailyHabits[todayStr];
+
+                    localStorage.setItem('mood_user_' + email, JSON.stringify(currentUser));
+                    setRememberedSession(email);
+                    await saveUserData();
+                    toast("🎉 تم إنشاء الحساب في Firebase بنجاح وإعطاؤك 50 Coin هدية!");
+                } else {
+                    const credential = await window.signInWithEmailAndPassword(window.auth, email, pass);
+                    const firebaseUser = credential.user;
+
+                    let parsed = null;
+                    if (window.db && window.firebaseFirestore) {
+                        try {
+                            const { doc, getDoc } = window.firebaseFirestore;
+                            const docSnap = await getDoc(doc(window.db, "users", email));
+                            if (docSnap.exists()) parsed = docSnap.data();
+                        } catch (e) { console.error(e); }
+                    }
+
+                    if (!parsed) {
+                        const storedUser = localStorage.getItem('mood_user_' + email);
+                        if (storedUser) {
+                            try { parsed = JSON.parse(storedUser); } catch (_) {}
+                        }
+                    }
+
+                    if (!parsed) {
+                        parsed = {
+                            email,
+                            name: firebaseUser.displayName || 'مستخدم MOOD',
+                            avatar: firebaseUser.photoURL || DEFAULT_AVATAR,
+                            xp: 0, level: 1, coins: 50, streak: 1,
+                            habits: [], sleep: 0, dailyHabits: { [todayStr]: [] },
+                            challenges30: [], lastActiveDate: todayStr,
+                            ownedThemes: ['gold'], ownedFrames: ['default'], activeFrame: 'default', boosters: {},
+                            achievements: [{ id: 1, title: 'البداية الطموحة', unlocked: true }]
+                        };
+                    }
+
+                    currentUser = parsed;
+                    currentUser.email = email;
+                    currentUser.name = currentUser.name || firebaseUser.displayName || 'مستخدم MOOD';
+                    currentUser.avatar = currentUser.avatar || firebaseUser.photoURL || DEFAULT_AVATAR;
+                    if (!currentUser.dailyHabits) currentUser.dailyHabits = {};
+                    if (!currentUser.challenges30) currentUser.challenges30 = [];
+                    if (!currentUser.dailyHabits[todayStr]) currentUser.dailyHabits[todayStr] = [];
+                    currentUser.habits = currentUser.dailyHabits[todayStr];
+                    currentUser.lastActiveDate = todayStr;
+                    delete currentUser.pass;
+
+                    localStorage.setItem('mood_user_' + email, JSON.stringify(currentUser));
+                    setRememberedSession(email);
+                    await saveUserData();
+                    toast("✨ أهلاً بك مجدداً في MOOD");
+                }
+
+                document.getElementById('auth-modal').style.display = 'none';
+                updateUI();
+            } catch (error) {
+                console.error(error);
+                showAuthMessage(getAuthErrorMessage(error));
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = isRegisterMode ? 'Sign Up' : 'Log In';
+            }
+        }
+
+        async function saveUserData() {
+            if (!currentUser) return;
+            localStorage.setItem('mood_user_' + currentUser.email, JSON.stringify(currentUser));
+            if (window.db && window.firebaseFirestore) {
+                try {
+                    const { doc, setDoc } = window.firebaseFirestore;
+                    await setDoc(doc(window.db, "users", currentUser.email), currentUser);
+                } catch (e) { console.error(e); }
+            }
+        }
+
+        function initSession() {
+            const currentEmail = localStorage.getItem('mood_current_email') || sessionStorage.getItem('mood_current_email');
+            const remember = !!localStorage.getItem('mood_current_email');
+            const rememberBox = document.getElementById('rememberMe');
+            if (rememberBox) rememberBox.checked = remember;
+
+            if (window.onAuthStateChanged && window.auth) {
+                window.onAuthStateChanged(window.auth, async (firebaseUser) => {
+                    if (firebaseUser) {
+                        const email = (firebaseUser.email || '').toLowerCase();
+                        let userData = null;
+
+                        if (window.db && window.firebaseFirestore && email) {
+                            try {
+                                const { doc, getDoc } = window.firebaseFirestore;
+                                const snap = await getDoc(doc(window.db, 'users', email));
+                                if (snap.exists()) userData = snap.data();
+                            } catch (e) { console.error(e); }
+                        }
+
+                        if (!userData) {
+                            const stored = localStorage.getItem('mood_user_' + email);
+                            if (stored) {
+                                try { userData = JSON.parse(stored); } catch (_) {}
+                            }
+                        }
+
+                        if (!userData) {
+                            userData = {
+                                email,
+                                name: firebaseUser.displayName || 'مستخدم MOOD',
+                                avatar: firebaseUser.photoURL || DEFAULT_AVATAR,
+                                xp: 0, level: 1, coins: 50, streak: 1,
+                                habits: [], sleep: 0, dailyHabits: { [getLocalDateString()]: [] },
+                                challenges30: [], lastActiveDate: getLocalDateString(),
+                                ownedThemes: ['gold'], ownedFrames: ['default'], activeFrame: 'default', boosters: {},
+                                achievements: [{ id: 1, title: 'البداية الطموحة', unlocked: true }]
+                            };
+                        }
+
+                        currentUser = userData;
+                        currentUser.email = email;
+                        currentUser.name = currentUser.name || firebaseUser.displayName || 'مستخدم MOOD';
+                        currentUser.avatar = currentUser.avatar || firebaseUser.photoURL || DEFAULT_AVATAR;
+                        if (!currentUser.dailyHabits) currentUser.dailyHabits = {};
+                        if (!currentUser.challenges30) currentUser.challenges30 = [];
+                        const todayStr = getLocalDateString();
+                        if (!currentUser.dailyHabits[todayStr]) currentUser.dailyHabits[todayStr] = currentUser.habits || [];
+                        currentUser.habits = currentUser.dailyHabits[todayStr];
+                        delete currentUser.pass;
+
+                        localStorage.setItem('mood_user_' + email, JSON.stringify(currentUser));
+                        setRememberedSession(email);
+                        document.getElementById('auth-modal').style.display = 'none';
+                        checkDayRollover();
+                        updateUI();
+                    } else {
+                        currentUser = null;
+                        document.getElementById('auth-modal').style.display = 'flex';
+                    }
+                });
+            } else if (currentEmail) {
+                // Fallback only if Firebase Auth has not loaded.
+                const userData = JSON.parse(localStorage.getItem('mood_user_' + currentEmail) || 'null');
+                if (userData) {
+                    currentUser = userData;
+                    document.getElementById('auth-modal').style.display = 'none';
+                    checkDayRollover();
+                    updateUI();
+                } else {
+                    document.getElementById('auth-modal').style.display = 'flex';
+                }
+            } else {
+                document.getElementById('auth-modal').style.display = 'flex';
+            }
+
+            if (!window.__moodRolloverTimer) {
+                window.__moodRolloverTimer = setInterval(checkDayRollover, 60000);
+            }
+        }
+
+        // يحفظ مهام/عادات اليوم المنتهي في التقويم تلقائياً، ويبدأ قائمة جديدة لليوم التالي
+        function checkDayRollover() {
+            if (!currentUser) return;
+            const todayStr = getLocalDateString();
+            if (!currentUser.dailyHabits) currentUser.dailyHabits = {};
+
+            if (currentUser.lastActiveDate && currentUser.lastActiveDate !== todayStr) {
+                if (!currentUser.dailyHabits[currentUser.lastActiveDate]) {
+                    currentUser.dailyHabits[currentUser.lastActiveDate] = currentUser.habits || [];
+                }
+                currentUser.lastActiveDate = todayStr;
+                if (!currentUser.dailyHabits[todayStr]) currentUser.dailyHabits[todayStr] = [];
+                currentUser.habits = currentUser.dailyHabits[todayStr];
+                saveUserData();
+                renderCalendar();
+                renderHabits();
+                toast("🌅 يوم جديد بدأ! تم حفظ مهام الأمس في التقويم.");
+            } else if (!currentUser.lastActiveDate) {
+                currentUser.lastActiveDate = todayStr;
+            }
+
+            if (!currentUser.dailyHabits[todayStr]) currentUser.dailyHabits[todayStr] = [];
+            currentUser.habits = currentUser.dailyHabits[todayStr];
+        }
+
+        function setRememberedSession(email) {
+            const remember = document.getElementById('rememberMe')?.checked;
+            if (remember) {
+                localStorage.setItem('mood_current_email', email);
+                sessionStorage.removeItem('mood_current_email');
+            } else {
+                sessionStorage.setItem('mood_current_email', email);
+                localStorage.removeItem('mood_current_email');
+            }
+        }
+
+        async function logout() {
+            try {
+                if (window.auth && window.firebaseSignOut) await window.firebaseSignOut(window.auth);
+            } catch (e) { console.error(e); }
+            localStorage.removeItem('mood_current_email');
+            sessionStorage.removeItem('mood_current_email');
+            currentUser = null;
+            location.reload();
+        }
+
+        async function deleteAccount() {
+            if (!currentUser || !window.auth?.currentUser) return;
+            const confirmed = confirm('هل أنت متأكد أنك تريد حذف حسابك؟ سيتم حذف جلسة Firebase والحساب الحالي.');
+            if (!confirmed) return;
+
+            try {
+                if (window.db && window.firebaseFirestore) {
+                    const { doc, deleteDoc } = window.firebaseFirestore;
+                    await deleteDoc(doc(window.db, 'users', currentUser.email));
+                }
+                await window.deleteFirebaseUser(window.auth.currentUser);
+                localStorage.removeItem('mood_user_' + currentUser.email);
+                localStorage.removeItem('mood_current_email');
+                sessionStorage.removeItem('mood_current_email');
+                currentUser = null;
+                toast('🗑️ تم حذف الحساب بنجاح.');
+                setTimeout(() => location.reload(), 700);
+            } catch (error) {
+                console.error(error);
+                if (error?.code === 'auth/requires-recent-login') {
+                    toast('🔐 لأسباب أمنية، سجّل الدخول مرة أخرى ثم أعد محاولة حذف الحساب.');
+                } else {
+                    toast(getAuthErrorMessage(error));
+                }
+            }
+        }
+
+        function updateUI() {
+            if (!currentUser) return;
+            document.getElementById('nav-level').textContent = `⭐ Lv.${currentUser.level || 1}`;
+            document.getElementById('nav-coins').textContent = `🪙 ${currentUser.coins || 0}`;
+            document.getElementById('nav-streak').textContent = `🔥 ${currentUser.streak || 0}`;
+            
+            const avatarImg = currentUser.avatar || DEFAULT_AVATAR;
+            document.getElementById('header-avatar-img').src = avatarImg;
+            document.getElementById('modal-avatar-img').src = avatarImg;
+            document.getElementById('modal-user-name').textContent = currentUser.name;
+            document.getElementById('modal-user-email').textContent = currentUser.email;
+
+            document.getElementById('profile-coins').textContent = `${currentUser.coins || 0} 🪙`;
+            document.getElementById('profile-streak').textContent = `${currentUser.streak || 0} أيام 🔥`;
+            document.getElementById('profile-level-text').textContent = `المستوى ${currentUser.level || 1}`;
+            const xp = currentUser.xp || 0;
+            const maxXp = (currentUser.level || 1) * 100;
+            document.getElementById('profile-xp-text').textContent = `${xp} / ${maxXp} XP`;
+            document.getElementById('profile-xp-fill').style.width = Math.min(100, (xp / maxXp) * 100) + '%';
+
+            renderHabits();
+            renderCalendar();
+            renderChallenges();
+            renderStore();
+            renderAchievements();
+            renderLeaderboard();
+            renderSleepStatus();
+        }
+
+        function switchPage(pageId, event) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-section'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active-section');
+            if(event && event.target) event.target.classList.add('active');
+        }
+
+        function toggleProfileModal(show) {
+            const modal = document.getElementById('profile-modal');
+            modal.style.display = show ? 'flex' : 'none';
+            if(show) updateUI();
+        }
+
+        // دالة تغيير الصورة الشخصية من داخل الملف الشخصي بعد التسجيل - محسّنة لتكون سريعة
+        function updateAvatar(event) {
+            const file = event.target.files[0];
+            if (!file || !currentUser) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    // تصغير الصورة لحجم صغير (150x150) عشان يكون التحديث والحفظ سريع
+                    const size = 150;
+                    const canvas = document.createElement('canvas');
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+
+                    const minSide = Math.min(img.width, img.height);
+                    const sx = (img.width - minSide) / 2;
+                    const sy = (img.height - minSide) / 2;
+                    ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, size, size);
+
+                    const compressed = canvas.toDataURL('image/jpeg', 0.8);
+
+                    // تحديث فوري للواجهة قبل الحفظ (Optimistic UI) لسرعة الاستجابة
+                    currentUser.avatar = compressed;
+                    document.getElementById('header-avatar-img').src = compressed;
+                    document.getElementById('modal-avatar-img').src = compressed;
+                    toast("✨ تم تحديث صورة الملف الشخصي بنجاح!");
+
+                    // الحفظ يتم في الخلفية بدون تعطيل الواجهة
+                    saveUserData();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // إدارة العادات
+        function addHabit() {
+            const input = document.getElementById('habit-input');
+            const cat = document.getElementById('habit-category').value;
+            const text = input.value.trim();
+            if(!text) { toast("الرجاء كتابة اسم العادة!"); return; }
+
+            const todayStr = getLocalDateString();
+            if(!currentUser.dailyHabits[todayStr]) currentUser.dailyHabits[todayStr] = [];
+            
+            currentUser.dailyHabits[todayStr].push({ text, category: cat, completed: false });
+            currentUser.habits = currentUser.dailyHabits[todayStr];
+            input.value = '';
+            saveUserData();
+            renderHabits();
+            toast("✨ تمت إضافة العادة بنجاح!");
+        }
+
+        function toggleHabit(index) {
+            const todayStr = getLocalDateString();
+            const habit = currentUser.dailyHabits[todayStr][index];
+            habit.completed = !habit.completed;
+            
+            if(habit.completed && !habit.rewarded) {
+                currentUser.xp = (currentUser.xp || 0) + Math.round(15 * getXpMultiplier());
+                currentUser.coins = (currentUser.coins || 0) + Math.round(5 * getCoinMultiplier());
+                habit.rewarded = true;
+                checkLevelUp();
+                toast("🎉 أحسنت! حصلت على 15 XP و 5 Coins");
+            } else if(habit.completed && habit.rewarded) {
+                toast("✅ هذه المهمة أخذت مكافأتها بالفعل!");
+            }
+            saveUserData();
+            renderHabits();
+            updateUI();
+        }
+
+        function deleteHabit(index) {
+            const todayStr = getLocalDateString();
+            const habit = currentUser.dailyHabits[todayStr][index];
+            if(!habit) return;
+            toast(`🗑️ جارٍ حذف العادة: ${habit.text}`);
+
+            if(habit.rewarded) {
+                currentUser.xp = Math.max(0, (currentUser.xp || 0) - 15);
+                currentUser.coins = Math.max(0, (currentUser.coins || 0) - 5);
+                toast("🗑️ تم حذف العادة، وتم خصم النقاط التي أخذتها منها.");
+            } else {
+                toast("🗑️ تم حذف العادة.");
+            }
+
+            currentUser.dailyHabits[todayStr].splice(index, 1);
+            currentUser.habits = currentUser.dailyHabits[todayStr];
+            saveUserData();
+            renderHabits();
+            updateUI();
+        }
+
+        function renderHabits() {
+            ['q1', 'q2', 'q3', 'q4'].forEach(q => {
+                document.getElementById(`habits-${q}`).innerHTML = '';
+            });
+
+            const todayStr = getLocalDateString();
+            const habits = currentUser.dailyHabits[todayStr] || [];
+
+            habits.forEach((h, index) => {
+                const li = document.createElement('li');
+                li.className = 'habit-item';
+                li.innerHTML = `
+                    <span style="text-decoration: ${h.completed ? 'line-through' : 'none'}; color: ${h.completed ? 'var(--text-muted)' : 'white'};">${h.text}</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" ${h.completed ? 'checked' : ''} onchange="toggleHabit(${index})" style="width: 18px; height: 18px; cursor: pointer;">
+                        <button onclick="deleteHabit(${index})" title="حذف العادة" style="background: none; border: none; color: var(--danger-color); cursor: pointer; font-size: 15px; padding: 2px 4px;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+                const qList = document.getElementById(`habits-${h.category}`);
+                if(qList) qList.appendChild(li);
+            });
+        }
+
+        function checkLevelUp() {
+            const maxXp = currentUser.level * 100;
+            if(currentUser.xp >= maxXp) {
+                currentUser.level++;
+                currentUser.coins += 50;
+                toast(`🚀 تهانينا! صعدت للمستوى ${currentUser.level}! وحصلت على 50 Coin إضافية!`, '🏆');
+            }
+        }
+
+        // تقويم الالتزام
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-days-grid');
+            grid.innerHTML = '';
+            
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            const monthsNames = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+            document.getElementById('calendar-month-year').textContent = `${monthsNames[month]} ${year}`;
+
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const totalDays = new Date(year, month + 1, 0).getDate();
+            const todayStr = getLocalDateString();
+
+            for(let i = 0; i < firstDayIndex; i++) {
+                const div = document.createElement('div');
+                div.className = 'calendar-day empty';
+                grid.appendChild(div);
+            }
+
+            for(let day = 1; day <= totalDays; day++) {
+                const div = document.createElement('div');
+                const mStr = String(month + 1).padStart(2, '0');
+                const dStr = String(day).padStart(2, '0');
+                const dateStr = `${year}-${mStr}-${dStr}`;
+
+                div.className = 'calendar-day';
+                if(dateStr === todayStr) div.classList.add('today');
+                div.textContent = day;
+
+                const dayHabits = currentUser.dailyHabits[dateStr] || [];
+                if(dayHabits.length > 0) {
+                    const allDone = dayHabits.every(h => h.completed);
+                    div.style.borderColor = allDone ? 'var(--success-color)' : 'var(--primary-color)';
+                    div.style.background = allDone ? 'rgba(34, 197, 94, 0.1)' : 'var(--badge-bg)';
+                }
+
+                div.onclick = () => openDayModal(dateStr, dayHabits);
+                grid.appendChild(div);
+            }
+        }
+
+        function changeMonth(direction) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        function goToCurrentMonth() {
+            currentCalendarDate = new Date();
+            renderCalendar();
+        }
+
+        function openDayModal(dateStr, habits) {
+            document.getElementById('day-modal-title').textContent = `عادات يوم ${dateStr}`;
+            const list = document.getElementById('day-modal-habits-list');
+            list.innerHTML = '';
+
+            if(habits.length === 0) {
+                list.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 15px;">لا توجد عادات مسجلة في هذا اليوم.</p>`;
+            } else {
+                habits.forEach(h => {
+                    const item = document.createElement('div');
+                    item.className = 'habit-item';
+                    item.innerHTML = `<span>${h.text}</span><span>${h.completed ? '✅ مكتملة' : '❌ غير مكتملة'}</span>`;
+                    list.appendChild(item);
+                });
+            }
+            document.getElementById('day-modal').style.display = 'flex';
+        }
+
+        function closeDayModal() {
+            document.getElementById('day-modal').style.display = 'none';
+        }
+
+        // التحديات
+        function add30DayChallenge() {
+            const input = document.getElementById('challenge-input');
+            const title = input.value.trim();
+            if(!title) { toast("الرجاء إدخال اسم التحدي!"); return; }
+
+            if(!currentUser.challenges30) currentUser.challenges30 = [];
+            currentUser.challenges30.push({ id: Date.now(), title, progress: 1, lastDate: getLocalDateString() });
+            input.value = '';
+            saveUserData();
+            renderChallenges();
+            toast("🚀 بدأ التحدي بنجاح! بالتوفيق!");
+        }
+
+        function renderChallenges() {
+            const container = document.getElementById('challenges-list');
+            container.innerHTML = '';
+            const challenges = currentUser.challenges30 || [];
+
+            if(challenges.length === 0) {
+                container.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center;">لا توجد تحديات نشطة حالياً. ابدأ تحدياً جديداً!</p>`;
+                return;
+            }
+
+            const todayStr = getLocalDateString();
+            challenges.forEach((c, idx) => {
+                const card = document.createElement('div');
+                card.className = 'tracker-card';
+                const isComplete = c.progress >= 30;
+                const doneToday = c.lastDate === todayStr;
+                let btnLabel = 'تسجيل إنجاز اليوم 📈';
+                let btnDisabled = false;
+                if(isComplete) { btnLabel = 'اكتمل التحدي 🏆'; btnDisabled = true; }
+                else if(doneToday) { btnLabel = '✅ تم تسجيل اليوم - عد غداً'; btnDisabled = true; }
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                        <h4 style="color: white; margin-bottom: 8px;">${c.title}</h4>
+                        <button onclick="deleteChallenge(${idx})" title="حذف التحدي" style="background: none; border: none; color: var(--danger-color); cursor: pointer; font-size: 15px; padding: 2px 4px;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <p style="color: var(--primary-color); font-weight: bold; margin-bottom: 12px;">اليوم ${c.progress} من 30</p>
+                    <div style="width: 100%; background: var(--border-color); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 12px;">
+                        <div style="height: 100%; background: var(--primary-color); width: ${(c.progress/30)*100}%;"></div>
+                    </div>
+                    <button class="btn-primary" style="padding: 8px 16px; font-size: 13px; width: 100%; ${btnDisabled ? 'opacity:0.5; cursor:not-allowed;' : ''}" ${btnDisabled ? 'disabled' : ''} onclick="incrementChallenge(${idx})">${btnLabel}</button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function deleteChallenge(idx) {
+            const c = currentUser.challenges30[idx];
+            if(!c) return;
+            toast(`🗑️ جارٍ حذف التحدي: ${c.title}`);
+
+            const daysEarned = Math.max(0, (c.progress || 1) - 1);
+            if(daysEarned > 0) {
+                currentUser.xp = Math.max(0, (currentUser.xp || 0) - (daysEarned * 20));
+                currentUser.coins = Math.max(0, (currentUser.coins || 0) - (daysEarned * 10));
+                toast("🗑️ تم حذف التحدي، وتم خصم النقاط التي حصلت عليها منه.");
+            } else {
+                toast("🗑️ تم حذف التحدي.");
+            }
+
+            currentUser.challenges30.splice(idx, 1);
+            saveUserData();
+            renderChallenges();
+            updateUI();
+        }
+
+        function incrementChallenge(idx) {
+            const c = currentUser.challenges30[idx];
+            const todayStr = getLocalDateString();
+
+            if(c.progress >= 30) {
+                toast("🏆 لقد أكملت هذا التحدي بنجاح تام بالفعل!");
+                return;
+            }
+            if(c.lastDate === todayStr) {
+                toast("📅 لقد سجّلت إنجاز هذا التحدي اليوم بالفعل! عد غداً لمواصلة التحدي.");
+                return;
+            }
+
+            c.progress++;
+            c.lastDate = todayStr;
+            currentUser.xp += Math.round(20 * getXpMultiplier());
+            currentUser.coins += Math.round(10 * getCoinMultiplier());
+            checkLevelUp();
+            saveUserData();
+            renderChallenges();
+            updateUI();
+            toast("🎉 ممتاز! تقدمت خطوة أخرى في التحدي!");
+        }
+
+        // بومودورو
+        function renderPomoTime() {
+            const h = String(Math.floor(pomoTime / 3600)).padStart(2, '0');
+            const m = String(Math.floor((pomoTime % 3600) / 60)).padStart(2, '0');
+            const s = String(pomoTime % 60).padStart(2, '0');
+            document.getElementById('pomo-timer').textContent = `${h}:${m}:${s}`;
+        }
+
+        function setPomoDuration() {
+            if(isPomoRunning) { toast("⏸️ يجب إيقاف الجلسة الحالية قبل ضبط وقت جديد!"); return; }
+            const hoursInput = document.getElementById('pomo-hours-input');
+            const minutesInput = document.getElementById('pomo-minutes-input');
+            let hours = parseInt(hoursInput.value) || 0;
+            let minutes = parseInt(minutesInput.value) || 0;
+            if(hours < 0) hours = 0;
+            if(minutes < 0) minutes = 0;
+            const totalSeconds = (hours * 3600) + (minutes * 60);
+            if(totalSeconds <= 0) { toast("الرجاء إدخال وقت أكبر من صفر!"); return; }
+            pomoTime = totalSeconds;
+            renderPomoTime();
+            toast("⏱️ تم ضبط وقت البومودورو بنجاح!");
+        }
+
+        function startPomodoro() {
+            if(isPomoRunning) return;
+            if(pomoTime <= 0) { toast("الرجاء ضبط وقت الجلسة أولاً!"); return; }
+            isPomoRunning = true;
+            document.getElementById('pomo-hours-input').disabled = true;
+            document.getElementById('pomo-minutes-input').disabled = true;
+            document.getElementById('pomo-set-btn').disabled = true;
+            pomoInterval = setInterval(() => {
+                if(pomoTime > 0) {
+                    pomoTime--;
+                    renderPomoTime();
+                } else {
+                    clearInterval(pomoInterval);
+                    isPomoRunning = false;
+                    document.getElementById('pomo-hours-input').disabled = false;
+                    document.getElementById('pomo-minutes-input').disabled = false;
+                    document.getElementById('pomo-set-btn').disabled = false;
+                    currentUser.xp += Math.round(30 * getXpMultiplier());
+                    currentUser.coins += Math.round(15 * getCoinMultiplier());
+                    checkLevelUp();
+                    saveUserData();
+                    updateUI();
+                    toast("🎉 انتهت جلسة البومودورو بنجاح! تم منحك نقاط وخبرة.");
+                }
+            }, 1000);
+        }
+
+        function pausePomodoro() {
+            clearInterval(pomoInterval);
+            isPomoRunning = false;
+            document.getElementById('pomo-hours-input').disabled = false;
+            document.getElementById('pomo-minutes-input').disabled = false;
+            document.getElementById('pomo-set-btn').disabled = false;
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomoInterval);
+            isPomoRunning = false;
+            document.getElementById('pomo-hours-input').disabled = false;
+            document.getElementById('pomo-minutes-input').disabled = false;
+            document.getElementById('pomo-set-btn').disabled = false;
+            const hours = parseInt(document.getElementById('pomo-hours-input').value) || 0;
+            const minutes = parseInt(document.getElementById('pomo-minutes-input').value) || 25;
+            pomoTime = (hours * 3600) + (minutes * 60) || 25 * 60;
+            renderPomoTime();
+        }
+
+        // النوم
+        function logSleep() {
+            const todayStr = getLocalDateString();
+            if(currentUser.lastSleepDate === todayStr) {
+                toast("😴 لقد سجّلت ساعات نومك اليوم بالفعل! عد غداً للتسجيل من جديد.");
+                return;
+            }
+            const val = parseFloat(document.getElementById('sleep-input').value);
+            if(isNaN(val) || val <= 0) { toast("الرجاء إدخال عدد ساعات صحيح!"); return; }
+            currentUser.sleep = val;
+            currentUser.lastSleepDate = todayStr;
+            currentUser.xp += Math.round(25 * getXpMultiplier());
+            currentUser.coins += Math.round(10 * getCoinMultiplier());
+            checkLevelUp();
+            saveUserData();
+            document.getElementById('sleep-count').textContent = `${val} ساعات`;
+            updateUI();
+            toast("😴 تم تسجيل ساعات النوم بنجاح ومكافأتك بالنقاط!");
+        }
+
+        function renderSleepStatus() {
+            const todayStr = getLocalDateString();
+            const btn = document.getElementById('sleep-btn');
+            const input = document.getElementById('sleep-input');
+            const msg = document.getElementById('sleep-lock-msg');
+            const locked = currentUser.lastSleepDate === todayStr;
+            btn.disabled = locked;
+            input.disabled = locked;
+            btn.style.opacity = locked ? '0.5' : '1';
+            btn.style.cursor = locked ? 'not-allowed' : 'pointer';
+            msg.style.display = locked ? 'block' : 'none';
+            document.getElementById('sleep-count').textContent = `${currentUser.sleep || 0} ساعات`;
+        }
+
+        // المتجر والإنجازات
+        function switchStoreTab(tabId, event) {
+            document.querySelectorAll('.store-section-content').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.store-tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`store-${tabId}`).classList.add('active');
+            if(event && event.target) event.target.classList.add('active');
+        }
+
+        const STORE_THEMES = [
+            { id: 'gold', name: 'الذهبي الفاخر', desc: 'الثيم الافتراضي — أناقة خالصة', color: '#f59e0b', price: 0 },
+            { id: 'blue', name: 'الأزرق السماوي', desc: 'هدوء وتركيز عميق', color: '#0ea5e9', price: 100 },
+            { id: 'emerald', name: 'الزمردي', desc: 'طاقة الطبيعة والنمو', color: '#10b981', price: 100 },
+            { id: 'purple', name: 'البنفسجي الملكي', desc: 'إبداع وفخامة', color: '#a855f7', price: 150 },
+            { id: 'rose', name: 'الوردي الناري', desc: 'حماس واندفاع', color: '#f43f5e', price: 150 },
+            { id: 'forest', name: 'الغابة الكثيفة', desc: 'هدوء الطبيعة العميق', color: '#22c55e', price: 200 },
+            { id: 'cyberpunk', name: 'سايبربانك نيون', desc: 'طاقة مستقبلية متوهجة', color: '#00f2fe', price: 250 },
+        ];
+
+        const STORE_BOOSTERS = [
+            { id: 'streakFreeze', icon: '🧊', name: 'تجميد الـ Streak', desc: 'يحفظ سلسلة أيامك يوم كامل حتى لو نسيت تسجيل عادة', price: 50 },
+            { id: 'xpBoost', icon: '⚡', name: 'مضاعف الـ XP', desc: 'ضاعف نقاط الخبرة المكتسبة لمدة ساعة كاملة', price: 80 },
+            { id: 'extraPomodoro', icon: '🍅', name: 'جلسة بومودورو إضافية', desc: 'جلسة تركيز إضافية فورية بدون انتظار', price: 30 },
+            { id: 'deepFocus', icon: '🎯', name: 'وضع التركيز العميق', desc: 'يوقف كل الإشعارات والمشتتات لمدة 30 دقيقة', price: 40 },
+            { id: 'eveningRecovery', icon: '🌙', name: 'استرجاع مسائي', desc: 'يلغي عقوبة تفويت عادة اليوم الحالي', price: 60 },
+            { id: 'productivityRush', icon: '🚀', name: 'اندفاعة إنتاجية', desc: '+20% كوينز إضافية على كل مهمة تُنجز اليوم', price: 100 },
+            { id: 'taskPriority', icon: '📌', name: 'تثبيت مهمة أولوية', desc: 'يثبّت مهمة في الأعلى ويمنحها تنبيهاً خاصاً', price: 35 },
+            { id: 'restDay', icon: '🛌', name: 'يوم راحة محسوب', desc: 'يوم كامل بدون كسر السلسلة حتى لو ما سجّلت شيء', price: 120 },
+        ];
+
+        function renderStore() {
+            // الثيمات
+            const themesContainer = document.getElementById('store-themes');
+            const ownedThemes = (currentUser && currentUser.ownedThemes) || ['gold'];
+            const activeTheme = document.documentElement.getAttribute('data-theme') || 'gold';
+            themesContainer.innerHTML = STORE_THEMES.map(t => {
+                const isOwned = t.price === 0 || ownedThemes.includes(t.id);
+                const isActive = activeTheme === t.id;
+                const label = isActive ? 'مفعل ✓' : (isOwned ? 'تفعيل' : `شراء (${t.price} 🪙)`);
+                                return `
+                <div class="theme-shop-card ${isActive ? 'active-store-item' : ''}">
+                    ${isActive ? '<span class="store-badge">مفعّل</span>' : ''}
+                    <div class="store-swatch" style="background:${t.color}; box-shadow: 0 0 20px ${t.color}88;"></div>
+                    <h4 style="color: white; margin-bottom: 5px;">${t.name}</h4>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">${t.desc}</p>
+                    <div class="store-action-row">
+                        <button class="btn-primary store-use-btn" style="padding: 6px 12px; font-size: 13px;" ${isActive ? 'disabled' : ''} onclick="purchaseTheme('${t.id}', ${isOwned ? 0 : t.price})">${label}</button>
+                    </div>
+                </div>`;
+            }).join('');
+
+            // إطارات البروفايل
+            document.getElementById('store-frames').innerHTML = `
+                <div class="frame-shop-card">
+                    <h4 style="color: white; margin-bottom: 5px;">الإطار الكلاسيكي</h4>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">مجاني</p>
+                    <div class="store-action-row"><button class="btn-primary store-use-btn" onclick="useFrame('default')">استخدام</button></div>
+                </div>`;
+
+            // معززات الإنتاجية — زر استخدام صغير بجوار زر الشراء
+            document.getElementById('store-boosters').innerHTML = STORE_BOOSTERS.map(b => {
+                const owned = (currentUser && currentUser.boosters && currentUser.boosters[b.id]) || 0;
+                return `
+                <div class="booster-shop-card">
+                    <div class="booster-icon">${b.icon}</div>
+                    <h4 style="color: white; margin-bottom: 5px;">${b.name}</h4>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">${b.desc}</p>
+                    <div class="store-owned-count">${owned > 0 ? `لديك: ${owned}` : 'غير مملوك'}</div>
+                    <div class="store-action-row">
+                        <button class="btn-primary store-use-btn" onclick="buyBooster('${b.id}', ${b.price})">شراء</button>
+                        <button class="btn-primary store-use-btn" ${owned <= 0 ? 'disabled' : ''} onclick="useBooster('${b.id}')">استخدام</button>
+                    </div>
+                </div>`;
+            }).join('');
+
+            // مكافآت واقعية
+            const rewardOwned = (currentUser && currentUser.rewards && currentUser.rewards.coffee) || 0;
+            document.getElementById('store-rewards').innerHTML = `
+                <div class="reward-shop-card">
+                    <div style="font-size:30px;margin-bottom:8px;">☕</div>
+                    <h4 style="color: white; margin-bottom: 5px;">استراحة قهوة</h4>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">100 Coin</p>
+                    <div class="store-owned-count">${rewardOwned > 0 ? `لديك: ${rewardOwned}` : 'غير مملوك'}</div>
+                    <div class="store-action-row">
+                        <button class="btn-primary store-use-btn" onclick="buyReward(100)">شراء</button>
+                        <button class="btn-primary store-use-btn" ${rewardOwned <= 0 ? 'disabled' : ''} onclick="useReward('coffee')">استخدام</button>
+                    </div>
+                </div>`;
+        }
+
+        function useBooster(boosterId) {
+            if(!currentUser) return;
+            const boosters = currentUser.boosters || {};
+            if(!boosters[boosterId] || boosters[boosterId] <= 0) { toast("❌ لا تملك هذا المعزز!"); return; }
+
+            const b = STORE_BOOSTERS.find(x => x.id === boosterId);
+            const todayStr = getLocalDateString();
+            const now = Date.now();
+
+            switch(boosterId) {
+                case 'xpBoost':
+                    currentUser.xpBoostUntil = now + (60 * 60 * 1000);
+                    toast("⚡ تم تفعيل مضاعف الـ XP لمدة ساعة كاملة!");
+                    break;
+                case 'productivityRush':
+                    currentUser.coinBoostDate = todayStr;
+                    toast("🚀 تم تفعيل اندفاعة الإنتاجية! ستحصل على +20% كوينز على كل مهمة تُنجز اليوم.");
+                    break;
+                case 'streakFreeze':
+                    currentUser.streakFreezeAvailable = (currentUser.streakFreezeAvailable || 0) + 1;
+                    toast("🧊 تم تفعيل تجميد الـ Streak! سلسلتك محمية إذا نسيت التسجيل.");
+                    break;
+                case 'deepFocus':
+                    currentUser.deepFocusUntil = now + (30 * 60 * 1000);
+                    toast("🎯 تم تفعيل وضع التركيز العميق لمدة 30 دقيقة!");
+                    break;
+                case 'eveningRecovery':
+                    currentUser.eveningRecoveryDate = todayStr;
+                    toast("🌙 تم تفعيل الاسترجاع المسائي لهذا اليوم!");
+                    break;
+                case 'extraPomodoro':
+                    currentUser.xp += Math.round(30 * getXpMultiplier());
+                    currentUser.coins += Math.round(15 * getCoinMultiplier());
+                    checkLevelUp();
+                    toast("🍅 تم منحك مكافأة جلسة بومودورو إضافية فورية!");
+                    break;
+                case 'taskPriority':
+                    currentUser.taskPriorityActive = true;
+                    toast("📌 تم تفعيل تثبيت المهمة ذات الأولوية!");
+                    break;
+                case 'restDay':
+                    currentUser.restDayDate = todayStr;
+                    toast("🛌 تم تفعيل يوم الراحة المحسوب! سلسلتك لن تنكسر اليوم.");
+                    break;
+                default:
+                    toast("✨ تم استخدام المعزز!");
+            }
+
+            boosters[boosterId]--;
+            if(boosters[boosterId] <= 0) delete boosters[boosterId];
+            currentUser.boosters = boosters;
+            saveUserData();
+            updateUI();
+        }
+
+        // مضاعفات النقاط النشطة عبر المعززات
+        function getXpMultiplier() {
+            if(currentUser && currentUser.xpBoostUntil && Date.now() < currentUser.xpBoostUntil) return 2;
+            return 1;
+        }
+
+        function getCoinMultiplier() {
+            if(currentUser && currentUser.coinBoostDate === getLocalDateString()) return 1.2;
+            return 1;
+        }
+
+        function purchaseTheme(themeId, price) {
+            if (!currentUser) { setTheme(themeId); return; }
+            if (!currentUser.ownedThemes) currentUser.ownedThemes = ['gold'];
+
+            if (price === 0 || currentUser.ownedThemes.includes(themeId)) {
+                setTheme(themeId);
+                toast('🎨 تم تفعيل الثيم بنجاح!');
+                renderStore();
+                return;
+            }
+
+            if (currentUser.coins >= price) {
+                currentUser.coins -= price;
+                currentUser.ownedThemes.push(themeId);
+                setTheme(themeId);
+                saveUserData();
+                updateUI();
+                toast('✨ تم شراء الثيم وتفعيله بنجاح!');
+            } else {
+                toast('❌ رصيدك من الـ Coins غير كافٍ لشراء هذا الثيم!');
+            }
+        }
+
+        function buyBooster(boosterId, cost) {
+            if (!currentUser) return;
+            if (currentUser.coins >= cost) {
+                currentUser.coins -= cost;
+                if (!currentUser.boosters) currentUser.boosters = {};
+                currentUser.boosters[boosterId] = (currentUser.boosters[boosterId] || 0) + 1;
+                saveUserData();
+                updateUI();
+                toast("✨ تم شراء المعزز! يمكنك استخدامه مباشرة من نفس البطاقة.");
+            } else {
+                toast("❌ لا يوجد لديك رصيد كافي من الـ Coins!");
+            }
+        }
+
+        function buyReward(cost) {
+            if(!currentUser) return;
+            if(currentUser.coins >= cost) {
+                currentUser.coins -= cost;
+                if(!currentUser.rewards) currentUser.rewards = {};
+                currentUser.rewards.coffee = (currentUser.rewards.coffee || 0) + 1;
+                saveUserData();
+                updateUI();
+                toast("🎁 تم شراء المكافأة! اضغط استخدام من نفس البطاقة.");
+            } else {
+                toast("❌ رصيدك غير كافٍ من الـ Coins!");
+            }
+        }
+
+        function useReward(rewardId) {
+            if(!currentUser || !currentUser.rewards || !currentUser.rewards[rewardId]) {
+                toast('❌ لا تملك هذه المكافأة.');
+                return;
+            }
+            currentUser.rewards[rewardId]--;
+            if(currentUser.rewards[rewardId] <= 0) delete currentUser.rewards[rewardId];
+            saveUserData();
+            updateUI();
+            toast('🎁 تم استخدام المكافأة بنجاح! استمتع بوقتك.');
+        }
+
+        function useFrame(frameId) {
+            if(!currentUser) return;
+            if(!currentUser.ownedFrames) currentUser.ownedFrames = ['default'];
+            if(!currentUser.ownedFrames.includes(frameId)) { toast('❌ هذا الإطار غير متاح.'); return; }
+            currentUser.activeFrame = frameId;
+            saveUserData();
+            updateUI();
+            toast('🖼️ تم استخدام الإطار بنجاح!');
+        }
+
+        function renderAchievements() {
+            const grid = document.getElementById('achievements-grid');
+            grid.innerHTML = `
+                <div class="achievement-card">
+                    <div style="font-size: 28px; margin-bottom: 8px;">🏆</div>
+                    <h4 style="color: white; font-size: 14px; margin-bottom: 4px;">البداية الطموحة</h4>
+                    <p style="font-size: 11px; color: var(--success-color);">تم الإنجاز ✅</p>
+                </div>
+                <div class="achievement-card locked">
+                    <div style="font-size: 28px; margin-bottom: 8px;">🔥</div>
+                    <h4 style="color: white; font-size: 14px; margin-bottom: 4px;">سيد العادات</h4>
+                    <p style="font-size: 11px; color: var(--text-muted);">مغلق 🔒</p>
+                </div>
+            `;
+        }
+
+        function renderLeaderboard() {
+            const list = document.getElementById('leaderboard-list');
+            const avatar = (currentUser && currentUser.avatar) || DEFAULT_AVATAR;
+            const name = currentUser ? currentUser.name : 'أنت';
+            const xp = currentUser ? (currentUser.xp || 0) : 0;
+            list.innerHTML = `
+                <li class="habit-item" style="align-items: center;">
+                    <span style="display: flex; align-items: center; gap: 10px;">
+                        <img src="${avatar}" alt="${name}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-color);">
+                        1. ${name}
+                    </span>
+                    <span style="color: var(--primary-color); font-weight: bold;">${xp} XP</span>
+                </li>
+            `;
+        }
+
+        // المساعد الذكي - يحلل بيانات المستخدم الفعلية ويقدّم نصائح مخصصة
+        function runAICoach() {
+            const box = document.getElementById('ai-result-box');
+            box.style.display = 'block';
+
+            if(!currentUser) {
+                box.innerHTML = `<p style="color: var(--text-color);">سجّل الدخول أولاً حتى أستطيع تحليل بياناتك.</p>`;
+                return;
+            }
+
+            const todayStr = getLocalDateString();
+            const todayHabits = currentUser.dailyHabits[todayStr] || [];
+            const doneCount = todayHabits.filter(h => h.completed).length;
+            const totalCount = todayHabits.length;
+            const completionRate = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : null;
+
+            const q1Pending = todayHabits.filter(h => h.category === 'q1' && !h.completed).length;
+
+            const sleep = currentUser.sleep || 0;
+            const challenges = currentUser.challenges30 || [];
+            const activeChallenges = challenges.filter(c => c.progress < 30);
+            const completedChallenges = challenges.filter(c => c.progress >= 30);
+
+            const level = currentUser.level || 1;
+            const xp = currentUser.xp || 0;
+            const maxXp = level * 100;
+            const xpToNext = Math.max(0, maxXp - xp);
+
+            const tips = [];
+
+            // تحليل العادات اليومية
+            if(totalCount === 0) {
+                tips.push('📝 لم تضف أي عادات لهذا اليوم بعد. ابدأ بإضافة 2-3 عادات بسيطة لتبقى متسقاً.');
+            } else if(completionRate === 100) {
+                tips.push(`🔥 أنجزت 100% من عاداتك اليوم (${doneCount}/${totalCount})! أداء ممتاز، حافظ على هذا الإيقاع.`);
+            } else if(completionRate >= 50) {
+                tips.push(`💪 أنجزت ${doneCount} من ${totalCount} عادات اليوم (${completionRate}%). بقي القليل، حاول تكمل الباقي قبل انتهاء اليوم.`);
+            } else {
+                tips.push(`⚠️ أنجزت فقط ${doneCount} من ${totalCount} عادات اليوم (${completionRate}%). حاول تبدأ بأسهل عادة عندك لتكسر الجمود.`);
+            }
+
+            if(q1Pending > 0) {
+                tips.push(`🔴 لديك ${q1Pending} مهمة "مهمة وعاجلة" لم تُنجز بعد — ركّز عليها أولاً قبل أي شيء آخر.`);
+            }
+
+            // تحليل النوم
+            if(sleep === 0) {
+                tips.push('😴 لم تسجّل ساعات نومك بعد اليوم. النوم الجيد (7-9 ساعات) يرفع تركيزك وإنتاجيتك بشكل كبير.');
+            } else if(sleep < 6) {
+                tips.push(`😴 سجّلت ${sleep} ساعات نوم فقط، وهذا أقل من المعدل الصحي. حاول تنام مبكراً الليلة لتستعيد طاقتك.`);
+            } else if(sleep > 9) {
+                tips.push(`😴 سجّلت ${sleep} ساعات نوم، وهو أعلى من المعتاد قليلاً. راقب إذا كان هذا يؤثر على نشاطك خلال اليوم.`);
+            } else {
+                tips.push(`😴 نومك ممتاز (${sleep} ساعات)، استمر على هذا المعدل الصحي.`);
+            }
+
+            // تحليل التحديات
+            if(activeChallenges.length > 0) {
+                const nearest = activeChallenges.reduce((a, b) => (b.progress > a.progress ? b : a));
+                tips.push(`🚀 تحدي "${nearest.title}" في اليوم ${nearest.progress} من 30 — استمر ولا تفوّت تسجيل اليوم!`);
+            } else if(completedChallenges.length > 0) {
+                tips.push('🏆 أكملت كل تحدياتك النشطة! هذا وقت مثالي لبدء تحدي 30 يوماً جديد لعادة تريد بناءها.');
+            } else {
+                tips.push('🎯 لم تبدأ أي تحدي 30 يوم بعد. جرّب تحدياً بسيطاً مثل القراءة اليومية أو الاستيقاظ المبكر.');
+            }
+
+            // تحليل المستوى والتقدم
+            tips.push(`⭐ أنت في المستوى ${level}، وتحتاج ${xpToNext} XP فقط للوصول للمستوى التالي.`);
+
+            const header = `<p style="color: var(--primary-color); font-weight: bold;">💡 تحليل أدائك الشخصي:</p>`;
+            const body = tips.map(t => `<p style="color: var(--text-color); margin-top: 8px; line-height: 1.6;">${t}</p>`).join('');
+            box.innerHTML = header + body;
+            toast("🤖 تم توليد تحليل مخصص لأدائك بنجاح!");
+        }
+    </script>
+</body>
 </html>
