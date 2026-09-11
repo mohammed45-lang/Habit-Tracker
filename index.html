@@ -30,8 +30,7 @@
         import {
             getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult,
             createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,
-            signOut, onAuthStateChanged, updateProfile, deleteUser,
-            reauthenticateWithCredential, EmailAuthProvider, reauthenticateWithPopup
+            signOut, onAuthStateChanged, updateProfile, deleteUser
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         
         const firebaseConfig = {
@@ -61,9 +60,6 @@
         window.onAuthStateChanged = onAuthStateChanged;
         window.updateFirebaseProfile = updateProfile;
         window.deleteFirebaseUser = deleteUser;
-        window.reauthenticateFirebaseUser = reauthenticateWithCredential;
-        window.EmailAuthProvider = EmailAuthProvider;
-        window.reauthenticateFirebaseWithPopup = reauthenticateWithPopup;
         window.firebaseFirestore = { collection, doc, setDoc, getDocs, getDoc, deleteDoc };
     </script>
 
@@ -1179,85 +1175,26 @@
         }
 
         async function deleteAccount() {
-            const firebaseUser = window.auth?.currentUser;
-            if (!currentUser || !firebaseUser) {
-                toast('❌ لا يوجد حساب مسجل الدخول حالياً.');
-                return;
-            }
-
-            const confirmed = confirm('هل أنت متأكد أنك تريد حذف حسابك؟ سيتم حذف الحساب وبيانات MOOD نهائياً.');
+            if (!currentUser || !window.auth?.currentUser) return;
+            const confirmed = confirm('هل أنت متأكد أنك تريد حذف حسابك؟ سيتم حذف جلسة Firebase والحساب الحالي.');
             if (!confirmed) return;
 
             try {
-                /*
-                 * Firebase يمنع حذف الحساب إذا كانت آخر عملية تسجيل دخول قديمة.
-                 * لذلك نعيد التحقق من هوية المستخدم أولاً، ثم نحذف بيانات Firestore
-                 * وبعدها نحذف حساب Firebase Authentication.
-                 */
-                const providers = firebaseUser.providerData || [];
-                const hasGoogleProvider = providers.some(provider => provider.providerId === 'google.com');
-                const hasPasswordProvider = providers.some(provider => provider.providerId === 'password');
-
-                if (hasPasswordProvider) {
-                    if (!window.reauthenticateFirebaseUser || !window.EmailAuthProvider) {
-                        throw new Error('خدمة إعادة التحقق من البريد غير متاحة.');
-                    }
-
-                    const password = prompt('لأسباب أمنية، أدخل كلمة مرور حسابك لتأكيد حذف الحساب:');
-                    if (password === null) return;
-                    if (!password) {
-                        toast('❌ يجب إدخال كلمة المرور لتأكيد حذف الحساب.');
-                        return;
-                    }
-
-                    const credential = window.EmailAuthProvider.credential(
-                        firebaseUser.email,
-                        password
-                    );
-                    await window.reauthenticateFirebaseUser(firebaseUser, credential);
-                } else if (hasGoogleProvider) {
-                    if (!window.reauthenticateFirebaseWithPopup || !window.GoogleAuthProvider) {
-                        throw new Error('خدمة إعادة التحقق من Google غير متاحة.');
-                    }
-
-                    const provider = new window.GoogleAuthProvider();
-                    await window.reauthenticateFirebaseWithPopup(firebaseUser, provider);
-                }
-
-                /*
-                 * نحذف مستند المستخدم من Firestore أولاً.
-                 * إذا فشل الحذف فلن نحذف حساب Authentication حتى لا تبقى
-                 * بيانات الحساب في Firestore بدون حساب.
-                 */
                 if (window.db && window.firebaseFirestore) {
                     const { doc, deleteDoc } = window.firebaseFirestore;
                     await deleteDoc(doc(window.db, 'users', currentUser.email));
                 }
-
-                await window.deleteFirebaseUser(firebaseUser);
-
+                await window.deleteFirebaseUser(window.auth.currentUser);
                 localStorage.removeItem('mood_user_' + currentUser.email);
                 localStorage.removeItem('mood_current_email');
                 sessionStorage.removeItem('mood_current_email');
-
                 currentUser = null;
-                document.getElementById('profile-modal').style.display = 'none';
                 toast('🗑️ تم حذف الحساب بنجاح.');
-
                 setTimeout(() => location.reload(), 700);
             } catch (error) {
-                console.error('Delete account error:', error);
-
-                if (error?.code === 'auth/wrong-password' ||
-                    error?.code === 'auth/invalid-credential') {
-                    toast('❌ كلمة المرور غير صحيحة. لم يتم حذف الحساب.');
-                } else if (error?.code === 'auth/popup-closed-by-user') {
-                    toast('❌ تم إلغاء التحقق من Google. لم يتم حذف الحساب.');
-                } else if (error?.code === 'auth/requires-recent-login') {
-                    toast('🔐 تعذر تأكيد تسجيل الدخول. سجّل الدخول مرة أخرى ثم حاول حذف الحساب.');
-                } else if (error?.code === 'permission-denied' ||
-                           error?.code === 'PERMISSION_DENIED') {
-                    toast('🔒 لا تملك صلاحية حذف بيانات الحساب من Firestore. راجع Firestore Security Rules.');
+                console.error(error);
+                if (error?.code === 'auth/requires-recent-login') {
+                    toast('🔐 لأسباب أمنية، سجّل الدخول مرة أخرى ثم أعد محاولة حذف الحساب.');
                 } else {
                     toast(getAuthErrorMessage(error));
                 }
